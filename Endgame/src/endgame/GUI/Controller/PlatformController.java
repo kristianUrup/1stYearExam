@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package endgame;
+package endgame.GUI.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,23 +11,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
 
 /**
  *
  * @author Kristian Urup laptop
  */
-public class FXMLDocumentController implements Initializable
+public class PlatformController implements Initializable
 {
-    
+
     @FXML
-    private Label label;
-    
+    private Label departName;
     @FXML
-    private void handleButtonAction(ActionEvent event)
-    {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
+    private ScrollPane scrollpaneCenter;
+    @FXML
+    private GridPane gridpaneCenter;
     
     @Override
     public void initialize(URL url, ResourceBundle rb)
