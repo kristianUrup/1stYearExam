@@ -7,12 +7,12 @@ package endgame.GUI.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.FlowPane;
+
 
 /**
  *
@@ -24,9 +24,9 @@ public class PlatformController implements Initializable
     @FXML
     private Label departName;
     @FXML
-    private ScrollPane scrollpaneCenter;
+    private ScrollPane scrollPane;
     @FXML
-    private GridPane gridpaneCenter;
+    private FlowPane flowPane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb)
