@@ -40,17 +40,19 @@ public class PostItController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        setProgressBar();
     }    
 
     @FXML
     private void handleDoneBtn(ActionEvent event)
     {
+        estimatedProgress.setProgress(0.75);
     }
     
     private void setProgressBar()
     {
-        estimatedProgress.setProgress(order.getStatus());
+        
+        estimatedProgress.setProgress(0.50);
     }
     
     public void setOrderInfo(Order order)
