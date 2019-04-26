@@ -6,6 +6,9 @@
 package endgame.BE;
 
 import java.util.Date;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -16,19 +19,19 @@ public class Order
 {
     private final StringProperty orderNumber;
     private final StringProperty customer;
+    private BooleanProperty isDone;
     
     private Date startDate;
     private Date endDate;
-    private boolean isDone;
     private Date deliveryDate;
 
-    public Order(StringProperty orderNumber, StringProperty customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
+    public Order(String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
     {
-        this.orderNumber = orderNumber;
-        this.customer = customer;
+        this.orderNumber = new SimpleStringProperty(orderNumber);
+        this.customer = new SimpleStringProperty(customer);
+        this.isDone = new SimpleBooleanProperty(isDone);
         this.startDate = startDate;
         this.endDate = endDate;
-        this.isDone = isDone;
         this.deliveryDate = deliveryDate;
     }
 
@@ -52,7 +55,7 @@ public class Order
         return endDate;
     }
 
-    public boolean isIsDone()
+    public BooleanProperty getIsDone()
     {
         return isDone;
     }
@@ -61,11 +64,16 @@ public class Order
     {
         return deliveryDate;
     }
-
-    public void setIsDone(boolean isDone)
+    
+    public void setIsDone(BooleanProperty isDone)
     {
         this.isDone = isDone;
     }
+    
+    
+    
+    
+    
     
     
     

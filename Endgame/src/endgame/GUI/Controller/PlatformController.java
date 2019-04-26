@@ -7,9 +7,15 @@ package endgame.GUI.Controller;
 
 import endgame.BE.Department;
 import endgame.BLL.DepartmentManager;
+import endgame.BE.Order;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -39,5 +45,21 @@ public class PlatformController implements Initializable
         departName.setText(dMan.getDepartment().getName());
     }    
     
+    public void makeList() throws IOException
+    {
+        List<Order> orders = new ArrayList();
+        
+        for (Order order : orders)
+        {
+            openFXML();
+            FlowPane loadedPane = FXMLLoader.load(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
+            flowPane.getChildren().add(loadedPane);
+        }
+    }
+    
+    public void openFXML()
+    {
+        
+    }
     
 }
