@@ -46,4 +46,9 @@ public class PostItController implements Initializable
     {
     }
     
+    private int setProgressBar()
+    {
+        return 1;
+    }
+    
 }
