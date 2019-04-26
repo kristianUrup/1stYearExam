@@ -6,6 +6,7 @@
 package endgame.GUI.Controller;
 
 import endgame.BE.Order;
+import endgame.GUI.Model.OrderModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -34,6 +35,9 @@ public class PostItController implements Initializable
     private ProgressBar estimatedProgress;
     
     private Order order;
+    
+    OrderModel OMO;
+    
     /**
      * Initializes the controller class.
      */
@@ -46,13 +50,11 @@ public class PostItController implements Initializable
     @FXML
     private void handleDoneBtn(ActionEvent event)
     {
-        estimatedProgress.setProgress(0.75);
     }
     
     private void setProgressBar()
     {
-        
-        estimatedProgress.setProgress(0.50);
+        estimatedProgress.setProgress(OMO.getOrder().getStatus());
     }
     
     public void setOrderInfo(Order order)

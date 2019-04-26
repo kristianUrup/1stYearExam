@@ -5,11 +5,21 @@
  */
 package endgame.GUI.Model;
 
+import endgame.BLL.OrderManager;
+import endgame.BE.Order;
+
 /**
  *
  * @author Schweizeren
  */
 public class OrderModel
 {
+    OrderManager OMA;
+    
+    
+    public Order getOrder()
+    {
+        return OMA.getOrder();
+    }
     
 }
