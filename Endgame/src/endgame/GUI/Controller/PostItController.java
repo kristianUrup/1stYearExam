@@ -5,6 +5,7 @@
  */
 package endgame.GUI.Controller;
 
+import endgame.BE.Order;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -31,7 +32,8 @@ public class PostItController implements Initializable
     private Label lblLastActive;
     @FXML
     private ProgressBar estimatedProgress;
-
+    
+    private Order order;
     /**
      * Initializes the controller class.
      */
@@ -46,9 +48,9 @@ public class PostItController implements Initializable
     {
     }
     
-    private int setProgressBar()
+    private void setProgressBar()
     {
-        return 1;
+        estimatedProgress.setProgress(order.getStatus());
     }
     
 }

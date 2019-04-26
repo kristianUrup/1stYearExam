@@ -24,12 +24,14 @@ public class Order
     private Date startDate;
     private Date endDate;
     private Date deliveryDate;
+    private double status;
 
-    public Order(String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
+    public Order(String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate, double status)
     {
         this.orderNumber = new SimpleStringProperty(orderNumber);
         this.customer = new SimpleStringProperty(customer);
         this.isDone = new SimpleBooleanProperty(isDone);
+        this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
         this.deliveryDate = deliveryDate;
@@ -69,6 +71,17 @@ public class Order
     {
         this.isDone = isDone;
     }
+
+    public double getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(double status)
+    {
+        this.status = status;
+    }
+    
     
     
     
