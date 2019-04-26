@@ -7,6 +7,7 @@ package endgame.DAL;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.DAL.Exception.DalException;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public interface IDepartmentDAO
 {
-    public Department getDepartment(String dName);
+    public Department getDepartment(String dName) throws DalException;
     
-    public List<Department> getDepartments(Order order);
+    public List<Department> getDepartments(Order order) throws DalException;
 }
