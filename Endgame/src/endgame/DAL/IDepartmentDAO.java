@@ -5,11 +5,17 @@
  */
 package endgame.DAL;
 
+import endgame.BE.Department;
+import endgame.BE.Order;
+import java.util.List;
+
 /**
  *
  * @author Frederik Jensen
  */
 public interface IDepartmentDAO
 {
+    public Department getDepartment(String dName);
     
+    public List<Department> getDepartments(Order order);
 }
