@@ -5,6 +5,7 @@
  */
 package endgame.GUI.Controller;
 
+import endgame.BE.Order;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -20,7 +21,7 @@ import javafx.scene.control.ProgressBar;
  */
 public class PostItController implements Initializable
 {
-
+    Order ordersForDepartment;
     @FXML
     private Label lblOrderNumber;
     @FXML
@@ -49,6 +50,12 @@ public class PostItController implements Initializable
     private int setProgressBar()
     {
         return 1;
+    }
+    
+    public void setOrderInfo(Order order)
+    {
+        ordersForDepartment = order;
+        
     }
     
 }
