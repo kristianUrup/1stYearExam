@@ -6,16 +6,18 @@
 package endgame.DAL;
 
 import endgame.BE.Department;
-import endgame.BE.Order;
-import java.util.List;
 
 /**
  *
- * @author Frederik Jensen
+ * @author bonde
  */
-public interface IDepartmentDAO
+public class MockDepartment
 {
-    public Department getDepartment(String dName);
+    Department halvFab = new Department(1, "Halvfab");
     
-    public List<Department> getDepartments(Order order);
+    
+    public Department getDepartment()
+    {
+        return halvFab;
+    }
 }

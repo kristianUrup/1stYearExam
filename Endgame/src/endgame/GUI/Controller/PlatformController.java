@@ -5,6 +5,8 @@
  */
 package endgame.GUI.Controller;
 
+import endgame.BE.Department;
+import endgame.BLL.DepartmentManager;
 import endgame.BE.Order;
 import java.io.IOException;
 import java.net.URL;
@@ -26,7 +28,9 @@ import javafx.scene.layout.FlowPane;
  */
 public class PlatformController implements Initializable
 {
-
+    DepartmentManager dMan;
+    Department dep;
+    
     @FXML
     private Label departName;
     @FXML
@@ -37,7 +41,8 @@ public class PlatformController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
+        dMan = new DepartmentManager();
+        departName.setText(dMan.getDepartment().getName());
     }    
     
     public void makeList() throws IOException

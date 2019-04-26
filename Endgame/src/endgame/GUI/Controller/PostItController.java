@@ -21,7 +21,7 @@ import javafx.scene.control.ProgressBar;
  */
 public class PostItController implements Initializable
 {
-
+    Order ordersForDepartment;
     @FXML
     private Label lblOrderNumber;
     @FXML
@@ -51,6 +51,12 @@ public class PostItController implements Initializable
     private void setProgressBar()
     {
         estimatedProgress.setProgress(order.getStatus());
+    }
+    
+    public void setOrderInfo(Order order)
+    {
+        ordersForDepartment = order;
+        
     }
     
 }

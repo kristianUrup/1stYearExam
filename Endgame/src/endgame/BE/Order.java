@@ -37,14 +37,14 @@ public class Order
         this.deliveryDate = deliveryDate;
     }
 
-    public StringProperty getOrderNumber()
+    public String getOrderNumber()
     {
-        return orderNumber;
+        return orderNumber.get();
     }
 
-    public StringProperty getCustomer()
+    public String getCustomer()
     {
-        return customer;
+        return customer.get();
     }
 
     public Date getStartDate()
@@ -57,9 +57,9 @@ public class Order
         return endDate;
     }
 
-    public BooleanProperty getIsDone()
+    public boolean getIsDone()
     {
-        return isDone;
+        return isDone.get();
     }
 
     public Date getDeliveryDate()
