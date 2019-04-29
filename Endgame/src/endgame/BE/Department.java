@@ -64,5 +64,6 @@ public class Department
     public void setIsDone(Boolean value)
     {
         isDone.set(value);
+        
     }
 }
