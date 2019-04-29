@@ -6,7 +6,14 @@
 package endgame.BLL;
 
 import endgame.BE.Department;
+import endgame.BE.Order;
+import endgame.BLL.Exception.BllException;
+import endgame.DAL.Exception.DalException;
+import endgame.DAL.IDepartmentDAO;
 import endgame.DAL.MockDepartment;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,11 +21,31 @@ import endgame.DAL.MockDepartment;
  */
 public class DepartmentManager
 {
-    MockDepartment mDep;
-    Department dep;
+    IDepartmentDAO iddao;
     
-    public Department getDepartment(){
-        mDep = new MockDepartment();
-        return mDep.getDepartment();
+    public DepartmentManager() {
+        iddao = new MockDepartment();
     }
+    
+    public Department getDepartment(String dName) throws BllException{
+        try
+        {
+            return iddao.getDepartment(dName);
+        } catch (DalException ex)
+        {
+            throw new BllException(ex.getMessage());
+        }
+    }
+    
+    public List<Department> getDepartments(Order order) throws BllException {
+        try
+        {
+            return iddao.getDepartments(order);
+        } catch (DalException ex)
+        {
+            throw new BllException(ex.getMessage());
+        }
+    }
+    
+    
 }

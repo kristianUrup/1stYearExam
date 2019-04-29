@@ -6,18 +6,27 @@
 package endgame.DAL;
 
 import endgame.BE.Department;
+import endgame.BE.Order;
+import endgame.DAL.Exception.DalException;
+import java.util.List;
 
 /**
  *
  * @author bonde
  */
-public class MockDepartment
+public class MockDepartment implements IDepartmentDAO
 {
-    Department halvFab = new Department(1, "Halvfab");
-    
-    
-    public Department getDepartment()
+
+    @Override
+    public Department getDepartment(String dName) throws DalException       
     {
+        Department halvFab = new Department(1, "Halvfab");
         return halvFab;
+    }
+
+    @Override
+    public List<Department> getDepartments(Order order) throws DalException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
