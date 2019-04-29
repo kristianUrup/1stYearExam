@@ -17,9 +17,14 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
 
 
 /**
@@ -30,6 +35,7 @@ public class PlatformController implements Initializable
 {
     DepartmentManager dMan;
     Department dep;
+    PostItController pic;
     
     @FXML
     private Label departName;
@@ -51,14 +57,16 @@ public class PlatformController implements Initializable
         
         for (Order order : orders)
         {
-            openFXML();
-            FlowPane loadedPane = FXMLLoader.load(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
-            flowPane.getChildren().add(loadedPane);
+            
         }
     }
     
-    public void openFXML()
+    public void openFXML(Order order) throws IOException
     {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/Teacher/AbsenceSummary.fxml"));
+            Parent root = (Parent) loader.load();
+            pic = loader.getController();
+            pic.setOrderInfo(dMan.getOrder);
         
     }
     

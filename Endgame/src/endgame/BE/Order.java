@@ -20,13 +20,17 @@ public class Order
     private final StringProperty orderNumber;
     private final StringProperty customer;
     private BooleanProperty isDone;
+    private StringProperty departmentLastActive;
     
     private Date startDate;
     private Date endDate;
     private Date deliveryDate;
 
-    public Order(String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
+    
+
+    public Order(String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate, String dLastActive)
     {
+        this.departmentLastActive = new SimpleStringProperty(dLastActive);
         this.orderNumber = new SimpleStringProperty(orderNumber);
         this.customer = new SimpleStringProperty(customer);
         this.isDone = new SimpleBooleanProperty(isDone);
@@ -69,15 +73,19 @@ public class Order
     {
         this.isDone = isDone;
     }
+
+    public String toStringDeliveryDate()
+    {
+        return "Order{" + "deliveryDate=" + deliveryDate + '}';
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public String getDepartmentLastActive()
+    {
+        return departmentLastActive.get();
+    }
+
+    public void setDepartmentLastActive(StringProperty departmentLastActive)
+    {
+        this.departmentLastActive = departmentLastActive;
+    }
 }
