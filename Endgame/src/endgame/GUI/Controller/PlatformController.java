@@ -56,6 +56,7 @@ public class PlatformController implements Initializable
             fMan = new FileManager();
             dep = dMan.getDepartment(fMan.getConfig());
             departName.setText(dep.getName());
+            makeList();
 
         } catch (BllException | IOException ex)
         {
@@ -72,9 +73,13 @@ public class PlatformController implements Initializable
 
             for (Order order : orders)
             {
+                
                 try
                 {
+                    if(!order.getIsDone())
+                    {
                     openFXML(order);
+                    }
                 } catch (IOException ex)
                 {
                     Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
