@@ -6,9 +6,9 @@
 package endgame.BLL;
 
 import endgame.BE.Department;
+import endgame.DAL.DepartmentDAO;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.IDepartmentDAO;
-import endgame.DAL.MockDepartment;
 
 /**
  *
@@ -16,13 +16,13 @@ import endgame.DAL.MockDepartment;
  */
 public class DepartmentManager
 {
-    private IDepartmentDAO mDep;
+    private IDepartmentDAO dep;
     
     public DepartmentManager() {
-        mDep = new MockDepartment();
+        dep = new DepartmentDAO();
     }
     
     public Department getDepartment(String dName) throws DalException{
-        return mDep.getDepartment(dName);
+        return dep.getDepartment(dName);
     }
 }
