@@ -88,9 +88,9 @@ public class OrderDAO implements IOrderDAO
             String sql = "UPDATE DepartmentTask SET finished = ? WHERE departmentID = ? AND orderID = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             
-            pst.setInt(0, 1);
-            pst.setInt(1, department.getId());
-            pst.setInt(2, order.getId());
+            pst.setInt(1, 1);
+            pst.setInt(2, department.getId());
+            pst.setInt(3, order.getId());
             
             pst.execute();
         } catch (SQLException ex)

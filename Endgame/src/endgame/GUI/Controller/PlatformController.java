@@ -72,9 +72,13 @@ public class PlatformController implements Initializable
 
             for (Order order : orders)
             {
+                
                 try
                 {
+                    if(!order.getIsDone())
+                    {
                     openFXML(order);
+                    }
                 } catch (IOException ex)
                 {
                     Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);

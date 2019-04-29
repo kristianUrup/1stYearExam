@@ -76,7 +76,7 @@ public class DepartmentDAO implements IDepartmentDAO
 
             PreparedStatement pst = con.prepareStatement(sql);
             
-            pst.setInt(0, order.getId());
+            pst.setInt(1, order.getId());
             
             ResultSet rs = pst.executeQuery();
             

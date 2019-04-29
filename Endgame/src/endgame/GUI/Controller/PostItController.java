@@ -38,8 +38,6 @@ public class PostItController implements Initializable
     @FXML
     private ProgressBar estimatedProgress;
     
-    private Order order;
-    
     OrderModel OMO;
     
     /**
@@ -60,9 +58,9 @@ public class PostItController implements Initializable
     }    
 
     @FXML
-    private void handleDoneBtn(ActionEvent event)
+    private void handleDoneBtn(ActionEvent event, Order order, Department department) throws BllException
     {
-        
+        OMO.changeOrderState(order, department);
     }
     
     @FXML
