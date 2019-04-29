@@ -29,20 +29,4 @@ public class ReadPropertyFile
     public String getConfig(){
         return prop.getProperty("department");
     }
-    
-    public static void main(String[] args) throws IOException
-    {
-        //System.out.println(System.getProperty("user.dir"));        
-        
-       try (InputStream input = new FileInputStream("data/config.properties")) {
-
-        Properties prop = new Properties();
-        prop.load(input);
-        
-        System.out.println("Department : " + prop.getProperty("department"));
-       } catch (IOException ex) {
-            ex.printStackTrace();
-        } 
-        
-    }
 }
