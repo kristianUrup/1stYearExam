@@ -5,7 +5,6 @@
  */
 package endgame.GUI.Model;
 
-
 import endgame.BLL.OrderManager;
 import endgame.BE.Order;
 

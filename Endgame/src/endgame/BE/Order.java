@@ -28,6 +28,7 @@ public class Order
     private Date startDate;
     private Date endDate;
     private Date deliveryDate;
+
     
     public Order(int id, String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
     {

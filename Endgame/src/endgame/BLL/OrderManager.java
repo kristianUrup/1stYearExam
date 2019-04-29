@@ -15,6 +15,7 @@ import endgame.DAL.MockOrders;
 public class OrderManager
 {
     MockOrders mOrd;
+    Order ord;
     
     public Order getOrder()
     {

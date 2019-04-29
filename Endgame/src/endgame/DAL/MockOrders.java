@@ -18,6 +18,7 @@ public class MockOrders
     Date endDate = new Date();
     Date deliveryDate = new Date();
     
+
     Order order = new Order(10, "1010", "Frederik A/S", startDate , endDate , false, deliveryDate);
     
     public Order getOrder()
