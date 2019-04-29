@@ -12,8 +12,6 @@ import endgame.DAL.Exception.DalException;
 import endgame.DAL.IDepartmentDAO;
 import endgame.DAL.MockDepartment;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
