@@ -6,9 +6,12 @@
 package endgame.GUI.Controller;
 
 import endgame.BE.Order;
+import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,8 +47,14 @@ public class PostItController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        OMO = new OrderModel();
-        setProgressBar();
+        try
+        {
+            OMO = new OrderModel();
+            setProgressBar();
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }    
 
