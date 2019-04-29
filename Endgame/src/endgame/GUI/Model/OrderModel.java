@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package endgame.GUI.Model;
-
 import endgame.BLL.OrderManager;
 import endgame.BE.Order;
 
@@ -15,11 +14,32 @@ import endgame.BE.Order;
 public class OrderModel
 {
     OrderManager OMA;
+    Order order;
     
+    public OrderModel() {
+        OMA = new OrderManager();
+    }
     
     public Order getOrder()
     {
         return OMA.getOrder();
+    }
+    
+    public double getProgressedTimeInProcent()
+    {
+        
+        long endDate = order.getEndDate().getTime();
+        long startDate = order.getStartDate().getTime();
+                
+                
+        long difference = (endDate - startDate);
+        
+        int progressedDays = (int) (difference / (60 * 60 * 24 * 1000));
+        
+        double procent = (int) ((endDate/(60 * 60 * 24 * 1000))/ progressedDays);
+        
+        return procent;
+        
     }
     
 }
