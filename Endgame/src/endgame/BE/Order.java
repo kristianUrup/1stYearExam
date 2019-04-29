@@ -7,7 +7,9 @@ package endgame.BE;
 
 import java.util.Date;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -17,26 +19,32 @@ import javafx.beans.property.StringProperty;
  */
 public class Order
 {
+    private final IntegerProperty ID;
     private final StringProperty orderNumber;
     private final StringProperty customer;
     private BooleanProperty isDone;
     
+    
     private Date startDate;
     private Date endDate;
     private Date deliveryDate;
-    private double status;
 
-    public Order(String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate, double status)
+    
+    public Order(int id, String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
     {
+        this.ID = new SimpleIntegerProperty(id);
         this.orderNumber = new SimpleStringProperty(orderNumber);
         this.customer = new SimpleStringProperty(customer);
         this.isDone = new SimpleBooleanProperty(isDone);
-        this.status = status;
         this.startDate = startDate;
         this.endDate = endDate;
         this.deliveryDate = deliveryDate;
     }
 
+    public int getId() {
+        return ID.get();
+    }
+    
     public String getOrderNumber()
     {
         return orderNumber.get();
@@ -71,26 +79,11 @@ public class Order
     {
         this.isDone = isDone;
     }
-
-    public double getStatus()
+    
+    public String toStringDeliveryDate()
     {
-        return status;
+        return "Order{" + "deliveryDate=" + deliveryDate + '}';
     }
-
-    public void setStatus(double status)
-    {
-        this.status = status;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
 }

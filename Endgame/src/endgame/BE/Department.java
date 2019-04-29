@@ -5,14 +5,19 @@
  */
 package endgame.BE;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  *
  * @author bonde
  */
 public class Department
 {
-    private int id;
-    private String name;
+    private final IntegerProperty ID;
+    private final StringProperty NAME;
 
     /**
      * Constructs a department with an id and a name.
@@ -21,8 +26,8 @@ public class Department
      */
     public Department(int id, String name)
     {
-        this.id = id;
-        this.name = name;
+        this.ID = new SimpleIntegerProperty(id);
+        this.NAME = new SimpleStringProperty(name);
     }
 
     /**
@@ -31,7 +36,7 @@ public class Department
      */
     public String getName()
     {
-        return name;
+        return NAME.get();
     }
 
     /**
@@ -40,6 +45,6 @@ public class Department
      */
     public int getId()
     {
-        return id;
+        return ID.get();
     }
 }
