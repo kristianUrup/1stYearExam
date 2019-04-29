@@ -27,6 +27,7 @@ public class Endgame extends Application
         
         stage.setScene(scene);
         stage.show();
+
     }
 
     /**
