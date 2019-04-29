@@ -34,11 +34,6 @@ public class MockOrders implements IOrderDAO
         
         
     }
-    
-    public void changeOrderState(Boolean state) throws DalException
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void changeOrderState(Order order, Department department) throws DalException

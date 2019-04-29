@@ -5,9 +5,13 @@
  */
 package endgame.BLL;
 
+import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.DAL.Exception.DalException;
+import endgame.DAL.IOrderDAO;
 import endgame.DAL.MockOrders;
-import java.util.Date;
+import endgame.DAL.OrderDAO;
+import java.util.List;
 
 /**
  *
@@ -15,16 +19,17 @@ import java.util.Date;
  */
 public class OrderManager
 {
-    MockOrders mOrd;
+    IOrderDAO iOrd;
     Order ord;
     
-    
-    
-    public Order getOrder()
-    {
-        mOrd = new MockOrders();
-        return mOrd.getAllOrders(department);
+    public OrderManager() {
+        iOrd = new MockOrders();
     }
     
+    public List<Order> getAllOrders(Department department) throws DalException 
+    {
+        return iOrd.getAllOrders(department);
+        
+    }
     
 }

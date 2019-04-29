@@ -5,8 +5,10 @@
  */
 package endgame.GUI.Model;
 
+import endgame.BE.Department;
 import endgame.BLL.OrderManager;
 import endgame.BE.Order;
+import java.util.List;
 
 /**
  *
@@ -16,11 +18,18 @@ public class OrderModel
 {
     OrderManager OMA;
     Order order;
-    
-    
-    public Order getOrder()
+
+    public OrderModel()
     {
-        return OMA.getOrder();
+        OMA = new OrderManager();
+    }
+    
+    
+    
+    
+    public List<Order> getAllOrders(Department department)
+    {
+        return OMA.getAllOrders(department);
     }
     
     public double getProgressedTimeInProcent()
