@@ -5,11 +5,20 @@
  */
 package endgame.BLL;
 
+import endgame.BE.Order;
+import endgame.DAL.MockOrders;
+
 /**
  *
- * @author Kristian Urup laptop
+ * @author Schweizeren
  */
 public class OrderManager
 {
+    MockOrders mOrd;
     
+    public Order getOrder()
+    {
+        mOrd = new MockOrders();
+        return mOrd.getOrder();
+    }
 }

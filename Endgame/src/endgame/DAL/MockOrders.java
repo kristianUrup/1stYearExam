@@ -3,24 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package endgame.GUI.Model;
+package endgame.DAL;
 
-
-import endgame.BLL.OrderManager;
 import endgame.BE.Order;
+import java.util.Date;
 
 /**
  *
  * @author Schweizeren
  */
-public class OrderModel
+public class MockOrders
 {
-    OrderManager OMA;
+    Date startDate = new Date();
+    Date endDate = new Date();
+    Date deliveryDate = new Date();
     
+    Order order = new Order(10, "1010", "Frederik A/S", startDate , endDate , false, deliveryDate);
     
     public Order getOrder()
     {
-        return OMA.getOrder();
+        return order;
     }
-    
 }

@@ -7,7 +7,9 @@ package endgame.BE;
 
 import java.util.Date;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -17,20 +19,19 @@ import javafx.beans.property.StringProperty;
  */
 public class Order
 {
+    private final IntegerProperty ID;
     private final StringProperty orderNumber;
     private final StringProperty customer;
     private BooleanProperty isDone;
-    private StringProperty departmentLastActive;
+    
     
     private Date startDate;
     private Date endDate;
     private Date deliveryDate;
-
     
-
-    public Order(String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate, String dLastActive)
+    public Order(int id, String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
     {
-        this.departmentLastActive = new SimpleStringProperty(dLastActive);
+        this.ID = new SimpleIntegerProperty(id);
         this.orderNumber = new SimpleStringProperty(orderNumber);
         this.customer = new SimpleStringProperty(customer);
         this.isDone = new SimpleBooleanProperty(isDone);
@@ -39,6 +40,10 @@ public class Order
         this.deliveryDate = deliveryDate;
     }
 
+    public int getId() {
+        return ID.get();
+    }
+    
     public String getOrderNumber()
     {
         return orderNumber.get();
@@ -73,19 +78,11 @@ public class Order
     {
         this.isDone = isDone;
     }
-
+    
     public String toStringDeliveryDate()
     {
         return "Order{" + "deliveryDate=" + deliveryDate + '}';
     }
     
-    public String getDepartmentLastActive()
-    {
-        return departmentLastActive.get();
-    }
-
-    public void setDepartmentLastActive(StringProperty departmentLastActive)
-    {
-        this.departmentLastActive = departmentLastActive;
-    }
+    
 }

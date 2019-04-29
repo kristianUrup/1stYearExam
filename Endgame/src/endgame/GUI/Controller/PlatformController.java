@@ -8,6 +8,7 @@ package endgame.GUI.Controller;
 import endgame.BE.Department;
 import endgame.BLL.DepartmentManager;
 import endgame.BE.Order;
+import endgame.GUI.Model.OrderModel;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class PlatformController implements Initializable
     DepartmentManager dMan;
     Department dep;
     PostItController pic;
+    OrderModel OM;
     
     @FXML
     private Label departName;
@@ -64,9 +66,9 @@ public class PlatformController implements Initializable
     public void openFXML(Order order) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/Teacher/AbsenceSummary.fxml"));
-            Parent root = (Parent) loader.load();
-            pic = loader.getController();
-            pic.setOrderInfo(dMan.getOrder);
+        Parent root = (Parent) loader.load();
+        pic = loader.getController();
+        pic.setOrderInfo(OM.getOrder());
         
     }
     
