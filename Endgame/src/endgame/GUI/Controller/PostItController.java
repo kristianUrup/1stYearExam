@@ -5,6 +5,7 @@
  */
 package endgame.GUI.Controller;
 
+import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
@@ -67,7 +68,7 @@ public class PostItController implements Initializable
     @FXML
     private void setProgressBar()
     {
-        estimatedProgress.setProgress(OMO.getProgressedTimeInProcent());
+        //estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(department));
     }
     
     public void setOrderInfo(Order order)

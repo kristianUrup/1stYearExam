@@ -25,6 +25,7 @@ public class OrderModel
     public OrderModel() throws BllException
     {
         BF = new BLLFacade();
+        
     }
     
     public List<Order> getAllOrders(Department department) throws BllException
@@ -44,18 +45,17 @@ public class OrderModel
         return BF.getDepartments(order);
     }
     
-    public double getProgressedTimeInProcent()
+    public double getProgressedTimeInProcent(Department department) throws BllException
     {
         
         long endDate = order.getEndDate().getTime();
         long startDate = order.getStartDate().getTime();
                 
-                
         long difference = (endDate - startDate);
         
         int progressedDays = (int) (difference / (60 * 60 * 24 * 1000));
         
-        double procent = (int) ((endDate/(60 * 60 * 24 * 1000))/ progressedDays);
+        double procent = (int) ((endDate/(60 * 60 * 24 * 1000))/ progressedDays) / 100;
         
         return procent;
         
