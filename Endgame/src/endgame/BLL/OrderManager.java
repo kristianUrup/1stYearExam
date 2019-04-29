@@ -5,8 +5,16 @@
  */
 package endgame.BLL;
 
+import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.BLL.Exception.BllException;
+import endgame.DAL.Exception.DalException;
+import endgame.DAL.IOrderDAO;
 import endgame.DAL.MockOrders;
+import endgame.DAL.OrderDAO;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,12 +22,33 @@ import endgame.DAL.MockOrders;
  */
 public class OrderManager
 {
-    MockOrders mOrd;
+    IOrderDAO iOrd;
     Order ord;
     
-    public Order getOrder()
-    {
-        mOrd = new MockOrders();
-        return mOrd.getOrder();
+    public OrderManager() {
+        iOrd = new MockOrders();
     }
+    
+    public List<Order> getAllOrders(Department department) throws BllException
+    {
+        try
+        {
+            return iOrd.getAllOrders(department);
+        } catch (DalException ex)
+        {
+            throw new BllException(ex.getMessage());
+        }
+        
+    }
+    
+    public void changeOrderState(Order order, Department department) throws BllException {
+        try
+        {
+            iOrd.changeOrderState(order, department);
+        } catch (DalException ex)
+        {
+            throw new BllException(ex.getMessage());
+        }
+    }
+    
 }

@@ -5,22 +5,40 @@
  */
 package endgame.DAL;
 
+import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.DAL.Exception.DalException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author Schweizeren
  */
-public class MockOrders
+public class MockOrders implements IOrderDAO
 {
-    Date startDate = new Date();
-    Date endDate = new Date();
-    Date deliveryDate = new Date();
-    Order order = new Order(10, "1010", "Frederik A/S", startDate , endDate , false, deliveryDate);
     
-    public Order getOrder()
+    @Override
+    public List<Order> getAllOrders(Department department) throws DalException
     {
-        return order;
+        List<Order> orders = new ArrayList<>();
+        
+        Date startDate = new Date();
+        Date endDate = new Date();
+        Date deliveryDate = new Date();
+        Order order = new Order(10, "1010", "Frederik A/S", startDate , endDate , false, deliveryDate);
+        
+        orders.add(order);
+        return orders;
+        
+        
     }
+
+    @Override
+    public void changeOrderState(Order order, Department department) throws DalException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

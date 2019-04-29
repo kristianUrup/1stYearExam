@@ -5,8 +5,12 @@
  */
 package endgame.GUI.Model;
 
+import endgame.BE.Department;
 import endgame.BLL.OrderManager;
 import endgame.BE.Order;
+
+import endgame.BLL.Exception.BllException;
+import java.util.List;
 
 /**
  *
@@ -14,12 +18,36 @@ import endgame.BE.Order;
  */
 public class OrderModel
 {
+    
     OrderManager OMA;
-    
-    
-    public Order getOrder()
+    Order order;
+
+    public OrderModel()
     {
-        return OMA.getOrder();
+        OMA = new OrderManager();
+    }
+    
+
+    public List<Order> getAllOrders(Department department) throws BllException
+    {
+        return OMA.getAllOrders(department);
+    }
+    
+    public double getProgressedTimeInProcent()
+    {
+        
+        long endDate = order.getEndDate().getTime();
+        long startDate = order.getStartDate().getTime();
+                
+                
+        long difference = (endDate - startDate);
+        
+        int progressedDays = (int) (difference / (60 * 60 * 24 * 1000));
+        
+        double procent = (int) ((endDate/(60 * 60 * 24 * 1000))/ progressedDays);
+        
+        return procent;
+        
     }
     
 }

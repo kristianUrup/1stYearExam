@@ -9,6 +9,12 @@ import endgame.BE.Department;
 import endgame.DAL.DepartmentDAO;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.IDepartmentDAO;
+import endgame.BE.Order;
+import endgame.BLL.Exception.BllException;
+import endgame.DAL.Exception.DalException;
+import endgame.DAL.IDepartmentDAO;
+import endgame.DAL.MockDepartment;
+import java.util.List;
 
 /**
  *
@@ -16,13 +22,31 @@ import endgame.DAL.IDepartmentDAO;
  */
 public class DepartmentManager
 {
-    private IDepartmentDAO dep;
+    IDepartmentDAO iddao;
     
     public DepartmentManager() {
-        dep = new DepartmentDAO();
+        iddao = new MockDepartment();
     }
     
-    public Department getDepartment(String dName) throws DalException{
-        return dep.getDepartment(dName);
+    public Department getDepartment(String dName) throws BllException{
+        try
+        {
+            return iddao.getDepartment(dName);
+        } catch (DalException ex)
+        {
+            throw new BllException(ex.getMessage());
+        }
     }
+    
+    public List<Department> getDepartments(Order order) throws BllException {
+        try
+        {
+            return iddao.getDepartments(order);
+        } catch (DalException ex)
+        {
+            throw new BllException(ex.getMessage());
+        }
+    }
+    
+    
 }

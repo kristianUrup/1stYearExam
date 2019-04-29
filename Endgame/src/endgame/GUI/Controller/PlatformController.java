@@ -8,6 +8,7 @@ package endgame.GUI.Controller;
 import endgame.BE.Department;
 import endgame.BLL.DepartmentManager;
 import endgame.BE.Order;
+import endgame.BLL.Exception.BllException;
 import endgame.BLL.FileManager;
 import endgame.DAL.Exception.DalException;
 import endgame.GUI.Model.OrderModel;
@@ -49,6 +50,7 @@ public class PlatformController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        OM = new OrderModel();
         dMan = new DepartmentManager();
         try
         {
@@ -60,28 +62,42 @@ public class PlatformController implements Initializable
         try
         {
             departName.setText(dMan.getDepartment(fMan.getConfig()).getName());
-        } catch (DalException ex)
+        } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
     
-    public void makeList() throws IOException
+    public void makeList()
     {
-        List<Order> orders = new ArrayList();
-        
-        for (Order order : orders)
+        try
         {
+            Department d = new Department(1, "test");
+            List<Order> orders = OM.getAllOrders(d);
             
+            for (Order order : orders)
+            {
+                try
+                {
+                    openFXML(order);
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     public void openFXML(Order order) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/Teacher/AbsenceSummary.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
         Parent root = (Parent) loader.load();
-        pic = loader.getController();
-        pic.setOrderInfo(OM.getOrder());
+        PostItController pic = loader.getController();
+        pic.setOrderInfo(order);
+        flowPane.getChildren().add(root);
         
     }
     
