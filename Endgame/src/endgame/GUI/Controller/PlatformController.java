@@ -8,12 +8,15 @@ package endgame.GUI.Controller;
 import endgame.BE.Department;
 import endgame.BLL.DepartmentManager;
 import endgame.BE.Order;
+import endgame.BLL.FileManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -30,6 +33,7 @@ public class PlatformController implements Initializable
 {
     DepartmentManager dMan;
     Department dep;
+    FileManager fMan;
     
     @FXML
     private Label departName;
@@ -42,7 +46,14 @@ public class PlatformController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         dMan = new DepartmentManager();
-        departName.setText(dMan.getDepartment().getName());
+        try
+        {
+            fMan = new FileManager();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        departName.setText(dMan.getDepartment(fMan.getConfig()).getName());
     }    
     
     public void makeList() throws IOException
