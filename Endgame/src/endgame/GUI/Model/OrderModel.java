@@ -8,7 +8,9 @@ package endgame.GUI.Model;
 import endgame.BE.Department;
 import endgame.BLL.OrderManager;
 import endgame.BE.Order;
+import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
+import endgame.BLL.IBLLFacade;
 import java.util.List;
 
 /**
@@ -18,17 +20,29 @@ import java.util.List;
 public class OrderModel
 {
     
-    OrderManager OMA;
+    private final IBLLFacade BF;
     Order order;
 
-    public OrderModel()
+    public OrderModel() throws BllException
     {
-        OMA = new OrderManager();
+        BF = new BLLFacade();
     }
     
     public List<Order> getAllOrders(Department department) throws BllException
     {
-        return OMA.getAllOrders(department);
+        return BF.getAllOrders(department);
+    }
+    
+    public void changeOrderState(Order order, Department department) throws BllException {
+        BF.changeOrderState(order, department);
+    }
+    
+    public Department getDepartment(String dName) throws BllException {
+        return BF.getDepartment(dName);
+    }
+    
+    public List<Department> getDepartments(Order order) throws BllException {
+        return BF.getDepartments(order);
     }
     
     public double getProgressedTimeInProcent()

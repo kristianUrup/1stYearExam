@@ -27,54 +27,50 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 
-
 /**
  *
  * @author Kristian Urup laptop
  */
 public class PlatformController implements Initializable
 {
+
     DepartmentManager dMan;
     Department dep;
     FileManager fMan;
     PostItController pic;
     OrderModel OM;
-    
+
     @FXML
     private Label departName;
     @FXML
     private ScrollPane scrollPane;
     @FXML
     private FlowPane flowPane;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        OM = new OrderModel();
-        dMan = new DepartmentManager();
         try
         {
-            fMan = new FileManager();
-        } catch (IOException ex)
-        {
-            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try
-        {
+            OM = new OrderModel();
+            dMan = new DepartmentManager();
             departName.setText(dMan.getDepartment(fMan.getConfig()).getName());
-        } catch (BllException ex)
+            fMan = new FileManager();
+
+        } catch (BllException | IOException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
-    
+
+    }
+
     public void makeList()
     {
         try
         {
             Department d = new Department(1, "test");
             List<Order> orders = OM.getAllOrders(d);
-            
+
             for (Order order : orders)
             {
                 try
@@ -90,7 +86,7 @@ public class PlatformController implements Initializable
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void openFXML(Order order) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
@@ -98,7 +94,7 @@ public class PlatformController implements Initializable
         PostItController pic = loader.getController();
         pic.setOrderInfo(order);
         flowPane.getChildren().add(root);
-        
+
     }
-    
+
 }
