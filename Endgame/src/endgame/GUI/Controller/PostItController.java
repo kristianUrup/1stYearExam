@@ -45,7 +45,6 @@ public class PostItController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         OMO = new OrderModel();
-        setProgressBar();
         
     }    
 
