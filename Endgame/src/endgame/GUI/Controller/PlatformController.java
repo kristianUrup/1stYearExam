@@ -34,11 +34,10 @@ import javafx.scene.layout.FlowPane;
 public class PlatformController implements Initializable
 {
 
-    DepartmentManager dMan;
-    Department dep;
-    FileManager fMan;
-    PostItController pic;
-    OrderModel OM;
+    private DepartmentManager dMan;
+    private Department dep;
+    private FileManager fMan;
+    private OrderModel OM;
 
     @FXML
     private Label departName;
@@ -46,7 +45,7 @@ public class PlatformController implements Initializable
     private ScrollPane scrollPane;
     @FXML
     private FlowPane flowPane;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -54,8 +53,9 @@ public class PlatformController implements Initializable
         {
             OM = new OrderModel();
             dMan = new DepartmentManager();
-            departName.setText(dMan.getDepartment(fMan.getConfig()).getName());
             fMan = new FileManager();
+            dep = dMan.getDepartment(fMan.getConfig());
+            departName.setText(dep.getName());
 
         } catch (BllException | IOException ex)
         {
@@ -68,8 +68,7 @@ public class PlatformController implements Initializable
     {
         try
         {
-            Department d = new Department(1, "test");
-            List<Order> orders = OM.getAllOrders(d);
+            List<Order> orders = OM.getAllOrders(dep);
 
             for (Order order : orders)
             {

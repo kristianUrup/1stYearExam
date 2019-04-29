@@ -6,7 +6,6 @@
 package endgame.GUI.Model;
 
 import endgame.BE.Department;
-import endgame.BLL.OrderManager;
 import endgame.BE.Order;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
@@ -28,7 +27,6 @@ public class OrderModel
         BF = new BLLFacade();
     }
     
-
     public List<Order> getAllOrders(Department department) throws BllException
     {
         return BF.getAllOrders(department);
