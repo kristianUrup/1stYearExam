@@ -5,11 +5,16 @@
  */
 package endgame.BLL;
 
+import endgame.BE.Department;
+import endgame.BE.Order;
+
 /**
  *
  * @author Kristian Urup laptop
  */
 public interface IBLLFacade
 {
+    public Order getOrder();
     
+    public Department getDepartment();
 }

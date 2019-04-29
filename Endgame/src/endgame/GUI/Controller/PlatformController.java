@@ -49,6 +49,7 @@ public class PlatformController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        OM = new OrderModel();
         dMan = new DepartmentManager();
         try
         {
@@ -66,22 +67,30 @@ public class PlatformController implements Initializable
         }
     }    
     
-    public void makeList() throws IOException
+    public void makeList()
     {
         List<Order> orders = new ArrayList();
+        orders.add(OM.getOrder());
         
         for (Order order : orders)
         {
-            
+            try
+            {
+                openFXML(order);
+            } catch (IOException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
     public void openFXML(Order order) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/Teacher/AbsenceSummary.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
         Parent root = (Parent) loader.load();
-        pic = loader.getController();
-        pic.setOrderInfo(OM.getOrder());
+        PostItController pic = loader.getController();
+        pic.setOrderInfo(order);
+        flowPane.getChildren().add(root);
         
     }
     

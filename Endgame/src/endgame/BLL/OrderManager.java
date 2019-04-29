@@ -26,7 +26,7 @@ public class OrderManager
         iOrd = new MockOrders();
     }
     
-    public List<Order> getAllOrders(Department department) throws DalException 
+    public List<Order> getAllOrders(Department department) throws DalException
     {
         return iOrd.getAllOrders(department);
         

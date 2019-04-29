@@ -26,6 +26,9 @@ public class OrderModel
     
     
     
+    public OrderModel() {
+        OMA = new OrderManager();
+    }
     
     public List<Order> getAllOrders(Department department)
     {
