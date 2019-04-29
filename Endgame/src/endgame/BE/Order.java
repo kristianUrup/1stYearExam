@@ -24,10 +24,11 @@ public class Order
     private final StringProperty customer;
     private BooleanProperty isDone;
     
+    
     private Date startDate;
     private Date endDate;
     private Date deliveryDate;
-    private double status;
+
     
     
     public Order(int id, String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
@@ -80,4 +81,8 @@ public class Order
         this.isDone = isDone;
     }
     
+    public String toStringDeliveryDate()
+    {
+        return "Order{" + "deliveryDate=" + deliveryDate + '}';
+    }
 }

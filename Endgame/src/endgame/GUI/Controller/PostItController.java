@@ -63,8 +63,10 @@ public class PostItController implements Initializable
     
     public void setOrderInfo(Order order)
     {
-        //ordersForDepartment = order;
-        
+        ordersForDepartment = order;
+        lblOrderNumber.setText(ordersForDepartment.getOrderNumber());
+        lblCustomer.setText(ordersForDepartment.getCustomer());
+        lblDeliveryDate.setText(ordersForDepartment.toStringDeliveryDate());
     }
     
 }

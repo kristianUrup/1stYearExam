@@ -5,6 +5,7 @@
  */
 package endgame.DAL;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.DAL.Exception.DalException;
@@ -39,7 +40,6 @@ public class OrderDAO implements IOrderDAO
             List<Order> orders = new ArrayList<>();
             String sql = "SELECT * FROM DepartmentTask dt"
                     + " INNER JOIN \"Order\" d ON dt.orderID = d.id"
-                    + " INNER JOIN Customer c ON d.customerid = c.id"
                     + " WHERE dt.departmentID = ?";
             
             PreparedStatement pst = con.prepareStatement(sql);
@@ -51,7 +51,7 @@ public class OrderDAO implements IOrderDAO
             while(rs.next()) {
                 int id = rs.getInt("orderID");
                 String ordernumber = rs.getString("ordernumber");
-                String customer = rs.getString("name");
+                String customer = rs.getString("customer");
                 Boolean isDone = rs.getInt("finished") == 1;
                 Date startDate = new Date(rs.getString("startDate"));
                 Date endDate = new Date(rs.getString("endDate"));
@@ -66,13 +66,37 @@ public class OrderDAO implements IOrderDAO
         } catch (SQLException ex)
         {
             throw new DalException("Could not get all orders for this department");
+        } finally {
+            if (con != null) {
+                try
+                {
+                    con.close();
+                } catch (SQLException ex)
+                {
+                    throw new DalException("Could not close connection");
+                }
+            }
         }
     }
 
     @Override
-    public void changeOrderState(Boolean state)
+    public void changeOrderState(Order order, Department department)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = null;
+        try {
+            con = cdao.getConnection();
+            String sql = "UPDATE DepartmentTask SET finished = ? WHERE departmentID = ? AND orderID = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            
+            pst.setInt(0, 1);
+            pst.setInt(1, department.getId());
+            pst.setInt(2, order.getId());
+            
+            pst.execute();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

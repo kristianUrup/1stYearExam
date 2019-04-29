@@ -18,6 +18,7 @@ import java.util.List;
  */
 public class MockOrders implements IOrderDAO
 {
+    
     @Override
     public List<Order> getAllOrders(Department department) throws DalException
     {
@@ -26,17 +27,21 @@ public class MockOrders implements IOrderDAO
         Date startDate = new Date();
         Date endDate = new Date();
         Date deliveryDate = new Date();
-    
-        Order order = new Order(1 ,"1010", "Frederik A/S", startDate , endDate , false, deliveryDate);
+        Order order = new Order(10, "1010", "Frederik A/S", startDate , endDate , false, deliveryDate);
         
         orders.add(order);
         return orders;
         
         
     }
+    
+    public void changeOrderState(Boolean state) throws DalException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
-    public void changeOrderState(Boolean state) throws DalException
+    public void changeOrderState(Order order, Department department) throws DalException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
