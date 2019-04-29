@@ -54,7 +54,6 @@ public class PostItController implements Initializable
     
     private void setProgressBar()
     {
-        estimatedProgress.setProgress(OMO.getOrder().getStatus());
     }
     
     public void setOrderInfo(Order order)
