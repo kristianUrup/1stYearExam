@@ -50,7 +50,7 @@ public class PostItController implements Initializable
         try
         {
             OMO = new OrderModel();
-            setProgressBar();
+            //setProgressBar();
         } catch (BllException ex)
         {
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);

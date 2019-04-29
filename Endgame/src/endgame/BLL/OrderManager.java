@@ -10,11 +10,8 @@ import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.IOrderDAO;
-import endgame.DAL.MockOrders;
 import endgame.DAL.OrderDAO;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,11 +19,10 @@ import java.util.logging.Logger;
  */
 public class OrderManager
 {
-    IOrderDAO iOrd;
-    Order ord;
+    private IOrderDAO iOrd;
     
     public OrderManager() {
-        iOrd = new MockOrders();
+        iOrd = new OrderDAO();
     }
     
     public List<Order> getAllOrders(Department department) throws BllException
