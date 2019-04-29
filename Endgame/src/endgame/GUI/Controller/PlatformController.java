@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,7 +38,6 @@ public class PlatformController implements Initializable
 {
     DepartmentManager dMan;
     Department dep;
-    PostItController pic;
     OrderModel OM;
     
     @FXML
@@ -49,26 +50,36 @@ public class PlatformController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        OM = new OrderModel();
         dMan = new DepartmentManager();
         departName.setText(dMan.getDepartment().getName());
+        makeList();
     }    
     
-    public void makeList() throws IOException
+    public void makeList()
     {
         List<Order> orders = new ArrayList();
+        orders.add(OM.getOrder());
         
         for (Order order : orders)
         {
-            
+            try
+            {
+                openFXML(order);
+            } catch (IOException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
     public void openFXML(Order order) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/Teacher/AbsenceSummary.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
         Parent root = (Parent) loader.load();
-        pic = loader.getController();
-        pic.setOrderInfo(OM.getOrder());
+        PostItController pic = loader.getController();
+        pic.setOrderInfo(order);
+        flowPane.getChildren().add(root);
         
     }
     

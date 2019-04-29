@@ -5,11 +5,31 @@
  */
 package endgame.BLL;
 
+import endgame.BE.Department;
+import endgame.BE.Order;
+
 /**
  *
  * @author Kristian Urup laptop
  */
-public class BLLFacade
+public class BLLFacade implements IBLLFacade
 {
+    OrderManager OMA;
+    DepartmentManager DMA;
     
+    public BLLFacade()
+    {
+        OMA = new OrderManager();
+        DMA = new DepartmentManager();
+    }
+    
+    public Order getOrder()
+    {
+        return OMA.getOrder();
+    }
+    
+    public Department getDepartment()
+    {
+        return DMA.getDepartment();
+    }
 }

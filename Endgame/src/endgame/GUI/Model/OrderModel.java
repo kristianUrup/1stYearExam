@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package endgame.GUI.Model;
-
 import endgame.BLL.OrderManager;
 import endgame.BE.Order;
 
@@ -16,6 +15,9 @@ public class OrderModel
 {
     OrderManager OMA;
     
+    public OrderModel() {
+        OMA = new OrderManager();
+    }
     
     public Order getOrder()
     {
