@@ -28,6 +28,7 @@ public class OrderModel
         BF = new BLLFacade();
     }
     
+
     public List<Order> getAllOrders(Department department) throws BllException
     {
         return BF.getAllOrders(department);

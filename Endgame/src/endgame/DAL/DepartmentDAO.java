@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 public class DepartmentDAO implements IDepartmentDAO
 {
     private ConnectionDAO cdao;
+    
     public DepartmentDAO() {
         cdao = new ConnectionDAO();
     }
@@ -32,16 +33,21 @@ public class DepartmentDAO implements IDepartmentDAO
     public Department getDepartment(String dName) throws DalException
     {
         Connection con = null;
+        Department department = null;
         try {
             con = cdao.getConnection();
             String sql = "SELECT * FROM Department WHERE name = ?";
             PreparedStatement pst = con.prepareStatement(sql);
+            
+            pst.setString(1, dName);
+            
             ResultSet rs = pst.executeQuery();
             
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            
-            Department department = new Department(id, name);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                department = new Department(id, name);
+            }
             return department;
         } catch (SQLException ex)
         {
