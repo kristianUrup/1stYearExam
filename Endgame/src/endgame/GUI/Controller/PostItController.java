@@ -44,22 +44,26 @@ public class PostItController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        OMO = new OrderModel();
         setProgressBar();
+        
     }    
 
     @FXML
     private void handleDoneBtn(ActionEvent event)
     {
+        
     }
     
+    @FXML
     private void setProgressBar()
     {
-        estimatedProgress.setProgress(OMO.getOrder().getStatus());
+        estimatedProgress.setProgress(OMO.getProgressedTimeInProcent());
     }
     
     public void setOrderInfo(Order order)
     {
-        ordersForDepartment = order;
+        //ordersForDepartment = order;
         
     }
     

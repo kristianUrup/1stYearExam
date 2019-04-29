@@ -21,7 +21,7 @@ public class Endgame extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("/endgame/GUI/View/Platform.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
         
         Scene scene = new Scene(root);
         

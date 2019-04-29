@@ -29,6 +29,7 @@ public class Order
     private Date deliveryDate;
     private double status;
     
+    
     public Order(int id, String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
     {
         this.ID = new SimpleIntegerProperty(id);
@@ -78,26 +79,5 @@ public class Order
     {
         this.isDone = isDone;
     }
-
-    public double getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(double status)
-    {
-        this.status = status;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
