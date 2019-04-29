@@ -7,7 +7,6 @@ package endgame.BLL;
 
 import endgame.BE.Order;
 import endgame.DAL.MockOrders;
-import java.util.List;
 
 /**
  *
@@ -17,10 +16,12 @@ public class OrderManager
 {
     MockOrders mOrd;
     Order ord;
-    
+
     public Order getOrder()
     {
         mOrd = new MockOrders();
-        return mOrd.getOrder();
+        return mOrd.getAllOrders(department);
     }
+    
+    
 }

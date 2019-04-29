@@ -30,6 +30,7 @@ public class Order
     private Date deliveryDate;
 
     
+    
     public Order(int id, String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
     {
         this.ID = new SimpleIntegerProperty(id);
@@ -84,6 +85,4 @@ public class Order
     {
         return "Order{" + "deliveryDate=" + deliveryDate + '}';
     }
-    
-    
 }
