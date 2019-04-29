@@ -8,6 +8,7 @@ package endgame.GUI.Controller;
 import endgame.BE.Department;
 import endgame.BLL.DepartmentManager;
 import endgame.BE.Order;
+import endgame.BLL.Exception.BllException;
 import endgame.BLL.FileManager;
 import endgame.DAL.Exception.DalException;
 import endgame.GUI.Model.OrderModel;
@@ -61,7 +62,7 @@ public class PlatformController implements Initializable
         try
         {
             departName.setText(dMan.getDepartment(fMan.getConfig()).getName());
-        } catch (DalException ex)
+        } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,18 +70,24 @@ public class PlatformController implements Initializable
     
     public void makeList()
     {
-        List<Order> orders = new ArrayList();
-        orders.add(OM.getOrder());
-        
-        for (Order order : orders)
+        try
         {
-            try
+            Department d = new Department(1, "test");
+            List<Order> orders = OM.getAllOrders(d);
+            
+            for (Order order : orders)
             {
-                openFXML(order);
-            } catch (IOException ex)
-            {
-                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                try
+                {
+                    openFXML(order);
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

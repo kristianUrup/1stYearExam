@@ -8,6 +8,7 @@ package endgame.GUI.Model;
 import endgame.BE.Department;
 import endgame.BLL.OrderManager;
 import endgame.BE.Order;
+import endgame.BLL.Exception.BllException;
 import java.util.List;
 
 /**
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public class OrderModel
 {
+    
     OrderManager OMA;
     Order order;
 
@@ -24,13 +26,7 @@ public class OrderModel
         OMA = new OrderManager();
     }
     
-    
-    
-    public OrderModel() {
-        OMA = new OrderManager();
-    }
-    
-    public List<Order> getAllOrders(Department department)
+    public List<Order> getAllOrders(Department department) throws BllException
     {
         return OMA.getAllOrders(department);
     }

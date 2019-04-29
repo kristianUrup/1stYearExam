@@ -7,6 +7,8 @@ package endgame.BLL;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.BLL.Exception.BllException;
+import java.util.List;
 
 /**
  *
@@ -14,7 +16,13 @@ import endgame.BE.Order;
  */
 public interface IBLLFacade
 {
-    public Order getOrder();
+    public List<Order> getAllOrders(Department department) throws BllException;
     
-    public Department getDepartment();
+    public Department getDepartment(String dName) throws BllException;
+    
+    public List<Department> getDepartments(Order order) throws BllException;
+    
+    public void changeOrderState(Order order, Department department) throws BllException;
+    
+    public String getConfig();
 }
