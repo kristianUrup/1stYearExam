@@ -18,7 +18,7 @@ public interface IOrderDAO
 {
     public List<Order> getAllOrders(Department department) throws DalException;
     
-    public void changeOrderState(Boolean state) throws DalException;
+    public void changeOrderState(Order order, Department department) throws DalException;
     
     
 }
