@@ -5,7 +5,9 @@
  */
 package endgame.BE;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -18,6 +20,7 @@ public class Department
 {
     private final IntegerProperty ID;
     private final StringProperty NAME;
+    private BooleanProperty isDone;
 
     /**
      * Constructs a department with an id and a name.
@@ -28,6 +31,12 @@ public class Department
     {
         this.ID = new SimpleIntegerProperty(id);
         this.NAME = new SimpleStringProperty(name);
+    }
+    
+    public Department(int id, String name, Boolean isDone) {
+        this.ID = new SimpleIntegerProperty(id);
+        this.NAME = new SimpleStringProperty(name);
+        this.isDone = new SimpleBooleanProperty(isDone);
     }
 
     /**
@@ -46,5 +55,14 @@ public class Department
     public int getId()
     {
         return ID.get();
+    }
+    
+    public boolean getIsDone() {
+        return isDone.get();
+    }
+
+    public void setIsDone(Boolean value)
+    {
+        isDone.set(value);
     }
 }
