@@ -8,6 +8,7 @@ package endgame.GUI.Model;
 import endgame.BE.Department;
 import endgame.BLL.OrderManager;
 import endgame.BE.Order;
+import endgame.DAL.Exception.DalException;
 import java.util.List;
 
 /**
@@ -24,13 +25,7 @@ public class OrderModel
         OMA = new OrderManager();
     }
     
-    
-    
-    public OrderModel() {
-        OMA = new OrderManager();
-    }
-    
-    public List<Order> getAllOrders(Department department)
+    public List<Order> getAllOrders(Department department) throws DalException
     {
         return OMA.getAllOrders(department);
     }
