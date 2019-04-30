@@ -81,8 +81,4 @@ public class Order
         this.isDone = isDone;
     }
     
-    public String toStringDeliveryDate()
-    {
-        return "Order{" + "deliveryDate=" + deliveryDate + '}';
-    }
 }
