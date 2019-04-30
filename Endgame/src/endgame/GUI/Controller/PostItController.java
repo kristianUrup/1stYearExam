@@ -63,12 +63,24 @@ public class PostItController implements Initializable
         lblOrderNumber.setText(ordersForDepartment.getOrderNumber());
         lblCustomer.setText(ordersForDepartment.getCustomer());
         lblDeliveryDate.setText(ordersForDepartment.toStringDeliveryDate());
+        setProgressBar();
     }
 
     @FXML
     private void handleDoneBtn(ActionEvent event)
     {
         
+    }
+    
+    public void setProgressBar()
+    {
+        try
+        {
+            estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(ordersForDepartment));
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

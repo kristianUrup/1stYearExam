@@ -10,6 +10,9 @@ import endgame.BE.Order;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,11 +23,11 @@ public class OrderModel
 {
     
     private final IBLLFacade BF;
-    Order order;
 
     public OrderModel() throws BllException
     {
         BF = new BLLFacade();
+        
         
     }
     
@@ -45,19 +48,26 @@ public class OrderModel
         return BF.getDepartments(order);
     }
     
-    public double getProgressedTimeInProcent(Department department) throws BllException
+    public double getProgressedTimeInProcent(Order order) throws BllException
     {
-        
         long endDate = order.getEndDate().getTime();
         long startDate = order.getStartDate().getTime();
-                
-        long difference = (endDate - startDate);
         
-        int progressedDays = (int) (difference / (60 * 60 * 24 * 1000));
+        double estimatedTime = (endDate - startDate) /(1000*60*60*24);  // Den tilgængelige tid
+        System.out.println(estimatedTime);
         
-        double procent = (int) ((endDate/(60 * 60 * 24 * 1000))/ progressedDays) / 100;
+        double todaysTime = System.currentTimeMillis() /(1000*60*60*24); // Idags tid
+        System.out.println(todaysTime);
         
-        return procent;
+        double daysSpent = todaysTime - (startDate/(1000*60*60*24));
+        System.out.println(daysSpent);
+        
+        double elapsedTime = daysSpent / estimatedTime;  // Den brugte tid
+        System.out.println(elapsedTime);
+        
+        return elapsedTime;
+        
+        
         
     }
     

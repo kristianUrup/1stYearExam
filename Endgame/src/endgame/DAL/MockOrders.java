@@ -24,9 +24,9 @@ public class MockOrders implements IOrderDAO
     {
         List<Order> orders = new ArrayList<>();
         
-        Date startDate = new Date();
-        Date endDate = new Date();
-        Date deliveryDate = new Date();
+        Date startDate = new Date("29/04/2019");
+        Date endDate = new Date("01/05/2019");
+        Date deliveryDate = new Date("02/05/2019");
         Order order = new Order(10, "1010", "Frederik A/S", startDate , endDate , false, deliveryDate);
         
         orders.add(order);
