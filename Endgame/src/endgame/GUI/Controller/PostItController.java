@@ -67,7 +67,14 @@ public class PostItController implements Initializable
         ordersForDepartment = order;
         lblOrderNumber.setText(ordersForDepartment.getOrderNumber());
         lblCustomer.setText(ordersForDepartment.getCustomer());
-        lblDeliveryDate.setText(ordersForDepartment.toString());
+        
+        Date date = ordersForDepartment.getDeliveryDate();
+        
+        DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        String output = outputFormatter.format(date);
+        
+        lblDeliveryDate.setText(output);
+        
         setProgressBar();
     }
 
