@@ -12,6 +12,11 @@ import endgame.GUI.Model.OrderModel;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,14 +77,22 @@ public class PostItController implements Initializable
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }    
-       
+    }
+    
     public void setOrderInfo(Order order)
     {
         ordersForDepartment = order;
         lblOrderNumber.setText(ordersForDepartment.getOrderNumber());
         lblCustomer.setText(ordersForDepartment.getCustomer());
-        lblDeliveryDate.setText(ordersForDepartment.toStringDeliveryDate());
+        
+        Date date = ordersForDepartment.getDeliveryDate();
+        
+        DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        String output = outputFormatter.format(date);
+        
+        lblDeliveryDate.setText(output);
+        
+        setProgressBar();
     }
     
     public void setDepartment(Department department) {
@@ -110,7 +123,25 @@ public class PostItController implements Initializable
         
         for (int i = 0; i > departments.size(); i++)
         {
-            
+           
+        lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
+        
+        Date date = ordersForDepartment.getDeliveryDate();
+        
+        DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        String output = outputFormatter.format(date);
+        
+        lblDeliveryDate.setText(output);
+    }
+    
+    public void setProgressBar()
+    {
+        try
+        {
+            estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(ordersForDepartment));
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
