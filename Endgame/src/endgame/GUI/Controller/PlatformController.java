@@ -97,8 +97,22 @@ public class PlatformController implements Initializable
         Parent root = (Parent) loader.load();
         PostItController pic = loader.getController();
         pic.setOrderInfo(order);
+        pic.setDepartment(dep);
         flowPane.getChildren().add(root);
-
+        
+        pic.getButton().setOnAction(e->{
+            try
+            {
+                pic.setDone();
+            } catch (BllException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            flowPane.getChildren().remove(root);
+            
+        });
     }
+    
+    
 
 }

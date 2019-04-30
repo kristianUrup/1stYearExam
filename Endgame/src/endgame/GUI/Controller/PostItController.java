@@ -16,8 +16,11 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -26,6 +29,7 @@ import javafx.scene.control.ProgressBar;
  */
 public class PostItController implements Initializable
 {
+    Department department;
     Order ordersForDepartment;
     @FXML
     private Label lblOrderNumber;
@@ -38,7 +42,12 @@ public class PostItController implements Initializable
     @FXML
     private ProgressBar estimatedProgress;
     
+    PlatformController pfcontroller;
     OrderModel OMO;
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private Button done;
     
     /**
      * Initializes the controller class.
@@ -48,6 +57,7 @@ public class PostItController implements Initializable
     {
         try
         {
+            pfcontroller = new PlatformController();
             OMO = new OrderModel();
             //setProgressBar();
         } catch (BllException ex)
@@ -64,11 +74,17 @@ public class PostItController implements Initializable
         lblCustomer.setText(ordersForDepartment.getCustomer());
         lblDeliveryDate.setText(ordersForDepartment.toStringDeliveryDate());
     }
-
-    @FXML
-    private void handleDoneBtn(ActionEvent event)
-    {
-        
+    
+    public void setDepartment(Department department) {
+        this.department = department; 
     }
     
+    public Button getButton() {
+        return done;
+    }
+    
+    public void setDone() throws BllException
+    {
+        OMO.changeOrderState(ordersForDepartment, department);
+    }
 }
