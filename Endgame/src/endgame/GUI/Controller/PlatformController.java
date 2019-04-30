@@ -56,7 +56,7 @@ public class PlatformController implements Initializable
             fMan = new FileManager();
             dep = dMan.getDepartment(fMan.getConfig());
             departName.setText(dep.getName());
-            makeList();
+            setPostItNotes();
 
         } catch (BllException | IOException ex)
         {
@@ -65,7 +65,7 @@ public class PlatformController implements Initializable
 
     }
 
-    public void makeList()
+    public void setPostItNotes()
     {
         try
         {

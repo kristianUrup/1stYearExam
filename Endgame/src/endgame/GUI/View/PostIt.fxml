@@ -12,8 +12,8 @@
    <children>
       <TableView layoutX="256.0" prefHeight="182.0" prefWidth="144.0">
         <columns>
-          <TableColumn prefWidth="84.0" text="Depart name" />
-          <TableColumn prefWidth="66.0" text="Status" />
+          <TableColumn fx:id="departmentNameColumn" prefWidth="84.0" text="Depart name" />
+          <TableColumn fx:id="statusColumn" prefWidth="66.0" text="Status" />
         </columns>
       </TableView>
       <ProgressBar fx:id="estimatedProgress" layoutX="20.0" layoutY="145.0" prefHeight="29.0" prefWidth="227.0" progress="0.0" />

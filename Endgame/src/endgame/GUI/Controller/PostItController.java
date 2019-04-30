@@ -10,6 +10,8 @@ import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -48,6 +51,10 @@ public class PostItController implements Initializable
     private AnchorPane anchorPane;
     @FXML
     private Button done;
+    @FXML
+    private TableColumn<Department, String> statusColumn;
+    @FXML
+    private TableColumn<?, ?> departmentNameColumn;
     
     /**
      * Initializes the controller class.
@@ -86,5 +93,24 @@ public class PostItController implements Initializable
     public void setDone() throws BllException
     {
         OMO.changeOrderState(ordersForDepartment, department);
+    }
+    
+    public void departmentList(Order order) throws BllException
+    {
+        
+        List<Department> departments = new ArrayList();
+        
+        Department d1 = new Department(1,"Fisk", false);
+        Department d2 = new Department(2, "Funky", false);
+        Department d3 = new Department(3, "Frederik", false);
+        
+        departments.add(d1);
+        departments.add(d2);
+        departments.add(d3);  
+        
+        for (int i = 0; i > departments.size(); i++)
+        {
+            
+        }
     }
 }
