@@ -56,25 +56,19 @@ public class PostItController implements Initializable
         }
         
     }    
-
-    @FXML
-    private void handleDoneBtn(ActionEvent event, Order order, Department department) throws BllException
-    {
-        OMO.changeOrderState(order, department);
-    }
-    
-    @FXML
-    private void setProgressBar()
-    {
-        //estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(department));
-    }
-    
+       
     public void setOrderInfo(Order order)
     {
         ordersForDepartment = order;
         lblOrderNumber.setText(ordersForDepartment.getOrderNumber());
         lblCustomer.setText(ordersForDepartment.getCustomer());
         lblDeliveryDate.setText(ordersForDepartment.toStringDeliveryDate());
+    }
+
+    @FXML
+    private void handleDoneBtn(ActionEvent event)
+    {
+        
     }
     
 }
