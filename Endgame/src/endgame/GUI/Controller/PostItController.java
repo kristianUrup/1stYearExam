@@ -10,6 +10,11 @@ import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,23 +63,23 @@ public class PostItController implements Initializable
     }    
 
     @FXML
-    private void handleDoneBtn(ActionEvent event, Order order, Department department) throws BllException
+    private void handleDoneBtn(ActionEvent event)
     {
-        OMO.changeOrderState(order, department);
     }
     
-    @FXML
-    private void setProgressBar()
-    {
-        //estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(department));
-    }
     
     public void setOrderInfo(Order order)
     {
         ordersForDepartment = order;
         lblOrderNumber.setText(ordersForDepartment.getOrderNumber());
         lblCustomer.setText(ordersForDepartment.getCustomer());
-        lblDeliveryDate.setText(ordersForDepartment.toStringDeliveryDate());
+        lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
+        
+        Date date = ordersForDepartment.getDeliveryDate();
+        
+        DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        String output = outputFormatter.format(date);
+        
+        lblDeliveryDate.setText(output);
     }
-    
 }
