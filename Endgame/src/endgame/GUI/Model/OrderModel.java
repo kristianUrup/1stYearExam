@@ -14,6 +14,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class OrderModel
 {
-    
+    private ObservableList<Department> departmentList;
     private final IBLLFacade BF;
 
     public OrderModel() throws BllException
@@ -69,6 +70,11 @@ public class OrderModel
         
         
         
+    }
+    
+    public ObservableList<Department> getAllDepartments()
+    {
+        return departmentList;
     }
     
 }
