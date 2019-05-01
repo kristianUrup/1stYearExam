@@ -122,4 +122,47 @@ public class OrderDAO implements IOrderDAO
         }
     }
 
+    @Override
+    public void setLastActivity(Order order, Department department) throws DalException
+    {
+        Connection con = null;
+        {
+            try
+            {
+                con = cdao.getConnection();
+                String sql = "Update ActivityLog SET activityLog = ? WHERE departmentID = ? AND orderID = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+            
+                pst.setInt(1,1);
+                pst.setInt(2, department.getId());
+                pst.setInt(3, order.getId());
+            
+                pst.execute();
+            } catch (SQLException ex)
+            {
+                Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+        }
+    }
+
+    @Override
+    public String getLastActivity(Order order, Department department) throws DalException
+    {
+        Connection con = null;
+        
+        {
+            try
+            {
+                con = cdao.getConnection();
+                String sql = "SELECT ";
+            } catch (SQLServerException ex)
+            {
+                Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } 
+        return "";
+    }
+
 }

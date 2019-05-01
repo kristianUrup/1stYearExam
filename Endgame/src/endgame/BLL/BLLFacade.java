@@ -67,5 +67,17 @@ public class BLLFacade implements IBLLFacade
     {
         return FM.getConfig();
     }
+
+    @Override
+    public void setLastActivity(Order order, Department department) throws BllException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getLastActivity(Order order, Department department) throws BllException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

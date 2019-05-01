@@ -55,26 +55,37 @@ public class OrderModel
         long startDate = order.getStartDate().getTime();
         
         double estimatedTime = (endDate - startDate) /(1000*60*60*24);  // Den tilgængelige tid
-        System.out.println(estimatedTime);
         
         double todaysTime = System.currentTimeMillis() /(1000*60*60*24); // Idags tid
-        System.out.println(todaysTime);
         
         double daysSpent = todaysTime - (startDate/(1000*60*60*24));
-        System.out.println(daysSpent);
         
         double elapsedTime = daysSpent / estimatedTime;  // Den brugte tid
-        System.out.println(elapsedTime);
         
         return elapsedTime;
-        
-        
-        
     }
+    
+    public Date RetrieveDate(Order order, Department department)
+    {
+        LocalDate date = LocalDate.now();
+        java.sql.Date sqlDate = java.sql.Date.valueOf(date);
+        
+        return sqlDate;
+    }
+    
     
     public ObservableList<Department> getAllDepartments()
     {
         return departmentList;
     }
     
+    public void setLastActivity(Order order, Department department) throws BllException
+    {
+        BF.setLastActivity(order, department);
+    }
+            
+    public String getLastActivity(Order order, Department department) throws BllException
+    {
+        return "";
+    }
 }
