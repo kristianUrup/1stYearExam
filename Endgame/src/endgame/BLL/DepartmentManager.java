@@ -14,6 +14,8 @@ import endgame.BLL.Exception.BllException;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.IDepartmentDAO;
 import endgame.DAL.MockDepartment;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -22,13 +24,16 @@ import java.util.List;
  */
 public class DepartmentManager
 {
+
     IDepartmentDAO iddao;
-    
-    public DepartmentManager() {
+
+    public DepartmentManager()
+    {
         iddao = new MockDepartment();
     }
-    
-    public Department getDepartment(String dName) throws BllException{
+
+    public Department getDepartment(String dName) throws BllException
+    {
         try
         {
             return iddao.getDepartment(dName);
@@ -37,16 +42,20 @@ public class DepartmentManager
             throw new BllException(ex.getMessage());
         }
     }
-    
-    public List<Department> getDepartments(Order order) throws BllException {
+
+    public List<Department> getDepartments(Order order) throws BllException
+    {
         try
         {
+            List<Department> departments = iddao.getDepartments(order);
+            Comparator<Department> dependency;
+            dependency = (Department t, Department t1) -> t.getStartDate().compareTo(t1.getStartDate());
+            Collections.sort(departments, dependency);
             return iddao.getDepartments(order);
         } catch (DalException ex)
         {
             throw new BllException(ex.getMessage());
         }
     }
-    
-    
+
 }
