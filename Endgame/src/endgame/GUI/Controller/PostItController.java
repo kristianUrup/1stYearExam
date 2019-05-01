@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +28,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -58,9 +61,11 @@ public class PostItController implements Initializable
     @FXML
     private Button done;
     @FXML
-    private TableColumn<Department, String> statusColumn;
+    private TableView<Department> tableDepartmentList;
     @FXML
-    private TableColumn<?, ?> departmentNameColumn;
+    private TableColumn<Department, String> cellDepartment;
+    @FXML
+    private TableColumn<Department, String> cellStatus;
 
     /**
      * Initializes the controller class.
@@ -68,6 +73,8 @@ public class PostItController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        
+        
         try
         {
             pfcontroller = new PlatformController();
@@ -77,9 +84,11 @@ public class PostItController implements Initializable
         {
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
+        cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
+        tableDepartmentList.setItems(departments());
     }
-
+    
     public void setOrderInfo(Order order)
     {
         ordersForDepartment = order;
@@ -111,7 +120,7 @@ public class PostItController implements Initializable
         OMO.changeOrderState(ordersForDepartment, department);
     }
 
-    public void departmentList(Order order) throws BllException
+    public void showDeliveryDate(Order order) throws BllException
     {
 
         List<Department> departments = new ArrayList();
@@ -137,6 +146,8 @@ public class PostItController implements Initializable
             lblDeliveryDate.setText(output);
         }
     }
+    
+    
 
     private void setProgressBar()
     {
@@ -147,5 +158,20 @@ public class PostItController implements Initializable
         {
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public ObservableList<Department> departments()
+    {
+        ObservableList<Department> departments = (ObservableList<Department>) new ArrayList();
+        
+        Department d1 = new Department(1, "Fisk", false);
+        Department d2 = new Department(2, "Funky", false);
+        Department d3 = new Department(3, "Frederik", false);
+
+        departments.add(d1);
+        departments.add(d2);
+        departments.add(d3);
+        
+        return departments;
     }
 }
