@@ -20,5 +20,9 @@ public interface IOrderDAO
     
     public void changeOrderState(Order order, Department department) throws DalException;
     
+    public void setLastActivity(Order order, Department department) throws DalException;
+            
+    public String getLastActivity(Order order, Department department) throws DalException;
+    
     
 }

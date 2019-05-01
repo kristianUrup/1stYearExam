@@ -12,6 +12,8 @@ import endgame.DAL.Exception.DalException;
 import endgame.DAL.IOrderDAO;
 import endgame.DAL.OrderDAO;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -44,6 +46,17 @@ public class OrderManager
         } catch (DalException ex)
         {
             throw new BllException(ex.getMessage());
+        }
+    }
+    
+    public void setLastActivity(Order order, Department department) throws BllException
+    {
+        try
+        {
+            iOrd.setLastActivity(order, department);
+        } catch (DalException ex)
+        {
+            Logger.getLogger(OrderManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
