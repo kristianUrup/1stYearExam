@@ -19,7 +19,7 @@
       </AnchorPane>
    </top>
    <center>
-      <ScrollPane fx:id="scrollPane" fitToHeight="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
             <FlowPane fx:id="flowPane" prefHeight="748.0" prefWidth="785.0" />
          </content>

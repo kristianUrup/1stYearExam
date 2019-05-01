@@ -10,6 +10,8 @@ import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,11 +20,19 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -31,6 +41,8 @@ import javafx.scene.control.ProgressBar;
  */
 public class PostItController implements Initializable
 {
+
+    Department department;
     Order ordersForDepartment;
     @FXML
     private Label lblOrderNumber;
@@ -42,24 +54,40 @@ public class PostItController implements Initializable
     private Label lblLastActive;
     @FXML
     private ProgressBar estimatedProgress;
-    
+
+    PlatformController pfcontroller;
     OrderModel OMO;
-    
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private Button done;
+    @FXML
+    private TableView<Department> tableDepartmentList;
+    @FXML
+    private TableColumn<Department, String> cellDepartment;
+    @FXML
+    private TableColumn<Department, String> cellStatus;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        
+        
         try
         {
+            pfcontroller = new PlatformController();
             OMO = new OrderModel();
             //setProgressBar();
         } catch (BllException ex)
         {
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
+        cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
+        tableDepartmentList.setItems(departments());
     }
     
     public void setOrderInfo(Order order)
@@ -67,31 +95,62 @@ public class PostItController implements Initializable
         ordersForDepartment = order;
         lblOrderNumber.setText(ordersForDepartment.getOrderNumber());
         lblCustomer.setText(ordersForDepartment.getCustomer());
-        
+
         Date date = ordersForDepartment.getDeliveryDate();
-        
+
         DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
         String output = outputFormatter.format(date);
-        
+
         lblDeliveryDate.setText(output);
-        
+
         setProgressBar();
     }
 
-    @FXML
-    private void handleDoneBtn(ActionEvent event)
+    public void setDepartment(Department department)
     {
-        lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
-        
-        Date date = ordersForDepartment.getDeliveryDate();
-        
-        DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        String output = outputFormatter.format(date);
-        
-        lblDeliveryDate.setText(output);
+        this.department = department;
+    }
+
+    public Button getButton()
+    {
+        return done;
+    }
+
+    public void setDone() throws BllException
+    {
+        OMO.changeOrderState(ordersForDepartment, department);
+    }
+
+    public void showDeliveryDate(Order order) throws BllException
+    {
+
+        List<Department> departments = new ArrayList();
+
+        Department d1 = new Department(1, "Fisk", false);
+        Department d2 = new Department(2, "Funky", false);
+        Department d3 = new Department(3, "Frederik", false);
+
+        departments.add(d1);
+        departments.add(d2);
+        departments.add(d3);
+
+        for (int i = 0; i > departments.size(); i++)
+        {
+
+            lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
+
+            Date date = ordersForDepartment.getDeliveryDate();
+
+            DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+            String output = outputFormatter.format(date);
+
+            lblDeliveryDate.setText(output);
+        }
     }
     
-    public void setProgressBar()
+    
+
+    private void setProgressBar()
     {
         try
         {
@@ -100,5 +159,28 @@ public class PostItController implements Initializable
         {
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void setStatusColor()
+    {
+        for (Department department : departments())
+        {
+            
+        }
+    }
+    
+    public ObservableList<Department> departments()
+    {
+        ObservableList<Department> departments = FXCollections.observableArrayList();;
+        
+        Department d1 = new Department(1, "Fisk", true);
+        Department d2 = new Department(2, "Funky", false);
+        Department d3 = new Department(3, "Frederik", false);
+
+        departments.add(d1);
+        departments.add(d2);
+        departments.add(d3);
+        
+        return departments;
     }
 }
