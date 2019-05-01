@@ -187,7 +187,7 @@ public class PostItController implements Initializable
         Department d1 = new Department(1, "Fisk", true, new Date("20/02/2019"), new Date("20/05/2019"));
         Department d2 = new Department(2, "Funky", false, new Date("20/01/2019"), new Date("23/06/2019"));
         Department d3 = new Department(3, "Frederik", false, new Date("01/03/2019"), new Date("20/12/2019"));
-
+        
         
         departments.add(d1);
         departments.add(d2);
