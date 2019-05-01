@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -160,11 +161,19 @@ public class PostItController implements Initializable
         }
     }
     
+    public void setStatusColor()
+    {
+        for (Department department : departments())
+        {
+            
+        }
+    }
+    
     public ObservableList<Department> departments()
     {
-        ObservableList<Department> departments = (ObservableList<Department>) new ArrayList();
+        ObservableList<Department> departments = FXCollections.observableArrayList();;
         
-        Department d1 = new Department(1, "Fisk", false);
+        Department d1 = new Department(1, "Fisk", true);
         Department d2 = new Department(2, "Funky", false);
         Department d3 = new Department(3, "Frederik", false);
 
