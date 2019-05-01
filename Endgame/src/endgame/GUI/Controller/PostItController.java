@@ -20,6 +20,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -159,20 +161,6 @@ public class PostItController implements Initializable
         }
     }
     
-//    public ObservableList<Department> departments()
-//    {
-//        ObservableList<Department> departments = (ObservableList<Department>) new ArrayList();
-//        
-//        Department d1 = new Department(1, "Fisk", false);
-//        Department d2 = new Department(2, "Funky", false);
-//        Department d3 = new Department(3, "Frederik", false);
-//
-//        departments.add(d1);
-//        departments.add(d2);
-//        departments.add(d3);
-//        
-//        return departments;
-//    }
     
     public void updateOrder(Order order){
         
@@ -190,5 +178,28 @@ public class PostItController implements Initializable
         long period = 5000;
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
         System.out.println("Updated post it note");
+    }
+        
+    public void setStatusColor()
+    {
+        for (Department department : departments())
+        {
+            
+        }
+    }
+    
+    public ObservableList<Department> departments()
+    {
+        ObservableList<Department> departments = FXCollections.observableArrayList();;
+        
+        Department d1 = new Department(1, "Fisk", true);
+        Department d2 = new Department(2, "Funky", false);
+        Department d3 = new Department(3, "Frederik", false);
+
+        departments.add(d1);
+        departments.add(d2);
+        departments.add(d3);
+        
+        return departments;
     }
 }
