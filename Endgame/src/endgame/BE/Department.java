@@ -5,6 +5,7 @@
  */
 package endgame.BE;
 
+import java.util.Date;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -21,6 +22,8 @@ public class Department
     private final IntegerProperty ID;
     private final StringProperty NAME;
     private BooleanProperty isDone;
+    private Date startDate;
+    private Date endDate;
 
     /**
      * Constructs a department with an id and a name.
@@ -33,10 +36,12 @@ public class Department
         this.NAME = new SimpleStringProperty(name);
     }
     
-    public Department(int id, String name, Boolean isDone) {
+    public Department(int id, String name, Boolean isDone, Date startDate, Date endDate) {
         this.ID = new SimpleIntegerProperty(id);
         this.NAME = new SimpleStringProperty(name);
         this.isDone = new SimpleBooleanProperty(isDone);
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     /**
@@ -66,4 +71,16 @@ public class Department
         isDone.set(value);
         
     }
+
+    public Date getStartDate()
+    {
+        return startDate;
+    }
+
+    public Date getEndDate()
+    {
+        return endDate;
+    }
+    
+    
 }

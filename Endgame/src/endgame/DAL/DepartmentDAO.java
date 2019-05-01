@@ -12,7 +12,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -83,13 +86,19 @@ public class DepartmentDAO implements IDepartmentDAO
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                Department department = new Department(id, name);
+                Boolean isDone = rs.getInt("finished") == 1;
+                Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString("startDate"));
+                Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString("endDate"));
+                Department department = new Department(id, name, isDone, startDate, endDate);
                 departments.add(department);
             }
             return departments;
         } catch (SQLException ex)
         {
             throw new DalException("Could not get departments");
+        } catch (ParseException ex)
+        {
+            throw new DalException("Could not parse start/end date for departments");
         } finally {
             if (con != null) {
                 try
