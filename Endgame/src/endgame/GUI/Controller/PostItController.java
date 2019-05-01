@@ -123,20 +123,6 @@ public class PostItController implements Initializable
 
     public void showDeliveryDate(Order order) throws BllException
     {
-
-        List<Department> departments = new ArrayList();
-
-        Department d1 = new Department(1, "Fisk", false);
-        Department d2 = new Department(2, "Funky", false);
-        Department d3 = new Department(3, "Frederik", false);
-
-        departments.add(d1);
-        departments.add(d2);
-        departments.add(d3);
-
-        for (int i = 0; i > departments.size(); i++)
-        {
-
             lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
 
             Date date = ordersForDepartment.getDeliveryDate();
@@ -145,7 +131,6 @@ public class PostItController implements Initializable
             String output = outputFormatter.format(date);
 
             lblDeliveryDate.setText(output);
-        }
     }
     
     
