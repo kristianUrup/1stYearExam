@@ -5,6 +5,7 @@
  */
 package endgame.GUI.Controller;
 
+import com.sun.prism.paint.Color;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
@@ -13,16 +14,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -32,7 +32,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -44,6 +43,11 @@ public class PostItController implements Initializable
 
     Department department;
     Order ordersForDepartment;
+    PlatformController pfcontroller;
+    OrderModel OMO;
+    Timer timer;
+    Date date;
+    
     @FXML
     private Label lblOrderNumber;
     @FXML
@@ -54,9 +58,6 @@ public class PostItController implements Initializable
     private Label lblLastActive;
     @FXML
     private ProgressBar estimatedProgress;
-
-    PlatformController pfcontroller;
-    OrderModel OMO;
     @FXML
     private AnchorPane anchorPane;
     @FXML
@@ -66,7 +67,7 @@ public class PostItController implements Initializable
     @FXML
     private TableColumn<Department, String> cellDepartment;
     @FXML
-    private TableColumn<Department, String> cellStatus;
+    private TableColumn<Department, Boolean> cellStatus;
 
     /**
      * Initializes the controller class.
@@ -74,8 +75,6 @@ public class PostItController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
-        
         try
         {
             pfcontroller = new PlatformController();
@@ -88,6 +87,7 @@ public class PostItController implements Initializable
         cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
         cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
         tableDepartmentList.setItems(departments());
+        
     }
     
     public void setOrderInfo(Order order)
@@ -102,8 +102,9 @@ public class PostItController implements Initializable
         String output = outputFormatter.format(date);
 
         lblDeliveryDate.setText(output);
-
+        
         setProgressBar();
+        updateOrder(order);
     }
 
     public void setDepartment(Department department)
@@ -146,25 +147,52 @@ public class PostItController implements Initializable
         }
     }
     
+    
+    public void updateOrder(Order order){
+        
+        ordersForDepartment = order;
+        TimerTask repeatedTask = new TimerTask() {
+            @Override
+            public void run()
+            {
+                setOrderInfo(order);
+            }
+        };
+        Timer timer = new Timer();
+        
+        long delay = 5000;
+        long period = 5000;
+        timer.scheduleAtFixedRate(repeatedTask, delay, period);
+        System.out.println("Updated post it note");
+    }
+        
     public void setStatusColor()
     {
-        for (Department department : departments())
-        {
-            
+        
+        String colorgreen = "-fx-background-color: green";
+        
+        for (Department department : departments()) {
+              Button button = new Button();
+            if(department.getIsDone()) {
+
+                button.setStyle(colorgreen);
+            }
         }
     }
     
     public ObservableList<Department> departments()
     {
-        ObservableList<Department> departments = FXCollections.observableArrayList();;
+        ObservableList<Department> departments = FXCollections.observableArrayList();
         
-        Department d1 = new Department(1, "Fisk", true);
-        Department d2 = new Department(2, "Funky", false);
-        Department d3 = new Department(3, "Frederik", false);
+        Department d1 = new Department(1, "Fisk", true, new Date("20/02/2019"), new Date("20/05/2019"));
+        Department d2 = new Department(2, "Funky", false, new Date("20/01/2019"), new Date("23/06/2019"));
+        Department d3 = new Department(3, "Frederik", false, new Date("01/03/2019"), new Date("20/12/2019"));
 
+        
         departments.add(d1);
         departments.add(d2);
         departments.add(d3);
+        
         
         return departments;
     }
