@@ -5,15 +5,12 @@
  */
 package endgame.GUI.Controller;
 
-import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.net.URL;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -44,6 +41,12 @@ public class PostItController implements Initializable
     private ProgressBar estimatedProgress;
     
     OrderModel OMO;
+    @FXML
+    private Label lblEstimatedStartDate;
+    @FXML
+    private Label lblEstimatedEndDate;
+    @FXML
+    private Label lblEstimatedTimeUsed;
     
     /**
      * Initializes the controller class.
