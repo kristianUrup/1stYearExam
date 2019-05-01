@@ -66,7 +66,7 @@ public class PostItController implements Initializable
     @FXML
     private TableColumn<Department, String> cellDepartment;
     @FXML
-    private TableColumn<Department, String> cellStatus;
+    private TableColumn<Department, Boolean> cellStatus;
 
     /**
      * Initializes the controller class.
@@ -163,10 +163,8 @@ public class PostItController implements Initializable
     
     public void setStatusColor()
     {
-        for (Department department : departments())
-        {
-            
-        }
+        Department departments = (Department) departments();
+        String colorgreen = "-fx-background-color: green";
     }
     
     public ObservableList<Department> departments()
