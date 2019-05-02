@@ -24,14 +24,17 @@ public class BLLFacade implements IBLLFacade
     private OrderManager OMA;
     private DepartmentManager DMA;
     private FileManager FM;
+    private LogManager LM;
     
     public BLLFacade() throws BllException
     {
         try
         {
+            
             OMA = new OrderManager();
             DMA = new DepartmentManager();
             FM = new FileManager();
+            LM = new LogManager();
         } catch (IOException ex)
         {
             throw new BllException("Could not get files");
@@ -67,5 +70,19 @@ public class BLLFacade implements IBLLFacade
     {
         return FM.getConfig();
     }
+    
+    @Override
+    public void setLastActivity(Order order, Department department, String messageLog)
+    {
+        LM.setLastActivity(order, department, messageLog);
+    }
+
+    @Override
+    public String getLastActivity(Order order, Department department) throws BllException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     
 }

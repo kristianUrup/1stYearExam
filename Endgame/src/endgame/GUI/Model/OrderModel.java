@@ -60,9 +60,6 @@ public class OrderModel
         double elapsedTime = daysSpent / estimatedTime;  // Den brugte tid
         
         return elapsedTime;
-        
-        
-        
     }
     
     public ObservableList<Department> getAllDepartments()
@@ -70,4 +67,13 @@ public class OrderModel
         return departmentList;
     }
     
+    public void setLastActivity(Order order, Department department, String messageLog )
+    {
+        BF.setLastActivity(order, department, messageLog);
+    }
+            
+    public String getLastActivity(Order order, Department department) throws BllException
+    {
+        return "";
+    }
 }

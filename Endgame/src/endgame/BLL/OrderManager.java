@@ -12,6 +12,8 @@ import endgame.DAL.Exception.DalException;
 import endgame.DAL.IOrderDAO;
 import endgame.DAL.OrderDAO;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *

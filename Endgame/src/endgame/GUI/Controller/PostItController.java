@@ -5,6 +5,7 @@
  */
 package endgame.GUI.Controller;
 
+import com.sun.prism.paint.Color;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
@@ -64,7 +65,7 @@ public class PostItController implements Initializable
     @FXML
     private TableColumn<Department, String> cellDepartment;
     @FXML
-    private TableColumn<Department, String> cellStatus;
+    private TableColumn<Department, Boolean> cellStatus;
 
     /**
      * Initializes the controller class.
@@ -79,12 +80,13 @@ public class PostItController implements Initializable
             //setProgressBar();
         } catch (BllException ex)
         {
-            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
         cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
         cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
-//        tableDepartmentList.setItems(departments());
 //        updateOrder(ordersForDepartment);
+        tableDepartmentList.setItems(departments());
+        
     }
     
     public void setOrderInfo(Order order)
@@ -118,32 +120,17 @@ public class PostItController implements Initializable
         OMO.changeOrderState(ordersForDepartment, department);
     }
 
-//    public void showDeliveryDate(Order order) throws BllException
-//    {
-//
-//        List<Department> departments = new ArrayList();
-//
-//        Department d1 = new Department(1, "Fisk", false);
-//        Department d2 = new Department(2, "Funky", false);
-//        Department d3 = new Department(3, "Frederik", false);
-//
-//        departments.add(d1);
-//        departments.add(d2);
-//        departments.add(d3);
-//
-//        for (int i = 0; i > departments.size(); i++)
-//        {
-//
-//            lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
-//
-//            Date date = ordersForDepartment.getDeliveryDate();
-//
-//            DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
-//            String output = outputFormatter.format(date);
-//
-//            lblDeliveryDate.setText(output);
-//        }
-//    }
+    public void showDeliveryDate(Order order) throws BllException
+    {
+            lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
+
+            Date date = ordersForDepartment.getDeliveryDate();
+
+            DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+            String output = outputFormatter.format(date);
+
+            lblDeliveryDate.setText(output);
+    }
     
     
 
@@ -154,7 +141,7 @@ public class PostItController implements Initializable
             estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(ordersForDepartment));
         } catch (BllException ex)
         {
-            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
     }
     
@@ -182,26 +169,35 @@ public class PostItController implements Initializable
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
         
-//    public void setStatusColor()
-//    {
-//        for (Department department : departments())
-//        {
-//            
-//        }
-//    }
     
-//    public ObservableList<Department> departments()
-//    {
-//        ObservableList<Department> departments = FXCollections.observableArrayList();;
-//        
-//        Department d1 = new Department(1, "Fisk", true);
-//        Department d2 = new Department(2, "Funky", false);
-//        Department d3 = new Department(3, "Frederik", false);
-//
-//        departments.add(d1);
-//        departments.add(d2);
-//        departments.add(d3);
-//        
-//        return departments;
-//    }
+    public void setStatusColor()
+    {
+        
+        String colorgreen = "-fx-background-color: green";
+        
+        for (Department department : departments()) {
+              Button button = new Button();
+            if(department.getIsDone()) {
+
+                button.setStyle(colorgreen);
+            }
+        }
+    }
+    
+    public ObservableList<Department> departments()
+    {
+        ObservableList<Department> departments = FXCollections.observableArrayList();
+        
+        Department d1 = new Department(1, "Fisk", true, new Date("20/02/2019"), new Date("20/05/2019"));
+        Department d2 = new Department(2, "Funky", false, new Date("20/01/2019"), new Date("23/06/2019"));
+        Department d3 = new Department(3, "Frederik", false, new Date("01/03/2019"), new Date("20/12/2019"));
+        
+        
+        departments.add(d1);
+        departments.add(d2);
+        departments.add(d3);
+        
+        
+        return departments;
+    }
 }
