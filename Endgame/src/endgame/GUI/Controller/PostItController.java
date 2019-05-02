@@ -186,7 +186,7 @@ public class PostItController implements Initializable
         
     public void setStatusColor()
     {
-        //for (Department department : departments()) {
+
         tableDepartmentList.setRowFactory(tv-> new TableRow<Department>(){
             @Override
             public void updateItem(Department department, boolean empty)
@@ -229,7 +229,6 @@ public class PostItController implements Initializable
                     }
                 }
             });*/
-        //}
     }
     
     public ObservableList<Department> departments()
