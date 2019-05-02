@@ -28,7 +28,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -86,6 +88,7 @@ public class PostItController implements Initializable
         cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
 //        updateOrder(ordersForDepartment);
         tableDepartmentList.setItems(departments());
+        setStatusColor();
         
     }
     
@@ -172,16 +175,49 @@ public class PostItController implements Initializable
     
     public void setStatusColor()
     {
-        
-        String colorgreen = "-fx-background-color: green";
-        
-        for (Department department : departments()) {
-              Button button = new Button();
-            if(department.getIsDone()) {
 
-                button.setStyle(colorgreen);
+        tableDepartmentList.setRowFactory(tv-> new TableRow<Department>(){
+            @Override
+            public void updateItem(Department department, boolean empty)
+            {
+                super.updateItem(department, empty);
+                if(department == null)
+                {
+                    setStyle("");
+                }
+                else if(department.getIsDone())
+                {
+                    setStyle("-fx-background-color: #7CFC00;");
+                }
+                else{
+                    setStyle("-fx-background-color: #Ea3c53;");
+                }
             }
-        }
+        });
+        
+        /*
+            cellStatus.setCellFactory(column -> new TableCell<Department, Boolean>(){
+                @Override
+                protected void updateItem(Department department, boolean empty)
+                {
+                    super.updateItem(department, empty);
+                    if(department == null)
+                    {
+                        setText(null);
+                        setStyle("");
+                    }
+                    else if(department.getIsDone())
+                    {
+                        setText(null);
+                        setStyle("-fx-background-color: green;");
+                    }
+                    else
+                    {
+                        setText(null);
+                        setStyle("-fx-background-color: red");
+                    }
+                }
+            });*/
     }
     
     public ObservableList<Department> departments()

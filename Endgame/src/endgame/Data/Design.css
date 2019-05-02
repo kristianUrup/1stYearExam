@@ -1,0 +1,13 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 02-05-2019, 10:23:11
+    Author     : Kristian Urup laptop
+*/
+
+#tableTrue .table-cell {
+    -fx-background-color: green;
+}
