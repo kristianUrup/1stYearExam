@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -130,12 +132,15 @@ public class OrderDAO implements IOrderDAO
             try
             {
                 con = cdao.getConnection();
-                String sql = "Update ActivityLog SET activityLog = ? WHERE departmentID = ? AND orderID = ?";
+                String sql = "INSERT INTO ActivityLog VALUES(?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(sql);
-            
-                pst.setInt(1,1);
-                pst.setInt(2, department.getId());
-                pst.setInt(3, order.getId());
+                
+                pst.setInt(1, department.getId());
+                pst.setInt(2, order.getId());
+                //pst.setString(3,Exception);
+                
+                LocalDate localdate = LocalDate.now();
+                pst.setString(4, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(localdate));
             
                 pst.execute();
             } catch (SQLException ex)

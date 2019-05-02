@@ -62,15 +62,10 @@ public class OrderModel
         
         double elapsedTime = daysSpent / estimatedTime;  // Den brugte tid
         
-        return elapsedTime;
-    }
-    
-    public Date RetrieveDate(Order order, Department department)
-    {
-        LocalDate date = LocalDate.now();
-        java.sql.Date sqlDate = java.sql.Date.valueOf(date);
+        System.out.println(LocalDate.now().toString());
         
-        return sqlDate;
+        return elapsedTime;
+        
     }
     
     
