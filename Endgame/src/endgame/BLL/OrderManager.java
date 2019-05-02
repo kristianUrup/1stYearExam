@@ -49,15 +49,4 @@ public class OrderManager
         }
     }
     
-    public void setLastActivity(Order order, Department department) throws BllException
-    {
-        try
-        {
-            iOrd.setLastActivity(order, department);
-        } catch (DalException ex)
-        {
-            Logger.getLogger(OrderManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
 }

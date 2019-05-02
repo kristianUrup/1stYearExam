@@ -65,18 +65,16 @@ public class OrderModel
         System.out.println(LocalDate.now().toString());
         
         return elapsedTime;
-        
     }
-    
     
     public ObservableList<Department> getAllDepartments()
     {
         return departmentList;
     }
     
-    public void setLastActivity(Order order, Department department) throws BllException
+    public void setLastActivity(Order order, Department department, String messageLog )
     {
-        BF.setLastActivity(order, department);
+        BF.setLastActivity(order, department, messageLog);
     }
             
     public String getLastActivity(Order order, Department department) throws BllException

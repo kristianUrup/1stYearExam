@@ -82,7 +82,7 @@ public class PostItController implements Initializable
             //setProgressBar();
         } catch (BllException ex)
         {
-            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
         cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
         cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
@@ -143,7 +143,7 @@ public class PostItController implements Initializable
             estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(ordersForDepartment));
         } catch (BllException ex)
         {
-            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
     }
     

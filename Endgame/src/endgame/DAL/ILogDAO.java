@@ -8,17 +8,15 @@ package endgame.DAL;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.DAL.Exception.DalException;
-import java.util.List;
 
 /**
  *
- * @author Frederik Jensen
+ * @author Schweizeren
  */
-public interface IOrderDAO
+public interface ILogDAO
 {
-    public List<Order> getAllOrders(Department department) throws DalException;
+    public void setLastActivity(Order order, Department department, String messageLog);
     
-    public void changeOrderState(Order order, Department department) throws DalException;
-    
+    public String getLastActivity(Order order, Department department) throws DalException;
     
 }
