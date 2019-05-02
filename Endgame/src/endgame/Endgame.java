@@ -6,10 +6,12 @@
 package endgame;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -27,7 +29,14 @@ public class Endgame extends Application
         
         stage.setScene(scene);
         stage.show();
-
+        
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+          public void handle(WindowEvent we) {
+              System.out.println("App closed");
+              
+              
+          }
+      });  
     }
 
     /**

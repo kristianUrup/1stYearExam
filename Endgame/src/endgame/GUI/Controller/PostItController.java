@@ -44,8 +44,6 @@ public class PostItController implements Initializable
     Order ordersForDepartment;
     PlatformController pfcontroller;
     OrderModel OMO;
-    Timer timer;
-    Date date;
     
     @FXML
     private Label lblOrderNumber;
@@ -86,16 +84,16 @@ public class PostItController implements Initializable
         cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
         cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
 //        tableDepartmentList.setItems(departments());
-        
+//        updateOrder(ordersForDepartment);
     }
     
     public void setOrderInfo(Order order)
     {
         ordersForDepartment = order;
-        lblOrderNumber.setText(ordersForDepartment.getOrderNumber());
-        lblCustomer.setText(ordersForDepartment.getCustomer());
+        lblOrderNumber.setText(order.getOrderNumber());
+        lblCustomer.setText(order.getCustomer());
 
-        Date date = ordersForDepartment.getDeliveryDate();
+        Date date = order.getDeliveryDate();
 
         DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
         String output = outputFormatter.format(date);
@@ -103,7 +101,6 @@ public class PostItController implements Initializable
         lblDeliveryDate.setText(output);
         
         setProgressBar();
-        updateOrder(order);
     }
 
     public void setDepartment(Department department)
@@ -121,32 +118,32 @@ public class PostItController implements Initializable
         OMO.changeOrderState(ordersForDepartment, department);
     }
 
-    public void showDeliveryDate(Order order) throws BllException
-    {
-
-        List<Department> departments = new ArrayList();
-
-        Department d1 = new Department(1, "Fisk", false);
-        Department d2 = new Department(2, "Funky", false);
-        Department d3 = new Department(3, "Frederik", false);
-
-        departments.add(d1);
-        departments.add(d2);
-        departments.add(d3);
-
-        for (int i = 0; i > departments.size(); i++)
-        {
-
-            lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
-
-            Date date = ordersForDepartment.getDeliveryDate();
-
-            DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            String output = outputFormatter.format(date);
-
-            lblDeliveryDate.setText(output);
-        }
-    }
+//    public void showDeliveryDate(Order order) throws BllException
+//    {
+//
+//        List<Department> departments = new ArrayList();
+//
+//        Department d1 = new Department(1, "Fisk", false);
+//        Department d2 = new Department(2, "Funky", false);
+//        Department d3 = new Department(3, "Frederik", false);
+//
+//        departments.add(d1);
+//        departments.add(d2);
+//        departments.add(d3);
+//
+//        for (int i = 0; i > departments.size(); i++)
+//        {
+//
+//            lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
+//
+//            Date date = ordersForDepartment.getDeliveryDate();
+//
+//            DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+//            String output = outputFormatter.format(date);
+//
+//            lblDeliveryDate.setText(output);
+//        }
+//    }
     
     
 
@@ -163,43 +160,48 @@ public class PostItController implements Initializable
     
     
     public void updateOrder(Order order){
-        
         ordersForDepartment = order;
         TimerTask repeatedTask = new TimerTask() {
             @Override
             public void run()
             {
-                setOrderInfo(order);
+                Date date = ordersForDepartment.getDeliveryDate();
+
+                DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                String output = outputFormatter.format(date);
+
+                lblDeliveryDate.setText(output);
+                System.out.println("Updated post it note");
+                //cancel();   
             }
         };
         Timer timer = new Timer();
         
-        long delay = 5000;
-        long period = 5000;
+        long delay = 1000L;
+        long period = 1000L;
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
-        System.out.println("Updated post it note");
     }
         
-    public void setStatusColor()
-    {
-        for (Department department : departments())
-        {
-            
-        }
-    }
+//    public void setStatusColor()
+//    {
+//        for (Department department : departments())
+//        {
+//            
+//        }
+//    }
     
-    public ObservableList<Department> departments()
-    {
-        ObservableList<Department> departments = FXCollections.observableArrayList();;
-        
-        Department d1 = new Department(1, "Fisk", true);
-        Department d2 = new Department(2, "Funky", false);
-        Department d3 = new Department(3, "Frederik", false);
-
-        departments.add(d1);
-        departments.add(d2);
-        departments.add(d3);
-        
-        return departments;
-    }
+//    public ObservableList<Department> departments()
+//    {
+//        ObservableList<Department> departments = FXCollections.observableArrayList();;
+//        
+//        Department d1 = new Department(1, "Fisk", true);
+//        Department d2 = new Department(2, "Funky", false);
+//        Department d3 = new Department(3, "Frederik", false);
+//
+//        departments.add(d1);
+//        departments.add(d2);
+//        departments.add(d3);
+//        
+//        return departments;
+//    }
 }
