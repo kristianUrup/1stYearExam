@@ -10,9 +10,6 @@ import endgame.BE.Order;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import javafx.collections.ObservableList;
 
@@ -55,21 +52,14 @@ public class OrderModel
         long startDate = order.getStartDate().getTime();
         
         double estimatedTime = (endDate - startDate) /(1000*60*60*24);  // Den tilgængelige tid
-        System.out.println(estimatedTime);
         
         double todaysTime = System.currentTimeMillis() /(1000*60*60*24); // Idags tid
-        System.out.println(todaysTime);
         
         double daysSpent = todaysTime - (startDate/(1000*60*60*24));
-        System.out.println(daysSpent);
         
         double elapsedTime = daysSpent / estimatedTime;  // Den brugte tid
-        System.out.println(elapsedTime);
         
         return elapsedTime;
-        
-        
-        
     }
     
     public ObservableList<Department> getAllDepartments()
@@ -77,4 +67,13 @@ public class OrderModel
         return departmentList;
     }
     
+    public void setLastActivity(Order order, Department department, String messageLog )
+    {
+        BF.setLastActivity(order, department, messageLog);
+    }
+            
+    public String getLastActivity(Order order, Department department) throws BllException
+    {
+        return "";
+    }
 }

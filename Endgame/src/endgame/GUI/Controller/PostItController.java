@@ -47,8 +47,6 @@ public class PostItController implements Initializable
     Order ordersForDepartment;
     PlatformController pfcontroller;
     OrderModel OMO;
-    Timer timer;
-    Date date;
     
     @FXML
     private Label lblOrderNumber;
@@ -84,10 +82,11 @@ public class PostItController implements Initializable
             //setProgressBar();
         } catch (BllException ex)
         {
-            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
         cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
         cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
+//        updateOrder(ordersForDepartment);
         tableDepartmentList.setItems(departments());
         setStatusColor();
         
@@ -96,10 +95,10 @@ public class PostItController implements Initializable
     public void setOrderInfo(Order order)
     {
         ordersForDepartment = order;
-        lblOrderNumber.setText(ordersForDepartment.getOrderNumber());
-        lblCustomer.setText(ordersForDepartment.getCustomer());
+        lblOrderNumber.setText(order.getOrderNumber());
+        lblCustomer.setText(order.getCustomer());
 
-        Date date = ordersForDepartment.getDeliveryDate();
+        Date date = order.getDeliveryDate();
 
         DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
         String output = outputFormatter.format(date);
@@ -107,7 +106,6 @@ public class PostItController implements Initializable
         lblDeliveryDate.setText(output);
         
         setProgressBar();
-        updateOrder(order);
     }
 
     public void setDepartment(Department department)
@@ -127,20 +125,6 @@ public class PostItController implements Initializable
 
     public void showDeliveryDate(Order order) throws BllException
     {
-
-        List<Department> departments = new ArrayList();
-
-        Department d1 = new Department(1, "Fisk", true, new Date("20/02/2019"), new Date("20/05/2019"));
-        Department d2 = new Department(2, "Funky", false, new Date("20/01/2019"), new Date("23/06/2019"));
-        Department d3 = new Department(3, "Frederik", false, new Date("01/03/2019"), new Date("20/12/2019"));
-
-        departments.add(d1);
-        departments.add(d2);
-        departments.add(d3);
-
-        for (int i = 0; i > departments.size(); i++)
-        {
-
             lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
 
             Date date = ordersForDepartment.getDeliveryDate();
@@ -149,7 +133,6 @@ public class PostItController implements Initializable
             String output = outputFormatter.format(date);
 
             lblDeliveryDate.setText(output);
-        }
     }
     
     
@@ -161,29 +144,35 @@ public class PostItController implements Initializable
             estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(ordersForDepartment));
         } catch (BllException ex)
         {
-            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
     }
     
     
     public void updateOrder(Order order){
-        
         ordersForDepartment = order;
         TimerTask repeatedTask = new TimerTask() {
             @Override
             public void run()
             {
-                setOrderInfo(order);
+                Date date = ordersForDepartment.getDeliveryDate();
+
+                DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                String output = outputFormatter.format(date);
+
+                lblDeliveryDate.setText(output);
+                System.out.println("Updated post it note");
+                //cancel();   
             }
         };
         Timer timer = new Timer();
         
-        long delay = 5000;
-        long period = 5000;
+        long delay = 1000L;
+        long period = 1000L;
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
-        System.out.println("Updated post it note");
     }
         
+    
     public void setStatusColor()
     {
 
@@ -238,7 +227,7 @@ public class PostItController implements Initializable
         Department d1 = new Department(1, "Fisk", true, new Date("20/02/2019"), new Date("20/05/2019"));
         Department d2 = new Department(2, "Funky", false, new Date("20/01/2019"), new Date("23/06/2019"));
         Department d3 = new Department(3, "Frederik", false, new Date("01/03/2019"), new Date("20/12/2019"));
-
+        
         
         departments.add(d1);
         departments.add(d2);
