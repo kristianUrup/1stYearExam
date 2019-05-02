@@ -24,9 +24,7 @@ public class OrderModel
 
     public OrderModel() throws BllException
     {
-        BF = new BLLFacade();
-        
-        
+        BF = new BLLFacade();  
     }
     
     public List<Order> getAllOrders(Department department) throws BllException

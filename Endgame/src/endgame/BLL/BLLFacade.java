@@ -10,8 +10,6 @@ import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
