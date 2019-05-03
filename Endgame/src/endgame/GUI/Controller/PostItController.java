@@ -68,6 +68,8 @@ public class PostItController implements Initializable
     private TableColumn<Department, String> cellDepartment;
     @FXML
     private TableColumn<Department, Boolean> cellStatus;
+    @FXML
+    private TableView<Department> tableStatus;
 
     /**
      * Initializes the controller class.
@@ -176,7 +178,7 @@ public class PostItController implements Initializable
     public void setStatusColor()
     {
 
-        tableDepartmentList.setRowFactory(tv-> new TableRow<Department>(){
+        tableStatus.setRowFactory(tv-> new TableRow<Department>(){
             @Override
             public void updateItem(Department department, boolean empty)
             {
