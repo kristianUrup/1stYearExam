@@ -42,7 +42,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class PostItController implements Initializable
 {
-
+    
     Department department;
     Order ordersForDepartment;
     PlatformController pfcontroller;
@@ -237,5 +237,18 @@ public class PostItController implements Initializable
         
         
         return departments;
+    }
+    
+    @FXML
+    public void setLastActive()
+    {
+        try
+        {
+            lblLastActive.setText(OMO.getLastActivity(ordersForDepartment, department));
+        } catch (BllException ex)
+        {
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
+        }
+        
     }
 }
