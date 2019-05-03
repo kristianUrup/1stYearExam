@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,8 +24,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 
 /**
@@ -103,16 +108,28 @@ public class PlatformController implements Initializable
         pic.getButton().setOnAction(e->{
             try
             {
-                pic.setDone();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Dialog");
+                alert.setHeaderText("You are about to set this task to done");
+                alert.setContentText("Are you sure you want to do this?");
+
+                String header = "You are about to set this task to done";
+                String content = "Are you sure you want to do this?";
+                Optional<ButtonType> result =alert.showAndWait();
+                if((result.isPresent()) && (result.get()==ButtonType.OK))
+                {
+                    pic.setDone();
+                    flowPane.getChildren().remove(root);
+                }
+
             } catch (BllException ex)
             {
                 Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            flowPane.getChildren().remove(root);
+
             
         });
     }
-    
     
 
 }

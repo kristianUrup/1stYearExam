@@ -42,7 +42,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class PostItController implements Initializable
 {
-
+    
     Department department;
     Order ordersForDepartment;
     PlatformController pfcontroller;
@@ -68,6 +68,8 @@ public class PostItController implements Initializable
     private TableColumn<Department, String> cellDepartment;
     @FXML
     private TableColumn<Department, Boolean> cellStatus;
+    @FXML
+    private TableView<Department> tableStatus;
 
     /**
      * Initializes the controller class.
@@ -178,8 +180,7 @@ public class PostItController implements Initializable
     public void setStatusColor()
     {
 
-        tableDepartmentList.setRowFactory(tv -> new TableRow<Department>()
-        {
+        tableStatus.setRowFactory(tv-> new TableRow<Department>(){
             @Override
             public void updateItem(Department department, boolean empty)
             {
@@ -235,5 +236,18 @@ public class PostItController implements Initializable
         departments.add(d3);
 
         return departments;
+    }
+    
+    @FXML
+    public void setLastActive()
+    {
+        try
+        {
+            lblLastActive.setText(OMO.getLastActivity(ordersForDepartment, department));
+        } catch (BllException ex)
+        {
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
+        }
+        
     }
 }

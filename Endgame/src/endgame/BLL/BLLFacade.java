@@ -78,7 +78,7 @@ public class BLLFacade implements IBLLFacade
     @Override
     public String getLastActivity(Order order, Department department) throws BllException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return LM.getLastActivity(order, department);
     }
 
     

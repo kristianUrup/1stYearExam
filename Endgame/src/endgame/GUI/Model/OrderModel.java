@@ -71,6 +71,6 @@ public class OrderModel
             
     public String getLastActivity(Order order, Department department) throws BllException
     {
-        return "";
+        return BF.getLastActivity(order, department);
     }
 }

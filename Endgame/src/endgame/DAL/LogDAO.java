@@ -13,10 +13,13 @@ import endgame.BLL.IBLLFacade;
 import endgame.DAL.Exception.DalException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.jar.Attributes;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -54,7 +57,7 @@ public class LogDAO implements ILogDAO
                 pst.execute();
             } catch (SQLException ex)
             {
-                Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LogDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             
@@ -65,18 +68,31 @@ public class LogDAO implements ILogDAO
     public String getLastActivity(Order order, Department department) throws DalException
     {
         Connection con = null;
-        
         {
+            
             try
             {
                 con = cdao.getConnection();
-                String sql = "SELECT ";
-            } catch (SQLServerException ex)
+                String sql = "SELECT d.name" 
+                             + "FROM ActivityLog a join Department d" 
+                             + "on a.departmentID = d.id" 
+                             + "WHERE orderID = 1";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);
+                
+                while(rs.last())
+                {
+                    String name = rs.getString("name");
+                    return name;
+                }
+                
+                
+            } catch (SQLException ex)
             {
-                Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(LogDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
-        return "";
+        }
+        return null;
     }
 
 }
