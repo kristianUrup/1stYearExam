@@ -76,9 +76,9 @@ public class BLLFacade implements IBLLFacade
     }
 
     @Override
-    public String getLastActivity(Order order, Department department) throws BllException
+    public String getLastActivity(Order order) throws BllException
     {
-        return LM.getLastActivity(order, department);
+        return LM.getLastActivity(order);
     }
 
     

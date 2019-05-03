@@ -82,14 +82,12 @@ public class PostItController implements Initializable
             //setProgressBar();
         } catch (BllException ex)
         {
-            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
         cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
         cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
 //        updateOrder(ordersForDepartment);
         tableDepartmentList.setItems(departments());
         setStatusColor();
-        
     }
     
     public void setOrderInfo(Order order)
@@ -106,6 +104,7 @@ public class PostItController implements Initializable
         lblDeliveryDate.setText(output);
         
         setProgressBar();
+
     }
 
     public void setDepartment(Department department)
@@ -238,15 +237,14 @@ public class PostItController implements Initializable
     }
     
     @FXML
-    public void setLastActive()
+    public void getLastActive()
     {
         try
         {
-            lblLastActive.setText(OMO.getLastActivity(ordersForDepartment, department));
+            lblLastActive.setText(OMO.getLastActivity(ordersForDepartment));
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
-        
     }
 }
