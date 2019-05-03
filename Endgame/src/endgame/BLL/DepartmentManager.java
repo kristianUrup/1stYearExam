@@ -29,7 +29,7 @@ public class DepartmentManager
 
     public DepartmentManager()
     {
-        iddao = new MockDepartment();
+        iddao = new DepartmentDAO();
     }
 
     public Department getDepartment(String dName) throws BllException
@@ -51,7 +51,7 @@ public class DepartmentManager
             Comparator<Department> dependency;
             dependency = (Department t, Department t1) -> t.getStartDate().compareTo(t1.getStartDate());
             Collections.sort(departments, dependency);
-            return iddao.getDepartments(order);
+            return departments;
         } catch (DalException ex)
         {
             throw new BllException(ex.getMessage());

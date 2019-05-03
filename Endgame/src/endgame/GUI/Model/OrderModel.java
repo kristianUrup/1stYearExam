@@ -11,6 +11,7 @@ import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
 import java.util.List;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
@@ -24,7 +25,8 @@ public class OrderModel
 
     public OrderModel() throws BllException
     {
-        BF = new BLLFacade();  
+        BF = new BLLFacade();
+        departmentList = FXCollections.observableArrayList();
     }
     
     public List<Order> getAllOrders(Department department) throws BllException
@@ -38,10 +40,6 @@ public class OrderModel
     
     public Department getDepartment(String dName) throws BllException {
         return BF.getDepartment(dName);
-    }
-    
-    public List<Department> getDepartments(Order order) throws BllException {
-        return BF.getDepartments(order);
     }
     
     public double getProgressedTimeInProcent(Order order) throws BllException
@@ -60,8 +58,9 @@ public class OrderModel
         return elapsedTime;
     }
     
-    public ObservableList<Department> getAllDepartments()
+    public ObservableList<Department> getAllDepartments(Order order) throws BllException
     {
+        departmentList.addAll(BF.getDepartments(order));
         return departmentList;
     }
     
