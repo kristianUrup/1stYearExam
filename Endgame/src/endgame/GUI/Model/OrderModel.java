@@ -69,8 +69,8 @@ public class OrderModel
         BF.setLastActivity(order, department, messageLog);
     }
             
-    public String getLastActivity(Order order, Department department) throws BllException
+    public String getLastActivity(Order order) throws BllException
     {
-        return BF.getLastActivity(order, department);
+        return BF.getLastActivity(order);
     }
 }

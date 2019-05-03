@@ -7,6 +7,7 @@ package endgame.BLL;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.BLL.Exception.BllException;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.ILogDAO;
 import endgame.DAL.LogDAO;
@@ -31,16 +32,15 @@ public class LogManager
         iLog.setLastActivity(order, department, messageLog);
     }
     
-    public String getLastActivity(Order order, Department department)
+    public String getLastActivity(Order order) throws BllException
     {
         try
         {
-            iLog.getLastActivity(order, department);
+            return iLog.getLastActivity(order);
         } catch (DalException ex)
         {
-            Logger.getLogger(LogManager.class.getName()).log(Level.SEVERE, null, ex);
+            throw new BllException(ex.getMessage());
         }
-        return null;
     }
 
     

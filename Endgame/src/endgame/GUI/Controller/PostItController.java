@@ -90,12 +90,18 @@ public class PostItController implements Initializable
             cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
         } catch (BllException ex)
         {
-            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
+        
+        cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
+        cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
+//        updateOrder(ordersForDepartment);
+        tableDepartmentList.setItems(departments());
+        setStatusColor();
     }
 
     public void setOrderInfo(Order order)
     {
+
         try
         {
             ordersForDepartment = order;
@@ -118,6 +124,7 @@ public class PostItController implements Initializable
         {
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     public void setDepartment(Department department)
@@ -269,16 +276,15 @@ public class PostItController implements Initializable
     }
     
     @FXML
-    public void setLastActive()
+    public void getLastActive()
     {
         try
         {
-            lblLastActive.setText(OMO.getLastActivity(ordersForDepartment, department));
+            lblLastActive.setText(OMO.getLastActivity(ordersForDepartment));
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
-        
     }
     
   /*  public void bindScrollBars() {

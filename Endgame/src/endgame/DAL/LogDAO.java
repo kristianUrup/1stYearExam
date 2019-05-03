@@ -63,36 +63,39 @@ public class LogDAO implements ILogDAO
             
         }
     }
-
+    
     @Override
-    public String getLastActivity(Order order, Department department) throws DalException
+    public String getLastActivity(Order order) throws DalException
     {
         Connection con = null;
+        String lastDep = null;
         {
             
             try
             {
                 con = cdao.getConnection();
                 String sql = "SELECT d.name" 
-                             + "FROM ActivityLog a join Department d" 
-                             + "on a.departmentID = d.id" 
-                             + "WHERE orderID = 1";
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(sql);
+                          + " FROM ActivityLog a join Department d" 
+                          + " on a.departmentID = d.id" 
+                          + " WHERE orderID = ?";
+                PreparedStatement pst = con.prepareStatement(sql);
+                
+                pst.setInt(1, order.getId());
+                
+                ResultSet rs = pst.executeQuery(sql);
                 
                 while(rs.last())
                 {
-                    String name = rs.getString("name");
-                    return name;
+                    lastDep = rs.getString("name");
                 }
+                
+                return lastDep;
                 
                 
             } catch (SQLException ex)
             {
-                Logger.getLogger(LogDAO.class.getName()).log(Level.SEVERE, null, ex);
+                throw new DalException("Could not get last active department");
             }
         }
-        return null;
     }
-
 }

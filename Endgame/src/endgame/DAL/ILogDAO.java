@@ -17,6 +17,6 @@ public interface ILogDAO
 {
     public void setLastActivity(Order order, Department department, String messageLog);
     
-    public String getLastActivity(Order order, Department department) throws DalException;
+    public String getLastActivity(Order order) throws DalException;
     
 }
