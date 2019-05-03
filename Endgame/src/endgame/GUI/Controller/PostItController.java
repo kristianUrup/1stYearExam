@@ -89,8 +89,8 @@ public class PostItController implements Initializable
         cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
         cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
 //        updateOrder(ordersForDepartment);
-        tableDepartmentList.setItems(departments());
-        setStatusColor();
+        tableDepartmentList.setItems(OMO.getAllDepartments());
+        tableStatus.setItems(OMO.getAllDepartments());
         
     }
     
@@ -108,6 +108,7 @@ public class PostItController implements Initializable
         lblDeliveryDate.setText(output);
         
         setProgressBar();
+        setStatusColor();
     }
 
     public void setDepartment(Department department)
