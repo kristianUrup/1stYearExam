@@ -27,11 +27,11 @@ public class OrderManager
         iOrd = new OrderDAO();
     }
     
-    public List<Order> getAllOrders(Department department) throws BllException
+    public List<Order> getAllOrders(Department department, int offset) throws BllException
     {
         try
         {
-            return iOrd.getAllOrders(department);
+            return iOrd.getAllOrders(department, offset);
         } catch (DalException ex)
         {
             throw new BllException(ex.getMessage());

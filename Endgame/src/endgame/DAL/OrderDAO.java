@@ -38,7 +38,7 @@ public class OrderDAO implements IOrderDAO
     }
 
     @Override
-    public List<Order> getAllOrders(Department department) throws DalException
+    public List<Order> getAllOrders(Department department, int offset) throws DalException
     {
         Connection con = null;
         try

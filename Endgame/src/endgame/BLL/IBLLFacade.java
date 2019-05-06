@@ -16,7 +16,7 @@ import java.util.List;
  */
 public interface IBLLFacade
 {
-    public List<Order> getAllOrders(Department department) throws BllException;
+    public List<Order> getAllOrders(Department department, int offset) throws BllException;
     
     public Department getDepartment(String dName) throws BllException;
     

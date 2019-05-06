@@ -51,7 +51,6 @@ public class PlatformController implements Initializable
             OM = new OrderModel();
             dep = OM.getDepartment(OM.getConfig());
             departName.setText(dep.getName());
-            int test = OM.getOffSet();
             setPostItNotes();
 
         } catch (BllException ex)
@@ -65,7 +64,7 @@ public class PlatformController implements Initializable
     {
         try
         {
-            List<Order> orders = OM.getAllOrders(dep);
+            List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
 
             for (Order order : orders)
             {
