@@ -12,6 +12,8 @@ and open the template in the editor.
 .background
 {
     -fx-background-color: #fcef96;
+    -fx-border-color: #184981;
+    -fx-border-size: 10;
 }
 
 .button
