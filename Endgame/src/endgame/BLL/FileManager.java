@@ -24,4 +24,8 @@ public class FileManager
     public String getConfig(){
         return rpfile.getConfig();
     }
+    
+    public int getOffSet() {
+        return rpfile.getOffSet();
+    }
 }

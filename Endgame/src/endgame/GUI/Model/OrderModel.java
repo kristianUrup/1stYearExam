@@ -73,4 +73,12 @@ public class OrderModel
     {
         return BF.getLastActivity(order);
     }
+    
+    public String getConfig() {
+        return BF.getConfig();
+    }
+    
+    public int getOffSet() {
+        return BF.getOffSet();
+    }
 }

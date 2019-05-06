@@ -81,6 +81,12 @@ public class BLLFacade implements IBLLFacade
         return LM.getLastActivity(order);
     }
 
+    @Override
+    public int getOffSet()
+    {
+        return FM.getOffSet();
+    }
+
     
     
 }

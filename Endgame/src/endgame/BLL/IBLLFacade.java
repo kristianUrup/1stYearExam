@@ -26,6 +26,8 @@ public interface IBLLFacade
     
     public String getConfig();
     
+    public int getOffSet();
+    
     public void setLastActivity(Order order, Department department, String messageLog);
             
     public String getLastActivity(Order order) throws BllException;

@@ -16,6 +16,7 @@ import java.util.Properties;
  */
 public class ReadPropertyFile
 {
+
     protected Properties prop = null;
     //System.out.println(System.getProperty("user.dir"));
     protected InputStream input = new FileInputStream("data/config.properties");
@@ -25,8 +26,20 @@ public class ReadPropertyFile
         prop = new Properties();
         prop.load(input);
     }
-    
-    public String getConfig(){
+
+    public String getConfig()
+    {
         return prop.getProperty("department");
+    }
+
+    public int getOffSet()
+    {
+        if (prop.getProperty("offset").equals(""))
+        {
+            return 0;
+        } else
+        {
+            return Integer.parseInt(prop.getProperty("offset"));
+        }
     }
 }

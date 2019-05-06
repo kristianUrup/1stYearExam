@@ -6,15 +6,11 @@
 package endgame.GUI.Controller;
 
 import endgame.BE.Department;
-import endgame.BLL.DepartmentManager;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
-import endgame.BLL.FileManager;
-import endgame.DAL.Exception.DalException;
 import endgame.GUI.Model.OrderModel;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -26,10 +22,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 
 /**
@@ -39,9 +33,7 @@ import javafx.scene.layout.FlowPane;
 public class PlatformController implements Initializable
 {
 
-    private DepartmentManager dMan;
     private Department dep;
-    private FileManager fMan;
     private OrderModel OM;
 
     @FXML
@@ -57,13 +49,12 @@ public class PlatformController implements Initializable
         try
         {
             OM = new OrderModel();
-            dMan = new DepartmentManager();
-            fMan = new FileManager();
-            dep = dMan.getDepartment(fMan.getConfig());
+            dep = OM.getDepartment(OM.getConfig());
             departName.setText(dep.getName());
+            int test = OM.getOffSet();
             setPostItNotes();
 
-        } catch (BllException | IOException ex)
+        } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }

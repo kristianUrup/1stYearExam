@@ -68,7 +68,7 @@ public class PostItController implements Initializable
     @FXML
     private Button done;
     @FXML
-    private static TableView<Department> tableDepartmentList;
+    private TableView<Department> tableDepartmentList;
     @FXML
     private TableColumn<Department, String> cellDepartment;
     @FXML
@@ -91,12 +91,7 @@ public class PostItController implements Initializable
         } catch (BllException ex)
         {
         }
-        
-        cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
-        cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
 //        updateOrder(ordersForDepartment);
-        tableDepartmentList.setItems(departments());
-        setStatusColor();
     }
 
     public void setOrderInfo(Order order)
@@ -118,8 +113,8 @@ public class PostItController implements Initializable
             setProgressBar();
             
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
-            tableStatus.setItems(OMO.getAllDepartments(ordersForDepartment));
-            setStatusColor();
+            //tableStatus.setItems(OMO.getAllDepartments(ordersForDepartment));
+            //setStatusColor();
         } catch (BllException ex)
         {
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
