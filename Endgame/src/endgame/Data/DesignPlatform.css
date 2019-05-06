@@ -8,3 +8,16 @@ and open the template in the editor.
     Author     : Kristian Urup laptop
 */
 
+.background
+{
+    -fx-background-color: #184981;
+}
+
+.background2
+{
+    -fx-background-color: C4cace;
+}
+.label
+{
+    -fx-text-fill: #184981;    
+}
