@@ -69,7 +69,7 @@ public class OrderDAO implements IOrderDAO
                 Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString);
                 Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString);
                 Date deliveryDate = new SimpleDateFormat("dd/MM/yyyy").parse(deliveryDateString);
-                
+
                 Date today = new Date();
                 if (startDate.equals(today) || startDate.before(today))
                 {
@@ -122,5 +122,13 @@ public class OrderDAO implements IOrderDAO
         {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private Date calculateOffSetDate(int offset)
+    {
+        Date today = new Date();
+        long milliOffSet = today.getTime() - (offset * (25 * 60 * 60 * 1000));
+        Date todayOffSet = new Date(milliOffSet);
+        return todayOffSet;
     }
 }
