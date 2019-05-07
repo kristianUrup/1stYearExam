@@ -18,6 +18,8 @@ public interface IBLLFacade
 {
     public List<Order> getAllOrders(Department department, int offset) throws BllException;
     
+    public Order getOrder(Department department, Order order) throws BllException;
+    
     public Department getDepartment(String dName) throws BllException;
     
     public List<Department> getDepartments(Order order) throws BllException;

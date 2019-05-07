@@ -20,5 +20,7 @@ public interface IOrderDAO
     
     public void changeOrderState(Order order, Department department) throws DalException;
     
+    public Order getOrder(Department department, Order order) throws DalException;
+    
     
 }

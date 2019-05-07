@@ -87,6 +87,12 @@ public class BLLFacade implements IBLLFacade
         return FM.getOffSet();
     }
 
+    @Override
+    public Order getOrder(Department department, Order order) throws BllException
+    {
+        return OMA.getOrder(department, order);
+    }
+
     
     
 }
