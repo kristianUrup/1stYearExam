@@ -111,6 +111,7 @@ public class PostItController implements Initializable
             lblDeliveryDate.setText(output);
             
             setProgressBar();
+            //getLastActive();
             
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
             //tableStatus.setItems(OMO.getAllDepartments(ordersForDepartment));
@@ -298,4 +299,6 @@ public class PostItController implements Initializable
         }
         return scrollBar;
 }*/
+    
+    
 }

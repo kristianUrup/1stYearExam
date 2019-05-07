@@ -91,8 +91,8 @@ public class PlatformController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
         Parent root = (Parent) loader.load();
         PostItController pic = loader.getController();
-        pic.setOrderInfo(order);
         pic.setDepartment(dep);
+        pic.setOrderInfo(order);
         flowPane.getChildren().add(root);
         
         pic.getButton().setOnAction(e->{
