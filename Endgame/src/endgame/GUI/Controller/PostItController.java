@@ -10,6 +10,7 @@ import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
@@ -47,7 +50,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class PostItController implements Initializable
 {
-    
+
     Department department;
     Order ordersForDepartment;
     PlatformController pfcontroller;
@@ -91,7 +94,7 @@ public class PostItController implements Initializable
         } catch (BllException ex)
         {
         }
-//        updateOrder(ordersForDepartment);
+        updateOrder();
     }
 
     public void setOrderInfo(Order order)
@@ -102,16 +105,16 @@ public class PostItController implements Initializable
             ordersForDepartment = order;
             lblOrderNumber.setText(order.getOrderNumber());
             lblCustomer.setText(order.getCustomer());
-            
+
             Date date = order.getDeliveryDate();
-            
+
             DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
             String output = outputFormatter.format(date);
-            
+
             lblDeliveryDate.setText(output);
-            
+
             setProgressBar();
-            
+
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
             //tableStatus.setItems(OMO.getAllDepartments(ordersForDepartment));
             //setStatusColor();
@@ -119,7 +122,7 @@ public class PostItController implements Initializable
         {
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public void setDepartment(Department department)
@@ -159,35 +162,64 @@ public class PostItController implements Initializable
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
     }
-
-    public void updateOrder(Order order)
+    
+    public void updateOrder()
     {
-        ordersForDepartment = order;
+
         TimerTask repeatedTask = new TimerTask()
         {
             @Override
             public void run()
             {
-                Date date = ordersForDepartment.getDeliveryDate();
+                try
+                {
+                    List<Order> orders = OMO.getAllOrders(department, OMO.getOffSet());
 
-                DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
-                String output = outputFormatter.format(date);
+                    for (Order order : orders)
+                    {
+                        if (!order.getIsDone())
+                        {
+                            Platform.runLater(() -> lblOrderNumber.setText(order.getOrderNumber()));
+                            Platform.runLater(() -> lblCustomer.setText(order.getCustomer()));
 
-                lblDeliveryDate.setText(output);
-                System.out.println("Updated post it note");
-                //cancel();   
+                            Date date = order.getDeliveryDate();
+
+                            DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                            String output = outputFormatter.format(date);
+
+                            Platform.runLater(() -> lblDeliveryDate.setText(output));
+
+//                            Platform.runLater(() -> setProgressBar());
+
+//                            Platform.runLater(() ->
+//                            {
+//                                try
+//                                {
+//                                    tableDepartmentList.setItems(OMO.getAllDepartments(order));
+//                                } catch (BllException ex)
+//                                {
+//                                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+//                                }
+//                            });
+                        }
+                    }
+                } catch (BllException ex)
+                {
+                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         };
         Timer timer = new Timer();
 
-        long delay = 1000L;
-        long period = 1000L;
+        long delay = 2000L;
+        long period = 2000L;
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
     public void setStatusColor()
     {
-        tableStatus.setRowFactory(tv-> new TableRow<Department>(){
+        tableStatus.setRowFactory(tv -> new TableRow<Department>()
+        {
             @Override
             public void updateItem(Department department, boolean empty)
             {
@@ -204,7 +236,7 @@ public class PostItController implements Initializable
                 }
             }
         });
-/*
+        /*
         cellStatus.setCellFactory(column -> {
     return new TableCell<Department, Boolean>() {
         @Override
@@ -229,7 +261,7 @@ public class PostItController implements Initializable
         }
     };
 });*/
-        /*
+ /*
             cellStatus.setCellFactory(column -> {return new TableCell<Department,Boolean>(){
                 @Override
                 protected void updateItem(Department department, boolean empty)
@@ -269,7 +301,7 @@ public class PostItController implements Initializable
 
         return departments;
     }
-    
+
     @FXML
     public void getLastActive()
     {
@@ -281,8 +313,8 @@ public class PostItController implements Initializable
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
     }
-    
-  /*  public void bindScrollBars() {
+
+    /*  public void bindScrollBars() {
         //ScrollBar scrollBarPane = getScrollBar(scrollPane);
         //ScrollBar scrollBarTable = getScrollBar(table);
         //scrollBarPane.valueProperty().bind(scrollBarTable.valueProperty());
