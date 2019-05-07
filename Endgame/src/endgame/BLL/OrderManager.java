@@ -49,4 +49,14 @@ public class OrderManager
         }
     }
     
+    public Order getOrder(Department department, Order order) throws BllException {
+        try
+        {
+            return iOrd.getOrder(department, order);
+        } catch (DalException ex)
+        {
+            throw new BllException(ex.getMessage());
+        }
+    }
+    
 }

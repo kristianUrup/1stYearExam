@@ -81,4 +81,9 @@ public class OrderModel
     public int getOffSet() {
         return BF.getOffSet();
     }
+    
+    public Order getOrder(Department department, Order order) throws BllException
+    {
+        return BF.getOrder(department, order);
+    }
 }
