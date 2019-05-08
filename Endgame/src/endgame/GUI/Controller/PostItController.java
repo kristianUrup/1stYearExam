@@ -116,8 +116,8 @@ public class PostItController implements Initializable
             setProgressBar();
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
             setStatusColor();
-
-            //getLastActive();
+            
+            getLastActive();
             updateOrder(ordersForDepartment);
 
         } catch (BllException ex)
