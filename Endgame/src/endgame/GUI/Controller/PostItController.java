@@ -94,7 +94,7 @@ public class PostItController implements Initializable
         } catch (BllException ex)
         {
         }
-        updateOrder();
+
     }
 
     public void setOrderInfo(Order order)
@@ -116,6 +116,7 @@ public class PostItController implements Initializable
             setProgressBar();
 
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
+            updateOrder(ordersForDepartment);
             //tableStatus.setItems(OMO.getAllDepartments(ordersForDepartment));
             //setStatusColor();
         } catch (BllException ex)
@@ -162,10 +163,9 @@ public class PostItController implements Initializable
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
     }
-    
-    public void updateOrder()
-    {
 
+    public void updateOrder(Order order)
+    {
         TimerTask repeatedTask = new TimerTask()
         {
             @Override
@@ -173,36 +173,27 @@ public class PostItController implements Initializable
             {
                 try
                 {
-                    List<Order> orders = OMO.getAllOrders(department, OMO.getOffSet());
+                    ordersForDepartment = OMO.getOrder(department, order);
+                    Platform.runLater(() -> lblOrderNumber.setText(ordersForDepartment.getOrderNumber()));
+                    Platform.runLater(() -> lblCustomer.setText(ordersForDepartment.getCustomer()));
+                    Date date = ordersForDepartment.getDeliveryDate();
 
-                    for (Order order : orders)
-                    {
-                        if (!order.getIsDone())
-                        {
-                            Platform.runLater(() -> lblOrderNumber.setText(order.getOrderNumber()));
-                            Platform.runLater(() -> lblCustomer.setText(order.getCustomer()));
+                    DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String output = outputFormatter.format(date);
 
-                            Date date = order.getDeliveryDate();
+                    Platform.runLater(() -> lblDeliveryDate.setText(output));
 
-                            DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
-                            String output = outputFormatter.format(date);
-
-                            Platform.runLater(() -> lblDeliveryDate.setText(output));
-
-//                            Platform.runLater(() -> setProgressBar());
-
-//                            Platform.runLater(() ->
-//                            {
-//                                try
-//                                {
-//                                    tableDepartmentList.setItems(OMO.getAllDepartments(order));
-//                                } catch (BllException ex)
-//                                {
-//                                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
-//                                }
-//                            });
-                        }
-                    }
+                    Platform.runLater(() -> setProgressBar());
+//                    Platform.runLater(() ->
+//                    {
+//                        try
+//                        {
+//                            tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
+//                        } catch (BllException ex)
+//                        {
+//                            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    });
                 } catch (BllException ex)
                 {
                     Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
