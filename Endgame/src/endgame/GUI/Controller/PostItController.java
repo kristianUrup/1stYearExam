@@ -118,10 +118,7 @@ public class PostItController implements Initializable
             setStatusColor();
 
             //getLastActive();
-            tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
             updateOrder(ordersForDepartment);
-            //tableStatus.setItems(OMO.getAllDepartments(ordersForDepartment));
-            setStatusColor();
 
         } catch (BllException ex)
         {
@@ -213,85 +210,32 @@ public class PostItController implements Initializable
 
     public void setStatusColor() throws BllException
     {
-
-        /*       tableStatus.setRowFactory(tv-> new TableRow<Department>(){
-        tableStatus.setRowFactory(tv -> new TableRow<Department>()
+        cellStatus.setCellFactory(column ->
         {
-            @Override
-            public void updateItem(Department department, boolean empty)
+            return new TableCell<Department, Boolean>()
             {
-                super.updateItem(department, empty);
-                if (department == null)
+                @Override
+                protected void updateItem(Boolean item, boolean empty)
                 {
-                    setStyle("");
-                } else if (department.getIsDone())
-                {
-                    setStyle("-fx-background-color: #7CFC00;");
-                } else
-                {
-                    setStyle("-fx-background-color: #Ea3c53;");
-                }
-            }
-        });
+                    super.updateItem(item, empty);
 
-         */
-        ObservableList<Department> departments = tableDepartmentList.getItems();
-
-
-        cellStatus.setCellFactory(column -> {
-    return new TableCell<Department, Boolean>() {
-        @Override
-        protected void updateItem(Boolean item, boolean empty) {
-            super.updateItem(item, empty);
-
-                    for (Department department : departments)
+                    if (item == null || empty)
                     {
-                        if (department == null)
+                        setText(null);
+                        setStyle("");
+                    } else
+                    {
+                        if (item)
                         {
-                            setText(null);
-                            setStyle(null);
-                        } else if (!department.getIsDone())
-                        {
-                            setStyle("-fx-background-color: red;");
+                            setStyle("-fx-background-color: green");
                         } else
                         {
-                            setStyle("-fx-background-color: green;");
+                            setStyle("-fx-background-color: red");
                         }
                     }
                 }
             };
         });
-    }
-
-
-//    public ObservableList<Department> departments()
-//    {
-////        ObservableList<Department> departments = FXCollections.observableArrayList();
-////
-////     //   Department d1 = new Department(1, "Fisk", true, new Date("20/02/2019"), new Date("20/05/2019"),true);
-////       // Department d2 = new Department(2, "Funky", false, new Date("20/01/2019"), new Date("23/06/2019"));
-////       // Department d3 = new Department(3, "Frederik", false, new Date("01/03/2019"), new Date("20/12/2019"));
-////
-////        departments.add(d1);
-////        departments.add(d2);
-////        departments.add(d3);
-////
-////        return departments;
-//    }
-
-    public ObservableList<Department> departments()
-    {
-        ObservableList<Department> departments = FXCollections.observableArrayList();
-
-        Department d1 = new Department(1, "Fisk", true, new Date("20/02/2019"), new Date("20/05/2019"));
-        Department d2 = new Department(2, "Funky", false, new Date("20/01/2019"), new Date("23/06/2019"));
-        Department d3 = new Department(3, "Frederik", false, new Date("01/03/2019"), new Date("20/12/2019"));
-
-        departments.add(d1);
-        departments.add(d2);
-        departments.add(d3);
-
-        return departments;
     }
 
     @FXML
@@ -323,5 +267,3 @@ public class PostItController implements Initializable
         return scrollBar;
 }*/
 }
-    
-
