@@ -31,6 +31,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.FlowPane;
 
 /**
@@ -61,6 +62,7 @@ public class PlatformController implements Initializable
             departName.setText(dep.getName());
             orderNumbers = new ArrayList<>();
             setPostItNotes();
+            updatePostItNotes();
 
         } catch (BllException ex)
         {
@@ -79,6 +81,9 @@ public class PlatformController implements Initializable
                 if (!orderNumbers.contains(order.getOrderNumber()))
                 {
                     openFXML(order);
+//                    visibleOrders.add(order);
+                    flowPane.setVgap(10);
+                    flowPane.setHgap(10);
                     orderNumbers.add(order.getOrderNumber());
                 }
             } catch (IOException ex)

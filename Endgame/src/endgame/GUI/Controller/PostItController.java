@@ -119,6 +119,7 @@ public class PostItController implements Initializable
             
             getLastActive();
             updateOrder(ordersForDepartment);
+            updateDepartmentList();
 
         } catch (BllException ex)
         {
@@ -185,16 +186,6 @@ public class PostItController implements Initializable
                     Platform.runLater(() -> lblDeliveryDate.setText(output));
 
                     Platform.runLater(() -> setProgressBar());
-//                    Platform.runLater(() ->
-//                    {
-//                        try
-//                        {
-//                            tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
-//                        } catch (BllException ex)
-//                        {
-//                            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
-//                        }
-//                    });
                 } catch (BllException ex)
                 {
                     Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,6 +196,34 @@ public class PostItController implements Initializable
 
         long delay = 2000L;
         long period = 2000L;
+        timer.scheduleAtFixedRate(repeatedTask, delay, period);
+    }
+
+    public void updateDepartmentList()
+    {
+        TimerTask repeatedTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(() ->
+                {
+                    try
+                    {
+                        tableDepartmentList.getItems().clear();
+                        tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
+                    } catch (BllException ex)
+                    {
+                        Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+            }
+        };
+        Timer timer = new Timer();
+
+        long delay = 2000L;
+        long period = 2000L;
+
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
