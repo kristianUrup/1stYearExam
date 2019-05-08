@@ -9,19 +9,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.PostItController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.PostItController">
    <center>
-      <AnchorPane prefHeight="250.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="250.0" prefWidth="497.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="250.0" prefWidth="400.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css">
+            <AnchorPane id="AnchorPane" fx:id="anchorPane" layoutX="1.0" prefHeight="273.0" prefWidth="545.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TableView fx:id="tableDepartmentList" layoutX="256.0" prefHeight="155.0" prefWidth="143.0">
+                  <TableView fx:id="tableDepartmentList" layoutX="399.0" layoutY="5.0" prefHeight="178.0" prefWidth="162.0">
                      <columns>
-                        <TableColumn fx:id="cellDepartment" prefWidth="89.0" text="Depart name" />
-                        <TableColumn fx:id="cellStatus" prefWidth="52.0" text="Status" />
+                        <TableColumn fx:id="cellDepartment" prefWidth="97.0" text="Depart name" />
+                        <TableColumn fx:id="cellStatus" prefWidth="58.0" text="Status" />
                      </columns>
                   </TableView>
-                  <ProgressBar fx:id="estimatedProgress" layoutX="20.0" layoutY="145.0" prefHeight="29.0" prefWidth="227.0" progress="0.0" />
+                  <ProgressBar fx:id="estimatedProgress" layoutX="29.0" layoutY="154.0" prefHeight="27.0" prefWidth="338.0" progress="0.0" />
                   <Label layoutX="14.0" layoutY="31.0" text="Order number:">
                      <font>
                         <Font size="14.0" />
@@ -37,7 +37,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="103.0" layoutY="125.0" text="Estimated">
+                  <Label layoutX="120.0" layoutY="125.0" text="Time left:">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -57,17 +57,17 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="done" layoutX="88.0" layoutY="188.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="92.0" text="Done!">
+                  <Button fx:id="done" layoutX="120.0" layoutY="203.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="139.0" text="Done!">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Label layoutX="236.0" layoutY="204.0" text="Last active:">
+                  <Label layoutX="344.0" layoutY="225.0" text="Last active:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblLastActive" layoutX="310.0" layoutY="205.0" prefHeight="20.0" prefWidth="84.0">
+                  <Label fx:id="lblLastActive" layoutX="429.0" layoutY="225.0" prefHeight="20.0" prefWidth="84.0">
                      <font>
                         <Font size="14.0" />
                      </font>
