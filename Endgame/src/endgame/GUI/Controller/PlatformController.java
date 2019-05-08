@@ -61,6 +61,7 @@ public class PlatformController implements Initializable
             departName.setText(dep.getName());
             orderNumbers = new ArrayList<>();
             setPostItNotes();
+            updatePostItNotes();
 
         } catch (BllException ex)
         {
