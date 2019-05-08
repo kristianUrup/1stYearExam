@@ -20,12 +20,18 @@ and open the template in the editor.
 {
     -fx-background-color: #0b6623;
     -fx-text-fill: #fcef96;
-    -fx-font-family: "Comic Sans MS" "Bold";
+    -fx-font-family: "Cooper Black";
     -fx-border-radius: 10;
     -fx-background-radius: 10;
 }
 
 .label
 {
-    -fx-font-family:"Comic Sans MS" "Bold";
+    -fx-font-family:"Cooper Black";
+}
+
+.progress-bar
+{
+    -fx-box-border: #fcef96;
+    -fx-accent: #0b6623;
 }
