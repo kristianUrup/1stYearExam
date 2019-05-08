@@ -40,9 +40,9 @@ public class BLLFacade implements IBLLFacade
     }
 
     @Override
-    public List<Order> getAllOrders(Department department) throws BllException
+    public List<Order> getAllOrders(Department department, int offset) throws BllException
     {
-        return OMA.getAllOrders(department);
+        return OMA.getAllOrders(department, offset);
     }
 
     @Override
@@ -85,6 +85,12 @@ public class BLLFacade implements IBLLFacade
     public int getOffSet()
     {
         return FM.getOffSet();
+    }
+
+    @Override
+    public Order getOrder(Department department, Order order) throws BllException
+    {
+        return OMA.getOrder(department, order);
     }
 
     

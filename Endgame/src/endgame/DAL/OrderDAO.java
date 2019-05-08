@@ -15,8 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,7 +36,7 @@ public class OrderDAO implements IOrderDAO
     }
 
     @Override
-    public List<Order> getAllOrders(Department department) throws DalException
+    public List<Order> getAllOrders(Department department, int offset) throws DalException
     {
         Connection con = null;
         try
@@ -69,8 +67,8 @@ public class OrderDAO implements IOrderDAO
                 Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString);
                 Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString);
                 Date deliveryDate = new SimpleDateFormat("dd/MM/yyyy").parse(deliveryDateString);
-                
-                Date today = new Date();
+
+                Date today = calculateOffSetDate(offset);
                 if (startDate.equals(today) || startDate.before(today))
                 {
                     if (!isDone)
@@ -121,6 +119,58 @@ public class OrderDAO implements IOrderDAO
         } catch (SQLException ex)
         {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private Date calculateOffSetDate(int offset)
+    {
+        Date today = new Date();
+        long milliOffSet = today.getTime() + (offset * (25 * 60 * 60 * 1000));
+        Date todayOffSet = new Date(milliOffSet);
+        return todayOffSet;
+    }
+
+    @Override
+    public Order getOrder(Department department, Order order) throws DalException
+    {
+        Order newOrder = null;
+        Connection con = null;
+        try {
+            con = cdao.getConnection();
+            String sql = "SELECT * FROM DepartmentTask dt"
+                    + " INNER JOIN \"Order\" d ON dt.orderID = d.id"
+                    + " WHERE dt.departmentID = ? AND dt.orderID = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            
+            pst.setInt(1, department.getId());
+            pst.setInt(2, order.getId());
+            
+            ResultSet rs = pst.executeQuery();
+            
+            while(rs.next()) {
+                int id = rs.getInt("orderID");
+                String ordernumber = rs.getString("ordernumber");
+                String customer = rs.getString("costumer");
+                Boolean isDone = rs.getInt("finished") == 1;
+
+                String startDateString = rs.getString("startDate");
+                String endDateString = rs.getString("endDate");
+                String deliveryDateString = rs.getString("deliverydate");
+
+                Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(startDateString);
+                Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString);
+                Date deliveryDate = new SimpleDateFormat("dd/MM/yyyy").parse(deliveryDateString);
+                
+                newOrder = new Order(id, ordernumber, customer, startDate, endDate, isDone, deliveryDate);
+            }
+            return newOrder;
+            
+        } catch (SQLException ex)
+        {
+            throw new DalException("Could not get order from database");
+        } catch (ParseException ex)
+        {
+            throw new DalException("Could not parse date on order");
         }
     }
 }

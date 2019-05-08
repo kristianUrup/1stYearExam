@@ -10,6 +10,7 @@ import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
@@ -91,7 +94,7 @@ public class PostItController implements Initializable
         } catch (BllException ex)
         {
         }
-//        updateOrder(ordersForDepartment);
+
     }
 
     public void setOrderInfo(Order order)
@@ -111,9 +114,15 @@ public class PostItController implements Initializable
             lblDeliveryDate.setText(output);
 
             setProgressBar();
-
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
             setStatusColor();
+
+            //getLastActive();
+            tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
+            updateOrder(ordersForDepartment);
+            //tableStatus.setItems(OMO.getAllDepartments(ordersForDepartment));
+            setStatusColor();
+
         } catch (BllException ex)
         {
             Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,32 +170,53 @@ public class PostItController implements Initializable
 
     public void updateOrder(Order order)
     {
-        ordersForDepartment = order;
         TimerTask repeatedTask = new TimerTask()
         {
             @Override
             public void run()
             {
-                Date date = ordersForDepartment.getDeliveryDate();
+                try
+                {
+                    ordersForDepartment = OMO.getOrder(department, order);
+                    Platform.runLater(() -> lblOrderNumber.setText(ordersForDepartment.getOrderNumber()));
+                    Platform.runLater(() -> lblCustomer.setText(ordersForDepartment.getCustomer()));
+                    Date date = ordersForDepartment.getDeliveryDate();
 
-                DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
-                String output = outputFormatter.format(date);
+                    DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+                    String output = outputFormatter.format(date);
 
-                lblDeliveryDate.setText(output);
-                System.out.println("Updated post it note");
-                //cancel();   
+                    Platform.runLater(() -> lblDeliveryDate.setText(output));
+
+                    Platform.runLater(() -> setProgressBar());
+//                    Platform.runLater(() ->
+//                    {
+//                        try
+//                        {
+//                            tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
+//                        } catch (BllException ex)
+//                        {
+//                            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
+//                    });
+                } catch (BllException ex)
+                {
+                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         };
         Timer timer = new Timer();
 
-        long delay = 1000L;
-        long period = 1000L;
+        long delay = 2000L;
+        long period = 2000L;
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
     public void setStatusColor() throws BllException
     {
+
         /*       tableStatus.setRowFactory(tv-> new TableRow<Department>(){
+        tableStatus.setRowFactory(tv -> new TableRow<Department>()
+        {
             @Override
             public void updateItem(Department department, boolean empty)
             {
@@ -203,16 +233,16 @@ public class PostItController implements Initializable
                 }
             }
         });
+
          */
         ObservableList<Department> departments = tableDepartmentList.getItems();
-        cellStatus.setCellFactory(column -> 
-        {
-            return new TableCell<Department, Boolean>()
-            {
-                @Override
-                protected void updateItem(Boolean item, boolean empty)
-                {
-                    super.updateItem(item, empty);
+
+
+        cellStatus.setCellFactory(column -> {
+    return new TableCell<Department, Boolean>() {
+        @Override
+        protected void updateItem(Boolean item, boolean empty) {
+            super.updateItem(item, empty);
 
                     for (Department department : departments)
                     {
@@ -231,33 +261,8 @@ public class PostItController implements Initializable
                 }
             };
         });
-
-
-        /*
-            cellStatus.setCellFactory(column -> {return new TableCell<Department,Boolean>(){
-                @Override
-                protected void updateItem(Department department, boolean empty)
-                {
-                    super.updateItem(department, empty);
-                    if(department == null)
-                    {
-                        setText(null);
-                        setStyle("");
-                    }
-                    else if(department.getIsDone())
-                    {
-                        setText(null);
-                        setStyle("-fx-background-color: green;");
-                    }
-                    else
-                    {
-                        setText(null);
-                        setStyle("-fx-background-color: red");
-                    }
-                }
-            };
-            });*/
     }
+
 
 //    public ObservableList<Department> departments()
 //    {
@@ -273,6 +278,23 @@ public class PostItController implements Initializable
 ////
 ////        return departments;
 //    }
+
+    public ObservableList<Department> departments()
+    {
+        ObservableList<Department> departments = FXCollections.observableArrayList();
+
+        Department d1 = new Department(1, "Fisk", true, new Date("20/02/2019"), new Date("20/05/2019"));
+        Department d2 = new Department(2, "Funky", false, new Date("20/01/2019"), new Date("23/06/2019"));
+        Department d3 = new Department(3, "Frederik", false, new Date("01/03/2019"), new Date("20/12/2019"));
+
+        departments.add(d1);
+        departments.add(d2);
+        departments.add(d3);
+
+        return departments;
+    }
+
+    @FXML
     public void getLastActive()
     {
         try
@@ -301,3 +323,5 @@ public class PostItController implements Initializable
         return scrollBar;
 }*/
 }
+    
+

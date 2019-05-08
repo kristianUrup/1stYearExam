@@ -16,9 +16,11 @@ import java.util.List;
  */
 public interface IOrderDAO
 {
-    public List<Order> getAllOrders(Department department) throws DalException;
+    public List<Order> getAllOrders(Department department, int offset) throws DalException;
     
     public void changeOrderState(Order order, Department department) throws DalException;
+    
+    public Order getOrder(Department department, Order order) throws DalException;
     
     
 }

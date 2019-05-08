@@ -29,9 +29,9 @@ public class OrderModel
         departmentList = FXCollections.observableArrayList();
     }
     
-    public List<Order> getAllOrders(Department department) throws BllException
+    public List<Order> getAllOrders(Department department, int offset) throws BllException
     {
-        return BF.getAllOrders(department);
+        return BF.getAllOrders(department, offset);
     }
     
     public void changeOrderState(Order order, Department department) throws BllException {
@@ -80,5 +80,10 @@ public class OrderModel
     
     public int getOffSet() {
         return BF.getOffSet();
+    }
+    
+    public Order getOrder(Department department, Order order) throws BllException
+    {
+        return BF.getOrder(department, order);
     }
 }

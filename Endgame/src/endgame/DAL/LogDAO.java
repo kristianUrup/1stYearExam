@@ -74,22 +74,23 @@ public class LogDAO implements ILogDAO
             try
             {
                 con = cdao.getConnection();
-                String sql = "SELECT d.name" 
-                          + " FROM ActivityLog a join Department d" 
-                          + " on a.departmentID = d.id" 
-                          + " WHERE orderID = ?";
+                String sql = "SELECT TOP 1 d.name" 
+                          + " FROM ActivityLog a join Department d on a.departmentID = d.id " 
+                          + " WHERE orderID = 1" 
+                          + " ORDER BY orderID DESC";
                 PreparedStatement pst = con.prepareStatement(sql);
                 
                 pst.setInt(1, order.getId());
                 
                 ResultSet rs = pst.executeQuery(sql);
                 
-                while(rs.last())
+                while(rs.next())
                 {
                     lastDep = rs.getString("name");
                 }
                 
                 return lastDep;
+                
                 
                 
             } catch (SQLException ex)
