@@ -42,7 +42,7 @@ public class PlatformController implements Initializable
 
     private Department dep;
     private OrderModel OM;
-    List<Order> visibleOrders;
+    private List<String> orderNumbers;
 
     @FXML
     private Label departName;
@@ -59,8 +59,7 @@ public class PlatformController implements Initializable
             OM = new OrderModel();
             dep = OM.getDepartment(OM.getConfig());
             departName.setText(dep.getName());
-            visibleOrders = new ArrayList<>();
-            setPostItNotes();
+            orderNumbers = new ArrayList<>();
             setPostItNotes();
 
         } catch (BllException ex)
@@ -77,10 +76,10 @@ public class PlatformController implements Initializable
         {
             try
             {
-                if (!visibleOrders.contains(order))
+                if (!orderNumbers.contains(order.getOrderNumber()))
                 {
                     openFXML(order);
-                    visibleOrders.add(order);
+                    orderNumbers.add(order.getOrderNumber());
                 }
             } catch (IOException ex)
             {
