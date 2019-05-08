@@ -23,11 +23,13 @@ and open the template in the editor.
     -fx-font-family: "Cooper Black";
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+    -fx-font-size: 18px;
 }
 
 .label
 {
     -fx-font-family:"Cooper Black";
+    -fx-font-size: 14px;
 }
 
 .progress-bar
