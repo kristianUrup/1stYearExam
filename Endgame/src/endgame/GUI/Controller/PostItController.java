@@ -257,7 +257,6 @@ public class PostItController implements Initializable
         });
     }
 
-    @FXML
     public void getLastActive()
     {
         try
