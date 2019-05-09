@@ -142,6 +142,7 @@ public class PostItController implements Initializable
     public void setDone() throws BllException
     {
         OMO.changeOrderState(ordersForDepartment, department);
+        OMO.setLastActivity(ordersForDepartment, department, "Task was marked as done");
     }
 
     public void showDeliveryDate(Order order) throws BllException
