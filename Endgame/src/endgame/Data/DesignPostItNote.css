@@ -37,3 +37,14 @@ and open the template in the editor.
     -fx-box-border: #fcef96;
     -fx-accent: #0b6623;
 }
+
+.table-view {
+    -fx-base: #1d1d1d;
+    -fx-control-inner-background: #a83f39   ;
+    -fx-background-color: #fcef96;;
+    -fx-border-color: black;
+    -fx-border-width: 2;
+    -fx-cursor:hand;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
