@@ -114,6 +114,7 @@ public class PostItController implements Initializable
             lblDeliveryDate.setText(output);
 
             setProgressBar();
+            
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
             setStatusColor();
             
@@ -195,8 +196,8 @@ public class PostItController implements Initializable
         };
         Timer timer = new Timer();
 
-        long delay = 2000L;
-        long period = 2000L;
+        long delay = 5000L;
+        long period = 5000L;
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
@@ -211,7 +212,6 @@ public class PostItController implements Initializable
                 {
                     try
                     {
-                        tableDepartmentList.getItems().clear();
                         tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
                     } catch (BllException ex)
                     {
@@ -222,8 +222,8 @@ public class PostItController implements Initializable
         };
         Timer timer = new Timer();
 
-        long delay = 2000L;
-        long period = 2000L;
+        long delay = 5000L;
+        long period = 5000L;
 
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
@@ -258,7 +258,6 @@ public class PostItController implements Initializable
         });
     }
 
-    @FXML
     public void getLastActive()
     {
         try
