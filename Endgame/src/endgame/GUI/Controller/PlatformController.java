@@ -61,6 +61,7 @@ public class PlatformController implements Initializable
             departName.setText(dep.getName());
             orderNumbers = new ArrayList<>();
             setPostItNotes();
+            updatePostItNotes();
 
         } catch (BllException ex)
         {
@@ -109,8 +110,8 @@ public class PlatformController implements Initializable
         };
         Timer timer = new Timer();
 
-        long delay = 2000L;
-        long period = 2000L;
+        long delay = 5000L;
+        long period = 5000L;
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 

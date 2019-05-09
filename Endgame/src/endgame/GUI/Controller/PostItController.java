@@ -194,8 +194,8 @@ public class PostItController implements Initializable
         };
         Timer timer = new Timer();
 
-        long delay = 2000L;
-        long period = 2000L;
+        long delay = 5000L;
+        long period = 5000L;
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
@@ -221,8 +221,8 @@ public class PostItController implements Initializable
         };
         Timer timer = new Timer();
 
-        long delay = 2000L;
-        long period = 2000L;
+        long delay = 5000L;
+        long period = 5000L;
 
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
