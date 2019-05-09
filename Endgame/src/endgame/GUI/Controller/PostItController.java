@@ -207,16 +207,16 @@ public class PostItController implements Initializable
             @Override
             public void run()
             {
-                Platform.runLater(() ->
+                
+                try
                 {
-                    try
-                    {
-                        tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
-                    } catch (BllException ex)
-                    {
-                        Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
+                    OMO.getAllDepartments(ordersForDepartment);
+                } catch (BllException ex)
+                {
+                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
             }
         };
         Timer timer = new Timer();
