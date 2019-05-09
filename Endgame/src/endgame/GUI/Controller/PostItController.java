@@ -253,6 +253,7 @@ public class PostItController implements Initializable
                         } else
                         {
                             setStyle("-fx-background-color: red");
+                            
                         }
                     }
                 }

@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
@@ -13,27 +15,27 @@
    <center>
       <AnchorPane prefHeight="250.0" prefWidth="545.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane id="AnchorPane" fx:id="anchorPane" layoutX="1.0" layoutY="-1.0" prefHeight="289.0" prefWidth="562.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0">
+            <AnchorPane id="AnchorPane" fx:id="anchorPane" layoutX="1.0" layoutY="-1.0" prefHeight="289.0" prefWidth="562.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
 
-                  <TableView fx:id="tableDepartmentList" layoutX="374.0" layoutY="1.0" prefHeight="178.0" prefWidth="187.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="tableDepartmentList" layoutX="372.0" layoutY="4.0" prefHeight="178.0" prefWidth="204.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="3.0">
                      <columns>
                         <TableColumn fx:id="cellDepartment" prefWidth="133.0" text="Department" />
                         <TableColumn fx:id="cellStatus" prefWidth="53.0" text="Status" />
                      </columns>
                   </TableView>
-                  <ProgressBar fx:id="estimatedProgress" layoutX="21.0" layoutY="154.0" prefHeight="27.0" prefWidth="338.0" progress="0.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="203.0" AnchorPane.topAnchor="153.0" />
-                  <Label layoutX="14.0" layoutY="31.0" text="Order number:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="31.0">
+                  <ProgressBar fx:id="estimatedProgress" layoutX="21.0" layoutY="154.0" prefHeight="27.0" prefWidth="338.0" progress="0.0" AnchorPane.bottomAnchor="92.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="154.0" />
+                  <Label layoutX="14.0" layoutY="31.0" text="Order number:" AnchorPane.bottomAnchor="227.0" AnchorPane.rightAnchor="441.0" AnchorPane.topAnchor="31.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="47.0" layoutY="60.0" prefHeight="18.0" prefWidth="82.0" text="Customer:" AnchorPane.leftAnchor="47.0" AnchorPane.topAnchor="60.0">
+                  <Label layoutX="45.0" layoutY="63.0" prefHeight="18.0" prefWidth="82.0" text="Customer:" AnchorPane.leftAnchor="43.0" AnchorPane.topAnchor="60.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="21.0" layoutY="86.0" text="Delivery date:" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="86.0">
+                  <Label layoutX="17.0" layoutY="88.0" text="Delivery date:" AnchorPane.leftAnchor="17.0" AnchorPane.topAnchor="88.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -43,38 +45,63 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblOrderNumber" layoutX="127.0" layoutY="30.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="127.0" AnchorPane.topAnchor="30.0">
+                  <Label fx:id="lblOrderNumber" layoutX="127.0" layoutY="30.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="30.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblCustomer" layoutX="126.0" layoutY="59.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="59.0">
+                  <Label fx:id="lblCustomer" layoutX="126.0" layoutY="59.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="60.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblDeliveryDate" layoutX="127.0" layoutY="85.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="127.0" AnchorPane.topAnchor="85.0">
+                  <Label fx:id="lblDeliveryDate" layoutX="127.0" layoutY="85.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="126.0" AnchorPane.topAnchor="85.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button fx:id="done" layoutX="129.0" layoutY="207.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="132.0" text="Done!" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="129.0" AnchorPane.rightAnchor="302.0" AnchorPane.topAnchor="207.0">
+                  <Button fx:id="done" layoutX="129.0" layoutY="207.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="132.0" text="Done!" AnchorPane.bottomAnchor="18.0" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="207.0">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Label layoutX="374.0" layoutY="190.0" prefHeight="18.0" prefWidth="89.0" text="Last active:" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="374.0" AnchorPane.topAnchor="189.0">
+                  <Label layoutX="374.0" layoutY="190.0" prefHeight="18.0" prefWidth="89.0" text="Last active:" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="374.0" AnchorPane.topAnchor="190.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblLastActive" layoutX="376.0" layoutY="219.0" prefHeight="18.0" prefWidth="166.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="375.0" AnchorPane.topAnchor="218.0">
+                  <Label fx:id="lblLastActive" layoutX="376.0" layoutY="219.0" prefHeight="18.0" prefWidth="166.0" AnchorPane.leftAnchor="375.0" AnchorPane.topAnchor="212.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <ImageView fitHeight="19.0" fitWidth="185.0" layoutX="374.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="88.58490562438965" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="174.0">
+                     <image>
+                        <Image url="@../../Data/drawedLine.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="180.0" fitWidth="19.0" layoutX="552.8490705490112" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="89.58490562438965" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                     <image>
+                        <Image url="@../../Data/drawedLineRotated.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="180.0" fitWidth="19.0" layoutX="363.84907054901123" layoutY="4.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="89.58490562438965" AnchorPane.rightAnchor="190.0" AnchorPane.topAnchor="3.0">
+                     <image>
+                        <Image url="@../../Data/drawedLineRotated.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
+            <ImageView fitHeight="19.0" fitWidth="185.0" layoutX="373.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="264.58490562438965" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@../../Data/drawedLine.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="19.0" fitWidth="184.0" layoutX="378.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="27.0">
+               <image>
+                  <Image url="@../../Data/drawedLine.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </center>
