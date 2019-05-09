@@ -63,7 +63,7 @@ public class OrderModel
         if(!departmentList.isEmpty())
         {
             departmentList.clear();
-        } else
+        }
         departmentList.addAll(BF.getDepartments(order));
         return departmentList;
     }
