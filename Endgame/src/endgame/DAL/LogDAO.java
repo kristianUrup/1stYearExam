@@ -81,7 +81,6 @@ public class LogDAO implements ILogDAO
                 PreparedStatement pst = con.prepareStatement(sql);
 
                 pst.setInt(1, order.getId());
-                System.out.println(order.getId());
                 ResultSet rs = pst.executeQuery();
 
                 while (rs.next())
