@@ -13,7 +13,7 @@
    <top>
       <AnchorPane prefHeight="71.0" prefWidth="800.0" styleClass="background2" stylesheets="@../../Data/DesignPlatform.css" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="departName" layoutX="27.0" layoutY="13.0" prefHeight="29.0" prefWidth="202.0" text="Department name">
+            <Label fx:id="departName" layoutX="174.0" layoutY="23.0" prefHeight="29.0" prefWidth="202.0" text="Department name" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="174.0" AnchorPane.topAnchor="23.0">
                <font>
                   <Font size="24.0" />
                </font></Label>
@@ -22,13 +22,18 @@
                   <Image url="@../../../../data/BelmanLogo.png" />
                </image>
             </ImageView>
+            <Label layoutX="33.0" layoutY="23.0" text="Department:" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="33.0" AnchorPane.topAnchor="23.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </top>
    <center>
       <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <FlowPane fx:id="flowPane" prefHeight="777.0" prefWidth="798.0" styleClass="background" stylesheets="@../../Data/DesignPlatform.css" />
+            <FlowPane fx:id="flowPane" prefHeight="781.0" prefWidth="870.0" styleClass="background" stylesheets="@../../Data/DesignPlatform.css" />
          </content>
       </ScrollPane>
    </center>
