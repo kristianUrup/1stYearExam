@@ -188,6 +188,10 @@ public class PostItController implements Initializable
                     Platform.runLater(() -> lblDeliveryDate.setText(output));
 
                     Platform.runLater(() -> setProgressBar());
+                    
+                    String lastActive = OMO.getLastActivity(ordersForDepartment);
+                    
+                    Platform.runLater(() -> lblLastActive.setText(lastActive));
                 } catch (BllException ex)
                 {
                     Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
