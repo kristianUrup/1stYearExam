@@ -60,6 +60,10 @@ public class OrderModel
     
     public ObservableList<Department> getAllDepartments(Order order) throws BllException
     {
+        if(!departmentList.isEmpty())
+        {
+            departmentList.clear();
+        } else
         departmentList.addAll(BF.getDepartments(order));
         return departmentList;
     }
