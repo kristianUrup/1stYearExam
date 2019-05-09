@@ -114,10 +114,11 @@ public class PostItController implements Initializable
             lblDeliveryDate.setText(output);
 
             setProgressBar();
+
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
             setStatusColor();
 
-            //getLastActive();
+            getLastActive();
             updateOrder(ordersForDepartment);
             updateDepartmentList();
 
@@ -141,6 +142,7 @@ public class PostItController implements Initializable
     public void setDone() throws BllException
     {
         OMO.changeOrderState(ordersForDepartment, department);
+        OMO.setLastActivity(ordersForDepartment, department, "Task was marked as done");
     }
 
     public void showDeliveryDate(Order order) throws BllException
@@ -194,8 +196,8 @@ public class PostItController implements Initializable
         };
         Timer timer = new Timer();
 
-        long delay = 2000L;
-        long period = 2000L;
+        long delay = 5000L;
+        long period = 5000L;
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
@@ -206,23 +208,20 @@ public class PostItController implements Initializable
             @Override
             public void run()
             {
-                Platform.runLater(() ->
+                try
                 {
-                    try
-                    {
-                        tableDepartmentList.getItems().clear();
-                        tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
-                    } catch (BllException ex)
-                    {
-                        Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                });
+                    OMO.refreshDepartments(ordersForDepartment);
+                } catch (BllException ex)
+                {
+                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
         };
         Timer timer = new Timer();
 
-        long delay = 2000L;
-        long period = 2000L;
+        long delay = 5000L;
+        long period = 5000L;
 
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
@@ -257,7 +256,6 @@ public class PostItController implements Initializable
         });
     }
 
-    @FXML
     public void getLastActive()
     {
         try

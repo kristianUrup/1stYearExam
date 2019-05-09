@@ -29,13 +29,14 @@ import java.util.logging.Logger;
  */
 public class LogDAO implements ILogDAO
 {
+
     private ConnectionDAO cdao;
-    
-    public LogDAO() {
+
+    public LogDAO()
+    {
         cdao = new ConnectionDAO();
     }
-    
-    
+
     @Override
     public void setLastActivity(Order order, Department department, String messageLog)
     {
@@ -46,56 +47,69 @@ public class LogDAO implements ILogDAO
                 con = cdao.getConnection();
                 String sql = "INSERT INTO ActivityLog VALUES(?,?,?,?)";
                 PreparedStatement pst = con.prepareStatement(sql);
-                
-                pst.setInt(1, department.getId());
-                pst.setInt(2, order.getId());
+
+                pst.setInt(1, order.getId());
+                pst.setInt(2, department.getId());
                 pst.setString(3, messageLog);
-                
+
                 LocalDate localdate = LocalDate.now();
                 pst.setString(4, DateTimeFormatter.ofPattern("dd/MM/yyyy").format(localdate));
-            
+
                 pst.execute();
             } catch (SQLException ex)
             {
                 Logger.getLogger(LogDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-            
+
         }
     }
-    
+
     @Override
     public String getLastActivity(Order order) throws DalException
     {
         Connection con = null;
         String lastDep = null;
         {
-            
+
             try
             {
                 con = cdao.getConnection();
-                String sql = "SELECT TOP 1 d.name" 
-                          + " FROM ActivityLog a join Department d on a.departmentID = d.id " 
-                          + " WHERE orderID = 1" 
-                          + " ORDER BY orderID DESC";
+                String sql = "SELECT *"
+                        + " FROM Department INNER JOIN ActivityLog ON Department.id = ActivityLog.departmentID"
+                        + " WHERE ActivityLog.orderID = ?";
+                
                 PreparedStatement pst = con.prepareStatement(sql);
-                
+
                 pst.setInt(1, order.getId());
-                
-                ResultSet rs = pst.executeQuery(sql);
-                
-                while(rs.next())
+                ResultSet rs = pst.executeQuery();
+
+                while (rs.next())
                 {
                     lastDep = rs.getString("name");
                 }
-                
-                return lastDep;
-                
-                
-                
+                if (lastDep == null || lastDep.isEmpty())
+                {
+                    return "No one is active";
+                } else
+                {
+                    return lastDep;
+                }
+
             } catch (SQLException ex)
             {
                 throw new DalException("Could not get last active department");
+            } finally
+            {
+                try
+                {
+                    if (con != null)
+                    {
+                        con.close();
+                    }
+                } catch (SQLException ex)
+                {
+                    throw new DalException("Could not close connection");
+                }
             }
         }
     }
