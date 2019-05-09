@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
  */
 public class OrderModel
 {
-    private ObservableList<Department> departmentList;
+    private final ObservableList<Department> departmentList;
     private final IBLLFacade BF;
 
     public OrderModel() throws BllException
@@ -89,5 +89,16 @@ public class OrderModel
     public Order getOrder(Department department, Order order) throws BllException
     {
         return BF.getOrder(department, order);
+    }
+    
+    public void refreshDepartments(Order order) throws BllException {
+        List<Department> departs = BF.getDepartments(order);
+        for (Department dep : departs) {
+            for (int i = 0; i < departmentList.size(); i++) {
+                if (departmentList.get(i).getName().equals(dep.getName())) {
+                    departmentList.set(i, dep);
+                }
+            }
+        }
     }
 }

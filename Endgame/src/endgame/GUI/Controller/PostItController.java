@@ -114,10 +114,10 @@ public class PostItController implements Initializable
             lblDeliveryDate.setText(output);
 
             setProgressBar();
-            
+
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
             setStatusColor();
-            
+
             getLastActive();
             updateOrder(ordersForDepartment);
             updateDepartmentList();
@@ -208,16 +208,14 @@ public class PostItController implements Initializable
             @Override
             public void run()
             {
-                
                 try
                 {
-                    OMO.getAllDepartments(ordersForDepartment);
+                    OMO.refreshDepartments(ordersForDepartment);
                 } catch (BllException ex)
                 {
                     Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
-                
+
             }
         };
         Timer timer = new Timer();
