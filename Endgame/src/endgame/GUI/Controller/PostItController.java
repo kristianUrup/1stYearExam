@@ -5,40 +5,27 @@
  */
 package endgame.GUI.Controller;
 
-import com.sun.prism.paint.Color;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Orientation;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -76,6 +63,10 @@ public class PostItController implements Initializable
     private TableColumn<Department, String> cellDepartment;
     @FXML
     private TableColumn<Department, Boolean> cellStatus;
+    @FXML
+    private Label lblStartDate;
+    @FXML
+    private Label lblEndDate;
 
     /**
      * Initializes the controller class.
@@ -110,6 +101,14 @@ public class PostItController implements Initializable
 
             DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
             String output = outputFormatter.format(date);
+            
+            Date startDate = order.getStartDate();
+            String startStringDate = new SimpleDateFormat("dd/MM/yyyy").format(startDate);
+            lblStartDate.setText(startStringDate);
+            
+            Date endDate = order.getEndDate();
+            String endStringDate = new SimpleDateFormat("dd/MM/yyyy").format(endDate);
+            lblEndDate.setText(endStringDate);
 
             lblDeliveryDate.setText(output);
 

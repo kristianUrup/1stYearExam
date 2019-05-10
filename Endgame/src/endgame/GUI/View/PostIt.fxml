@@ -90,6 +90,8 @@
                         <Image url="@../../Data/drawedLineRotated.png" />
                      </image>
                   </ImageView>
+                  <Label fx:id="lblStartDate" layoutX="22.0" layoutY="183.0" AnchorPane.leftAnchor="22.0" AnchorPane.topAnchor="183.0" />
+                  <Label fx:id="lblEndDate" layoutX="321.0" layoutY="183.0" AnchorPane.rightAnchor="202.0" AnchorPane.topAnchor="183.0" />
                </children>
             </AnchorPane>
             <ImageView fitHeight="19.0" fitWidth="185.0" layoutX="373.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="264.58490562438965" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
