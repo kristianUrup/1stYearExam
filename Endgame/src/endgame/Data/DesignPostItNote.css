@@ -64,3 +64,11 @@ and open the template in the editor.
     -fx-background-color: transparent;
     -fx-text-fill: black;
 }
+
+.table-cell
+{
+    -fx-text-fill: black;
+    -fx-font-family: "Cooper Black";
+    -fx-font-size: 14px;
+}
+
