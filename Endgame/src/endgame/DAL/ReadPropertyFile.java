@@ -19,7 +19,7 @@ public class ReadPropertyFile
 
     protected Properties prop = null;
     //System.out.println(System.getProperty("user.dir"));
-    protected InputStream input = new FileInputStream("data/config.properties");
+    protected InputStream input = new FileInputStream("src/data/config.properties");
 
     public ReadPropertyFile() throws IOException
     {

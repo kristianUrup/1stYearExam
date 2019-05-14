@@ -13,6 +13,11 @@ import java.util.Date;
  */
 public class JSONOrder implements IOrder
 {
+    private final String jsonFile;
+    
+    public JSONOrder(String jsonFile) {
+        this.jsonFile = jsonFile;
+    }
 
     @Override
     public Date getDeliveryTime()
