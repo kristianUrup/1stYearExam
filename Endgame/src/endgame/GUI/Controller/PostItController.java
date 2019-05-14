@@ -103,11 +103,11 @@ public class PostItController implements Initializable
             String output = outputFormatter.format(date);
             
             Date startDate = order.getStartDate();
-            String startStringDate = new SimpleDateFormat("dd/MM/yyyy").format(startDate);
+            String startStringDate = new SimpleDateFormat("ww/u").format(startDate);
             lblStartDate.setText(startStringDate);
             
             Date endDate = order.getEndDate();
-            String endStringDate = new SimpleDateFormat("dd/MM/yyyy").format(endDate);
+            String endStringDate = new SimpleDateFormat("ww/u").format(endDate);
             lblEndDate.setText(endStringDate);
 
             lblDeliveryDate.setText(output);
