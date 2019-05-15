@@ -1,5 +1,5 @@
-﻿{
-  "AvailableWorkers": [
+{
+"AvailableWorkers": [
     {
       "__type": "Worker:#ProductionMonitor",
       "Initials": "KN",
@@ -43,7 +43,7 @@
       "SalaryNumber": 1506
     }
   ],
-  "ProductionOrders": [
+"ProductionOrders": [
     {
       "__type": "ProductionOrder:#ProductionMonitor",
       "Customer": {

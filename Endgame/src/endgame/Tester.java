@@ -5,6 +5,9 @@
  */
 package endgame;
 
+import endgame.DAL.json.JSONFileReader;
+import java.io.File;
+
 
 /**
  *
@@ -14,5 +17,8 @@ public class Tester
 {
     public static void main(String[] args)
     {
+        File file = new File("src/data");
+        JSONFileReader json = new JSONFileReader();
+        json.getJsonFile(file);
     }
 }
