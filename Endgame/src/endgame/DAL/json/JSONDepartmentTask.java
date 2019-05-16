@@ -5,8 +5,12 @@
  */
 package endgame.DAL.json;
 
-import endgame.BE.Department;
+import endgame.DAL.Exception.DalException;
+import java.text.ParseException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -16,27 +20,60 @@ public class JSONDepartmentTask implements IDepartmentTask
 {
 
     @Override
-    public Department getDepartment()
+    public String getDepartment(Object object)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject jObject = (JSONObject) object;
+        JSONObject department = (JSONObject) jObject.get("Department");
+        String name = (String) department.get("Name");
+        return name;
     }
 
     @Override
-    public boolean isOrderFinished()
+    public boolean isOrderFinished(Object object)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject jObject = (JSONObject) object;
+        boolean isOrderDone = (boolean) jObject.get("FinishedOrder");
+        return isOrderDone;
     }
 
     @Override
-    public Date getStartDate()
+    public Date getStartDate(Object object) throws DalException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            JSONObject jObject = (JSONObject) object;
+            String startDate = (String) jObject.get("StartDate");
+            return convertJSONDate(startDate);
+        } catch (ParseException ex)
+        {
+            throw new DalException("Could not parse date");
+        }
     }
 
     @Override
-    public Date getEndDate()
+    public Date getEndDate(Object object) throws DalException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            JSONObject jObject = (JSONObject) object;
+            String endDate = (String) jObject.get("EndDate");
+            return convertJSONDate(endDate);
+        } catch (ParseException ex)
+        {
+            throw new DalException("Could not parse date");
+        }
+    }
+    
+    private Date convertJSONDate(String jsonDate) throws ParseException {
+        int timeZoneIndex = jsonDate.indexOf("+");
+        String date = "";
+        if (timeZoneIndex != -1) {
+            date = jsonDate.substring(6, timeZoneIndex);
+            System.out.println(date);
+        }
+        long timeInMillis = Long.parseLong(date);
+        Date deliveryDate = new Date(timeInMillis);
+        return deliveryDate;
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package endgame.DAL.json;
 
+import endgame.DAL.Exception.DalException;
 import java.util.Date;
 
 /**
@@ -13,9 +14,9 @@ import java.util.Date;
  */
 public interface IOrder
 {
-    public Date getDeliveryTime();
+    public Date getDeliveryTime(Object object) throws DalException;
     
-    public String getOrderNumber();
+    public String getOrderNumber(Object object);
     
-    public String getCustomer();
+    public String getCustomer(Object object);
 }

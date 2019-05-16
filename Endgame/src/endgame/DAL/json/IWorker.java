@@ -11,9 +11,9 @@ package endgame.DAL.json;
  */
 public interface IWorker
 {
-    public String getName();
+    public String getName(Object object);
     
-    public String getInitials();
+    public String getInitials(Object object);
     
-    public int getSalaryNumber();
+    public int getSalaryNumber(Object object);
 }

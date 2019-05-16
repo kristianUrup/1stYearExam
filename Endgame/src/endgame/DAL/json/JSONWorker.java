@@ -5,6 +5,8 @@
  */
 package endgame.DAL.json;
 
+import org.json.simple.JSONObject;
+
 /**
  *
  * @author Frederik Jensen
@@ -13,21 +15,28 @@ public class JSONWorker implements IWorker
 {
 
     @Override
-    public String getName()
+    public String getName(Object object)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject jObject = (JSONObject) object;
+        String workerName = (String) jObject.get("Name");
+        return workerName;
     }
 
     @Override
-    public String getInitials()
+    public String getInitials(Object object)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject jObject = (JSONObject) object;
+        String workerInitials = (String) jObject.get("Initials");
+        return workerInitials;
     }
 
     @Override
-    public int getSalaryNumber()
+    public int getSalaryNumber(Object object)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        JSONObject jObject = (JSONObject) object;
+        long salaryNumber = (long) jObject.get("SalaryNumber");
+        int number = (int) salaryNumber;
+        return number;
     }
     
 }
