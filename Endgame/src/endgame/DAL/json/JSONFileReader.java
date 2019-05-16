@@ -65,6 +65,7 @@ public class JSONFileReader
     public void readJsonFile(String json) throws DalException
     {
         getWorkersFromJson(json);
+        getOrdersFromJson(json);
     }
 
     private void getWorkersFromJson(String json)
@@ -76,9 +77,9 @@ public class JSONFileReader
             JSONArray avalWorkers = (JSONArray) jsonObject.get("AvailableWorkers");
             for (Object object : avalWorkers)
             {
-                System.out.println(jsonWorker.getName(object));
-                System.out.println(jsonWorker.getInitials(object));
-                System.out.println(jsonWorker.getSalaryNumber(object));
+                String name = jsonWorker.getName(object);
+                String initials = jsonWorker.getInitials(object);
+                int salaryNumber = jsonWorker.getSalaryNumber(object);
             }
         } catch (IOException | ParseException ex)
         {
@@ -94,25 +95,29 @@ public class JSONFileReader
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(json));
             JSONArray orders = (JSONArray) jsonObject.get("ProductionOrders");
-            for (Object object : orders) {
+            for (Object object : orders)
+            {
                 Date deliveryDate = jsonOrder.getDeliveryTime(object);
                 String customer = jsonOrder.getCustomer(object);
                 String orderNumber = jsonOrder.getOrderNumber(object);
-                
-                JSONObject jObject = (JSONObject) object;
-                JSONArray tasks = (JSONArray) jsonObject.get("DepartmentTasks");
-                for (Object object2 : orders) {
-                    
-                }
+                getTasksFromJson(object);
             }
         } catch (IOException | ParseException ex)
         {
             Logger.getLogger(JSONFileReader.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void getTasksFromJson(Object object) {
+
+    private void getTasksFromJson(Object object) throws DalException
+    {
         JSONObject jObject = (JSONObject) object;
-        
+        JSONArray tasks = (JSONArray) jObject.get("DepartmentTasks");
+        for (Object object2 : tasks)
+        {
+            String department = jsonTask.getDepartment(object2);
+            Date startDate = jsonTask.getStartDate(object2);
+            Date endDate = jsonTask.getEndDate(object2);
+            boolean isDone = jsonTask.isOrderFinished(object2);
+        }
     }
 }
