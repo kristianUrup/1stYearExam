@@ -9,26 +9,37 @@ import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javax.swing.ImageIcon;
 
 /**
  * FXML Controller class
@@ -42,6 +53,7 @@ public class PostItController implements Initializable
     Order ordersForDepartment;
     PlatformController pfcontroller;
     OrderModel OMO;
+    ExpandedPostItNoteController epinc;
 
     @FXML
     private Label lblOrderNumber;
@@ -50,38 +62,19 @@ public class PostItController implements Initializable
     @FXML
     private Label lblDeliveryDate;
     @FXML
-    private Label lblLastActive;
-    @FXML
-    private ProgressBar estimatedProgress;
-    @FXML
     private AnchorPane anchorPane;
-    @FXML
-    private Button done;
-    @FXML
-    private TableView<Department> tableDepartmentList;
-    @FXML
-    private TableColumn<Department, String> cellDepartment;
-    @FXML
-    private TableColumn<Department, Boolean> cellStatus;
-    @FXML
-    private Label lblStartDate;
-    @FXML
-    private Label lblEndDate;
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        
         try
         {
+            epinc = new ExpandedPostItNoteController();
             pfcontroller = new PlatformController();
             OMO = new OrderModel();
-            cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
-            //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-            //  cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
-            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
         } catch (BllException ex)
         {
         }
@@ -91,41 +84,15 @@ public class PostItController implements Initializable
     public void setOrderInfo(Order order)
     {
 
-        try
-        {
-            ordersForDepartment = order;
-            lblOrderNumber.setText(order.getOrderNumber());
-            lblCustomer.setText(order.getCustomer());
 
-            Date date = order.getDeliveryDate();
 
-            DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
-            String output = outputFormatter.format(date);
-            
-            Date startDate = order.getStartDate();
-            String startStringDate = new SimpleDateFormat("ww/u").format(startDate);
-            lblStartDate.setText(startStringDate);
-            
-            Date endDate = order.getEndDate();
-            String endStringDate = new SimpleDateFormat("ww/u").format(endDate);
-            lblEndDate.setText(endStringDate);
-
-            lblDeliveryDate.setText(output);
-
-            setProgressBar();
-
-            tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
-            setStatusColor();
-
-            getLastActive();
-            updateOrder(ordersForDepartment);
-            updateDepartmentList();
-
-        } catch (BllException ex)
-        {
-            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        ordersForDepartment = order;
+        lblOrderNumber.setText(order.getOrderNumber());
+        lblCustomer.setText(order.getCustomer());
+        Date date = order.getDeliveryDate();
+        DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        String output = outputFormatter.format(date);
+        lblDeliveryDate.setText(output);
     }
 
     public void setDepartment(Department department)
@@ -133,16 +100,6 @@ public class PostItController implements Initializable
         this.department = department;
     }
 
-    public Button getButton()
-    {
-        return done;
-    }
-
-    public void setDone() throws BllException
-    {
-        OMO.changeOrderState(ordersForDepartment, department);
-        OMO.setLastActivity(ordersForDepartment, department, "Task was marked as done");
-    }
 
     public void showDeliveryDate(Order order) throws BllException
     {
@@ -156,135 +113,55 @@ public class PostItController implements Initializable
         lblDeliveryDate.setText(output);
     }
 
-    private void setProgressBar()
+    @FXML
+    private void handleMouseAnchorPane(MouseEvent event) throws IOException
     {
-        try
-        {
-            estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(ordersForDepartment));
-        } catch (BllException ex)
-        {
-            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
-        }
-    }
+        
+//        ObservableList<Node> allNodes = anchorPane.getChildren();
+//        BoxBlur blur = new BoxBlur();
+//        blur.setWidth(25);
+//        blur.setHeight(25);
+//        for (Node node : allNodes)
+//        {
+//            node.setEffect(blur);
+//        }
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
+//        Parent root = (Parent) loader.load();
+//        ExpandedPostItNoteController epincontroller = loader.getController();
+//        epincontroller.setDepartment(department);
+//        epincontroller.setOrderInfo(ordersForDepartment);
+//        pfcontroller.getFlowPane().getChildren().add(root);
+//        epinc.getButton().setOnAction(e ->
+//        {
+//            try
+//            {
+//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                alert.setTitle("Dialog");
+//                alert.setHeaderText("You are about to set this task to done");
+//                alert.setContentText("Are you sure you want to do this?");
+//
+//                String header = "You are about to set this task to done";
+//                String content = "Are you sure you want to do this?";
+//                Optional<ButtonType> result = alert.showAndWait();
+//                if ((result.isPresent()) && (result.get() == ButtonType.OK))
+//                {
+//                    epinc.setDone();
+//                    pfcontroller.getFlowPane().getChildren().remove(root);
+//                }
+//
+//            } catch (BllException ex)
+//            {
+//                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//
+//        });
 
-    public void updateOrder(Order order)
-    {
-        TimerTask repeatedTask = new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    ordersForDepartment = OMO.getOrder(department, order);
-                    Platform.runLater(() -> lblOrderNumber.setText(ordersForDepartment.getOrderNumber()));
-                    Platform.runLater(() -> lblCustomer.setText(ordersForDepartment.getCustomer()));
-                    Date date = ordersForDepartment.getDeliveryDate();
-
-                    DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
-                    String output = outputFormatter.format(date);
-
-                    Platform.runLater(() -> lblDeliveryDate.setText(output));
-
-                    Platform.runLater(() -> setProgressBar());
-                    
-                    String lastActive = OMO.getLastActivity(ordersForDepartment);
-                    
-                    Platform.runLater(() -> lblLastActive.setText(lastActive));
-                } catch (BllException ex)
-                {
-                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        };
-        Timer timer = new Timer();
-
-        long delay = 5000L;
-        long period = 5000L;
-        timer.scheduleAtFixedRate(repeatedTask, delay, period);
-    }
-
-    public void updateDepartmentList()
-    {
-        TimerTask repeatedTask = new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                try
-                {
-                    OMO.refreshDepartments(ordersForDepartment);
-                } catch (BllException ex)
-                {
-                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            }
-        };
-        Timer timer = new Timer();
-
-        long delay = 5000L;
-        long period = 5000L;
-
-        timer.scheduleAtFixedRate(repeatedTask, delay, period);
-    }
-
-    public void setStatusColor() throws BllException
-    {
-        cellStatus.setCellFactory(column ->
-        {
-            return new TableCell<Department, Boolean>()
-            {
-                @Override
-                protected void updateItem(Boolean item, boolean empty)
-                {
-                    super.updateItem(item, empty);
-
-                    if (item == null || empty)
-                    {
-                        setText(null);
-                        setStyle("");
-                    } else
-                    {
-                        if (item)
-                        {
-                            setStyle("-fx-background-color: green");
-                        } else
-                        {
-                            setStyle("-fx-background-color: red");
-                            
-                        }
-                    }
-                }
-            };
-        });
-    }
-
-    public void getLastActive()
-    {
-        try
-        {
-            lblLastActive.setText(OMO.getLastActivity(ordersForDepartment));
-        } catch (BllException ex)
-        {
-            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
-        }
-    }
-
-    /*  public void bindScrollBars() {
-        //ScrollBar scrollBarPane = getScrollBar(scrollPane);
-        //ScrollBar scrollBarTable = getScrollBar(table);
-        //scrollBarPane.valueProperty().bind(scrollBarTable.valueProperty());
-        tableDepartmentList.setOnScrollTo(tableStatus.getOnScrollTo());
+        
     }
     
-    private static ScrollBar getScrollBar(Control source) {
-        ScrollBar scrollBar = null;
-        for (Node node : source.lookupAll(".scroll-bar")) {
-            if (node instanceof ScrollBar && ((ScrollBar) node).getOrientation().equals(Orientation.VERTICAL)) {
-                scrollBar = (ScrollBar) node;
-            }
-        }
-        return scrollBar;
-}*/
+    public AnchorPane getAnchorPane()
+    {
+        return anchorPane;
+    }
+
 }
