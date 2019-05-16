@@ -5,7 +5,7 @@
  */
 package endgame.DAL.json;
 
-import endgame.BE.Department;
+import endgame.DAL.Exception.DalException;
 import java.util.Date;
 
 /**
@@ -14,11 +14,11 @@ import java.util.Date;
  */
 public interface IDepartmentTask
 {
-    public Department getDepartment();
+    public String getDepartment(Object object);
     
-    public boolean isOrderFinished();
+    public boolean isOrderFinished(Object object);
     
-    public Date getStartDate();
+    public Date getStartDate(Object object) throws DalException;
     
-    public Date getEndDate();
+    public Date getEndDate(Object object) throws DalException;
 }
