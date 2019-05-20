@@ -9,6 +9,7 @@ import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
+import java.awt.Color;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,8 +29,10 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -74,8 +77,11 @@ public class ExpandedPostItNoteController implements Initializable
     OrderModel OMO;
     Order ordersForDepartment;
     Department department;
-    @FXML
     private StackPane stackPane;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private ImageView crossBtn;
 
     /**
      * Initializes the controller class.
@@ -93,6 +99,7 @@ public class ExpandedPostItNoteController implements Initializable
             cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
         } catch (BllException ex)
         {
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
 
     }
@@ -132,7 +139,7 @@ public class ExpandedPostItNoteController implements Initializable
 
         } catch (BllException ex)
         {
-            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
 
     }
@@ -142,7 +149,12 @@ public class ExpandedPostItNoteController implements Initializable
         this.department = department;
     }
 
-    public Button getButton()
+    public ImageView getCrossView()
+    {
+        return crossBtn;
+    }
+    
+    public Button getDoneButton()
     {
         return done;
     }
@@ -202,7 +214,7 @@ public class ExpandedPostItNoteController implements Initializable
                     Platform.runLater(() -> lblLastActive.setText(lastActive));
                 } catch (BllException ex)
                 {
-                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+                    OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
                 }
             }
         };
@@ -248,28 +260,40 @@ public class ExpandedPostItNoteController implements Initializable
                 protected void updateItem(Boolean item, boolean empty)
                 {
                     super.updateItem(item, empty);
-
+                    
                     if (item == null || empty)
                     {
                         setText(null);
                         setStyle("");
                     } else
                     {
-                        if (item)
+                        if (item) //færdig
                         {
                             setStyle("-fx-background-color: green");
-                            setText("GREEN");
-                        } else
+                            setText("Done");
+                        } 
+                        else if (!item && System.currentTimeMillis() > ordersForDepartment.getEndDate().getTime()) 
                         {
                             setStyle("-fx-background-color: red");
-                            setText("RED");
-                            
+                            setText("Behind");
+                        } 
+                        else if (!item && System.currentTimeMillis() > ordersForDepartment.getStartDate().getTime()                 
+                            && (ordersForDepartment.getEndDate().getTime()) < System.currentTimeMillis())
+                        {
+                            setStyle("-fx-background-color: blue");
+                            setText("Ongoing");
                         }
+                        else if (!item && System.currentTimeMillis() < ordersForDepartment.getStartDate().getTime())
+                        {
+                            setStyle("-fx-background-color: yellow");
+                            setText("Not started");
+                        }
+                                 
+
                     }
                 }
             };
-        });
-    }
+        });}
 
     public void getLastActive()
     {
@@ -286,12 +310,12 @@ public class ExpandedPostItNoteController implements Initializable
     {
         return stackPane;
     }
-
-    @FXML
-    private void handleStackPaneClicked(MouseEvent event)
+    
+    public BorderPane getBorderPane()
     {
-//        pfcontroller.getFlowPane().getChildren().remove(stackPane);
+        return borderPane;
     }
+
     
 }
 

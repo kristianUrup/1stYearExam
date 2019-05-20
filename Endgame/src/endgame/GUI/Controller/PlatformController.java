@@ -41,6 +41,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -65,7 +66,10 @@ public class PlatformController implements Initializable
     private FlowPane flowPane;
     ExpandedPostItNoteController epinc;
     PostItController picontroller;
-            
+    @FXML
+    private BorderPane borderPane;
+    
+    private Parent openPostIt;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -80,7 +84,7 @@ public class PlatformController implements Initializable
             orderNumbers = new ArrayList<>();
             setPostItNotes();
             updatePostItNotes();
-
+            
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,74 +148,94 @@ public class PlatformController implements Initializable
         pic.setDepartment(dep);
         pic.setOrderInfo(order);
         flowPane.getChildren().add(root1);
-            pic.getAnchorPane().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() 
+        pic.getAnchorPane().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+        {
+            @Override
+            public void handle(MouseEvent e)
             {
-                @Override
-                public void handle(MouseEvent e) 
+
+                ObservableList<Node> allNodes = flowPane.getChildren();
+                BoxBlur blur = new BoxBlur();
+                blur.setWidth(20);
+                blur.setHeight(20);
+                if (!bigPostItCheck)
                 {
-                    
-                    // Blurs everything which exists in the root Pane
-                    ObservableList<Node> allNodes = flowPane.getChildren();
-                    BoxBlur blur = new BoxBlur();
-                    blur.setWidth(20);
-                    blur.setHeight(20);
-                    if(!bigPostItCheck)
-                    {
-                    for (Node child : allNodes) 
+                    for (Node child : allNodes)
                     {
                         child.setEffect(blur);
                     }
-                    
-                    try{
+
+                    try
+                    {
                         bigPostItCheck = true;
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
-                        Parent root2 = (Parent) loader.load();
+                        openPostIt = (Parent) loader.load();
                         ExpandedPostItNoteController epincontroller = loader.getController();
                         epincontroller.setDepartment(dep);
                         epincontroller.setOrderInfo(order);
-                        flowPane.getChildren().add(root2);
-                        epincontroller.getButton().setOnAction(event ->
+                        flowPane.getChildren().add(openPostIt);
+                        epincontroller.getDoneButton().setOnAction(event ->
                         {
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                             alert.setTitle("Dialog");
                             alert.setHeaderText("You are about to set this task to done");
                             alert.setContentText("Are you sure you want to do this?");
-                
+
                             Optional<ButtonType> result = alert.showAndWait();
                             if ((result.isPresent()) && (result.get() == ButtonType.OK))
                             {
-                                try{
+                                try
+                                {
                                     epinc.setDone();
                                 } catch (BllException ex)
                                 {
                                     Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                                 flowPane.getChildren().remove(root1);
-                                flowPane.getChildren().remove(root2);
-                                blur.setHeight(-20);
-                                blur.setWidth(-20);
-                                bigPostItCheck = false;
-                                }
-                        });
-                        epincontroller.getStackPane().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-                        {
-                            @Override
-                            public void handle(MouseEvent event1) {
-                                flowPane.getChildren().remove(root2);
+                                flowPane.getChildren().remove(openPostIt);
                                 blur.setHeight(-20);
                                 blur.setWidth(-20);
                                 bigPostItCheck = false;
                             }
                         });
-                    }catch (IOException ex)
+                        epincontroller.getCrossView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+                        {
+                            @Override
+                            public void handle(MouseEvent event1) {
+                                
+                                if(bigPostItCheck)
+                                {
+                                    flowPane.getChildren().remove(openPostIt);
+                                    blur.setHeight(-20);
+                                    blur.setWidth(-20);
+                                    bigPostItCheck = false;
+                                }
+                            }
+                        });
+//
+//                           flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+//                        {
+//                            @Override
+//                            public void handle(MouseEvent event1) {
+//                                
+//                                if(bigPostItCheck)
+//                                {
+//                                    flowPane.getChildren().remove(openPostIt);
+////                                    blur.setHeight(-20);
+////                                    blur.setWidth(-20);
+//                                    bigPostItCheck = false;
+//                                }
+//                            }
+//                        });
+                    } catch (IOException ex)
                     {
                         Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                }
-            });
+            }
+        });
     }
-    
+
     public FlowPane getFlowPane()
     {
         return flowPane;
@@ -223,7 +247,9 @@ public class PlatformController implements Initializable
         System.exit(0);
     }
 
+    @FXML
+    private void handleMouseFlowPane(MouseEvent event)
+    {
+        
+    }
 }
-
-                  
-                    
