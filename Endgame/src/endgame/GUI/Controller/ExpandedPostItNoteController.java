@@ -9,6 +9,7 @@ import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
+import java.awt.Color;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,8 +29,10 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -74,8 +77,11 @@ public class ExpandedPostItNoteController implements Initializable
     OrderModel OMO;
     Order ordersForDepartment;
     Department department;
-    @FXML
     private StackPane stackPane;
+    @FXML
+    private BorderPane borderPane;
+    @FXML
+    private ImageView crossBtn;
 
     /**
      * Initializes the controller class.
@@ -143,7 +149,12 @@ public class ExpandedPostItNoteController implements Initializable
         this.department = department;
     }
 
-    public Button getButton()
+    public ImageView getCrossView()
+    {
+        return crossBtn;
+    }
+    
+    public Button getDoneButton()
     {
         return done;
     }
@@ -299,12 +310,12 @@ public class ExpandedPostItNoteController implements Initializable
     {
         return stackPane;
     }
-
-    @FXML
-    private void handleStackPaneClicked(MouseEvent event)
+    
+    public BorderPane getBorderPane()
     {
-//        pfcontroller.getFlowPane().getChildren().remove(stackPane);
+        return borderPane;
     }
+
     
 }
 
