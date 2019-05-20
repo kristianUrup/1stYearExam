@@ -58,7 +58,6 @@ public class JSONOrder implements IOrder
         String date = "";
         if (timeZoneIndex != -1) {
             date = jsonDate.substring(6, timeZoneIndex);
-            System.out.println(date);
         }
         long timeInMillis = Long.parseLong(date);
         Date deliveryDate = new Date(timeInMillis);

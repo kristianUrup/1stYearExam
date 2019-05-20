@@ -69,7 +69,6 @@ public class JSONDepartmentTask implements IDepartmentTask
         String date = "";
         if (timeZoneIndex != -1) {
             date = jsonDate.substring(6, timeZoneIndex);
-            System.out.println(date);
         }
         long timeInMillis = Long.parseLong(date);
         Date deliveryDate = new Date(timeInMillis);
