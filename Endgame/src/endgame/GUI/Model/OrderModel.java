@@ -7,6 +7,7 @@ package endgame.GUI.Model;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.BE.Worker;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
@@ -100,5 +101,16 @@ public class OrderModel
                 }
             }
         }
+    }
+    
+    public ObservableList<Worker> getAllWorkers()
+    {
+        ObservableList<Worker> workers = FXCollections.observableArrayList();
+        
+        Worker claus = new Worker(1,"Claus", 2042, "CJ", 1);
+        
+        workers.add(claus);
+        
+        return workers;
     }
 }

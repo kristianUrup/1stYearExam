@@ -7,6 +7,7 @@ package endgame.GUI.Controller;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.BE.Worker;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.awt.Color;
@@ -56,9 +57,9 @@ public class ExpandedPostItNoteController implements Initializable
     @FXML
     private TableColumn<Department, Boolean> cellStatus;
     @FXML
-    private TableView<Department> tableWorkersID;
+    private TableView<Worker> tableWorkersID;
     @FXML
-    private TableColumn<Department, Integer> cellWorkersID;
+    private TableColumn<Worker, Integer> cellWorkersID;
     @FXML
     private ProgressBar estimatedProgress;
     @FXML
@@ -93,10 +94,12 @@ public class ExpandedPostItNoteController implements Initializable
         {
             pfcontroller = new PlatformController();
             OMO = new OrderModel();
+            cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
             //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
             //  cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
             cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
+            tableWorkersID.setItems(OMO.getAllWorkers());
         } catch (BllException ex)
         {
         }
