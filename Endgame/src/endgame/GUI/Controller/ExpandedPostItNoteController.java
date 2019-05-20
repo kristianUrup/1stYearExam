@@ -93,6 +93,7 @@ public class ExpandedPostItNoteController implements Initializable
             cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
         } catch (BllException ex)
         {
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
 
     }
@@ -132,7 +133,7 @@ public class ExpandedPostItNoteController implements Initializable
 
         } catch (BllException ex)
         {
-            Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
 
     }
@@ -202,7 +203,7 @@ public class ExpandedPostItNoteController implements Initializable
                     Platform.runLater(() -> lblLastActive.setText(lastActive));
                 } catch (BllException ex)
                 {
-                    Logger.getLogger(PostItController.class.getName()).log(Level.SEVERE, null, ex);
+                    OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
                 }
             }
         };
@@ -248,28 +249,40 @@ public class ExpandedPostItNoteController implements Initializable
                 protected void updateItem(Boolean item, boolean empty)
                 {
                     super.updateItem(item, empty);
-
+                    
                     if (item == null || empty)
                     {
                         setText(null);
                         setStyle("");
                     } else
                     {
-                        if (item)
+                        if (item) //færdig
                         {
                             setStyle("-fx-background-color: green");
-                            setText("GREEN");
-                        } else
+                            setText("Done");
+                        } 
+                        else if (!item && System.currentTimeMillis() > ordersForDepartment.getEndDate().getTime()) 
                         {
                             setStyle("-fx-background-color: red");
-                            setText("RED");
-                            
+                            setText("Behind");
+                        } 
+                        else if (!item && System.currentTimeMillis() > ordersForDepartment.getStartDate().getTime()                 
+                            && (ordersForDepartment.getEndDate().getTime()) < System.currentTimeMillis())
+                        {
+                            setStyle("-fx-background-color: blue");
+                            setText("Ongoing");
                         }
+                        else if (!item && System.currentTimeMillis() < ordersForDepartment.getStartDate().getTime())
+                        {
+                            setStyle("-fx-background-color: yellow");
+                            setText("Not started");
+                        }
+                                 
+
                     }
                 }
             };
-        });
-    }
+        });}
 
     public void getLastActive()
     {
