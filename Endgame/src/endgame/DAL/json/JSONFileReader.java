@@ -28,15 +28,17 @@ import org.json.simple.parser.ParseException;
 public class JSONFileReader
 {
 
-    IOrder jsonOrder;
-    IWorker jsonWorker;
-    IDepartmentTask jsonTask;
+    private IOrder jsonOrder;
+    private IWorker jsonWorker;
+    private IDepartmentTask jsonTask;
+    private JSONDAO jdao;
 
     public JSONFileReader()
     {
         jsonOrder = new JSONOrder();
         jsonWorker = new JSONWorker();
         jsonTask = new JSONDepartmentTask();
+        jdao = new JSONDAO();
     }
 
     public void getJsonFile(File folder) throws DalException
@@ -115,6 +117,8 @@ public class JSONFileReader
         for (Object object2 : tasks)
         {
             String department = jsonTask.getDepartment(object2);
+            if (jdao.departmentExists(department)) {
+            }
             Date startDate = jsonTask.getStartDate(object2);
             Date endDate = jsonTask.getEndDate(object2);
             boolean isDone = jsonTask.isOrderFinished(object2);
