@@ -33,7 +33,6 @@
       </AnchorPane>
    </top>
    <center>
-
       <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
             <FlowPane fx:id="flowPane" onMouseClicked="#handleMouseFlowPane" prefHeight="781.0" prefWidth="874.0" styleClass="background" stylesheets="@../../Data/DesignPlatform.css" />

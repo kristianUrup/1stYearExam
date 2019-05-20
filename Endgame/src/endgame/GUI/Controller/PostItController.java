@@ -77,6 +77,7 @@ public class PostItController implements Initializable
             OMO = new OrderModel();
         } catch (BllException ex)
         {
+            OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
 
     }
@@ -164,4 +165,5 @@ public class PostItController implements Initializable
         return anchorPane;
     }
 
+    
 }
