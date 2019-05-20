@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.PlatformController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.PlatformController">
    <top>
       <AnchorPane prefHeight="71.0" prefWidth="800.0" styleClass="background2" stylesheets="@../../Data/DesignPlatform.css" BorderPane.alignment="CENTER">
          <children>
@@ -33,13 +33,10 @@
       </AnchorPane>
    </top>
    <center>
-<<<<<<< HEAD
-      <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
-=======
+
       <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
->>>>>>> cefeb61b4e4007d439aa1d473a2cd4abaad274c9
          <content>
-            <FlowPane fx:id="flowPane" prefHeight="781.0" prefWidth="874.0" styleClass="background" stylesheets="@../../Data/DesignPlatform.css" />
+            <FlowPane fx:id="flowPane" onMouseClicked="#handleMouseFlowPane" prefHeight="781.0" prefWidth="874.0" styleClass="background" stylesheets="@../../Data/DesignPlatform.css" />
          </content>
       </ScrollPane>
    </center>
