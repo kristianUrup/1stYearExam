@@ -5,6 +5,8 @@
  */
 package endgame.DAL.json;
 
+import endgame.BE.Department;
+import endgame.BE.Order;
 import endgame.DAL.Exception.DalException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,6 +50,7 @@ public class JSONFileReader
             if (getFileExtension(fileEntry).equals("json"))
             {
                 readJsonFile(fileEntry.getAbsolutePath());
+                fileEntry.delete();
             }
         }
     }
@@ -64,13 +67,13 @@ public class JSONFileReader
         }
     }
 
-    public void readJsonFile(String json) throws DalException
+    private void readJsonFile(String json) throws DalException
     {
         getWorkersFromJson(json);
         getOrdersFromJson(json);
     }
 
-    private void getWorkersFromJson(String json)
+    private void getWorkersFromJson(String json) throws DalException
     {
         try
         {
@@ -82,10 +85,11 @@ public class JSONFileReader
                 String name = jsonWorker.getName(object);
                 String initials = jsonWorker.getInitials(object);
                 int salaryNumber = jsonWorker.getSalaryNumber(object);
+                jdao.addWorker(name, initials, salaryNumber);
             }
         } catch (IOException | ParseException ex)
         {
-            Logger.getLogger(JSONFileReader.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DalException("Could not read workers from jsonfile");
         }
 
     }
@@ -102,7 +106,8 @@ public class JSONFileReader
                 Date deliveryDate = jsonOrder.getDeliveryTime(object);
                 String customer = jsonOrder.getCustomer(object);
                 String orderNumber = jsonOrder.getOrderNumber(object);
-                getTasksFromJson(object);
+                Order order = jdao.addOrder(orderNumber, customer, deliveryDate);
+                getTasksFromJson(object, order);
             }
         } catch (IOException | ParseException ex)
         {
@@ -110,18 +115,23 @@ public class JSONFileReader
         }
     }
 
-    private void getTasksFromJson(Object object) throws DalException
+    private void getTasksFromJson(Object object, Order order) throws DalException
     {
         JSONObject jObject = (JSONObject) object;
         JSONArray tasks = (JSONArray) jObject.get("DepartmentTasks");
         for (Object object2 : tasks)
         {
+            Department dep = null;
             String department = jsonTask.getDepartment(object2);
             if (jdao.departmentExists(department)) {
+                dep = jdao.getDepartment(department);
+            } else {
+                dep = jdao.addDepartment(department);
             }
             Date startDate = jsonTask.getStartDate(object2);
             Date endDate = jsonTask.getEndDate(object2);
             boolean isDone = jsonTask.isOrderFinished(object2);
+            jdao.addDepartmentTask(dep, order, startDate, endDate, isDone);
         }
     }
 }

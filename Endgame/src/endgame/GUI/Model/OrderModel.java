@@ -10,6 +10,7 @@ import endgame.BE.Order;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
+import java.io.File;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -100,5 +101,9 @@ public class OrderModel
                 }
             }
         }
+    }
+    
+    public void getJsonFile(File folder) throws BllException {
+        BF.getJsonFile(folder);
     }
 }
