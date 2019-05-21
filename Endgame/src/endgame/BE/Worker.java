@@ -6,6 +6,8 @@
 package endgame.BE;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 /**
@@ -19,11 +21,11 @@ public class Worker
     private StringProperty initials;
     private IntegerProperty salarynumber;
 
-    public Worker(IntegerProperty id, StringProperty name, StringProperty initials, IntegerProperty salarynumber) {
-        this.id = id;
-        this.name = name;
-        this.initials = initials;
-        this.salarynumber = salarynumber;
+    public Worker(int id, String name, String initials, int salarynumber) {
+        this.id = new SimpleIntegerProperty(id);
+        this.name = new SimpleStringProperty(name);
+        this.initials = new SimpleStringProperty(initials);
+        this.salarynumber = new SimpleIntegerProperty(salarynumber);
     }
 
     public int getId() {
