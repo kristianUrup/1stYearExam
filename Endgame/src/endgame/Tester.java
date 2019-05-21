@@ -24,7 +24,7 @@ public class Tester
         {
             File file = new File("src/data");
             JSONFileReader json = new JSONFileReader();
-            json.getJsonFile(file);
+            json.getJsonFile();
         } catch (DalException ex)
         {
             Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);

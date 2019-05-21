@@ -128,8 +128,7 @@ public class OrderModel
 
     }
 
-    public void getJsonFile(File folder) throws BllException
-    {
-        BF.getJsonFile(folder);
+    public void getJsonFile() throws BllException {
+        BF.getJsonFile();
     }
 }

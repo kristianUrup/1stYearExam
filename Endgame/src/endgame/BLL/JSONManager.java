@@ -22,10 +22,10 @@ public class JSONManager
         jfr = new JSONFileReader();
     }
     
-    public void getJsonFile(File folder) throws BllException {
+    public void getJsonFile() throws BllException {
         try
         {
-            jfr.getJsonFile(folder);
+            jfr.getJsonFile();
         } catch (DalException ex)
         {
             throw new BllException(ex.getMessage());

@@ -76,7 +76,7 @@ public class PlatformController implements Initializable
             orderNumbers = new ArrayList<>();
             setPostItNotes();
             updatePostItNotes();
-
+            readJsonFile();
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -359,7 +359,32 @@ public class PlatformController implements Initializable
         });
         t.start();
     }
+    
+    private void readJsonFile() {
+        TimerTask repeatedTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(() ->
+                {
+                    try
+                    {
+                        OM.getJsonFile();
+                    } catch (BllException ex)
+                    {
+                        Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+            }
+        };
+        Timer timer = new Timer();
 
+        long delay = 5000L;
+        long period = 5000L;
+        timer.scheduleAtFixedRate(repeatedTask, delay, period);
+    }
+    
     public FlowPane getFlowPane()
     {
         return flowPane;
