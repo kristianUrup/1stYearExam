@@ -97,9 +97,9 @@ public class BLLFacade implements IBLLFacade
     }
 
     @Override
-    public void getJsonFile(File folder) throws BllException
+    public void getJsonFile() throws BllException
     {
-        JM.getJsonFile(folder);
+        JM.getJsonFile();
     }
 
     

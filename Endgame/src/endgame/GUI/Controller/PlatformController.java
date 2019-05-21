@@ -11,10 +11,7 @@ import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -31,20 +28,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 /**
  *
@@ -84,6 +75,7 @@ public class PlatformController implements Initializable
             orderNumbers = new ArrayList<>();
             setPostItNotes();
             updatePostItNotes();
+            readJsonFile();
             
         } catch (BllException ex)
         {
@@ -235,7 +227,32 @@ public class PlatformController implements Initializable
             }
         });
     }
+    
+    private void readJsonFile() {
+        TimerTask repeatedTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(() ->
+                {
+                    try
+                    {
+                        OM.getJsonFile();
+                    } catch (BllException ex)
+                    {
+                        Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+            }
+        };
+        Timer timer = new Timer();
 
+        long delay = 5000L;
+        long period = 5000L;
+        timer.scheduleAtFixedRate(repeatedTask, delay, period);
+    }
+    
     public FlowPane getFlowPane()
     {
         return flowPane;

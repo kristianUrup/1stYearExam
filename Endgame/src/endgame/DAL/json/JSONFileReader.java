@@ -43,9 +43,9 @@ public class JSONFileReader
         jdao = new JSONDAO();
     }
 
-    public void getJsonFile(File folder) throws DalException
+    public void getJsonFile() throws DalException
     {
-        for (File fileEntry : folder.listFiles())
+        for (File fileEntry : getFiles().listFiles())
         {
             if (getFileExtension(fileEntry).equals("json"))
             {
@@ -133,5 +133,10 @@ public class JSONFileReader
             boolean isDone = jsonTask.isOrderFinished(object2);
             jdao.addDepartmentTask(dep, order, startDate, endDate, isDone);
         }
+    }
+    
+    private File getFiles() {
+        File folder = new File("src/data");
+        return folder;
     }
 }
