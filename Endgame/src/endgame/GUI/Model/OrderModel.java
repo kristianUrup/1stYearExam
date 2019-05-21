@@ -10,6 +10,7 @@ import endgame.BE.Order;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
+import java.util.Comparator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -101,4 +102,14 @@ public class OrderModel
             }
         }
     }
+    
+    public void endDateSortedByAsc(List<Order> orders){
+    orders.sort(Comparator.comparing(Order::getEndDate));
+}
+    
+    public void endDateSortedByDesc(List<Order> orders){
+    orders.sort(Comparator.comparing(Order::getEndDate).reversed());
+}
+    
+    public void sortBehindOrders(List)
 }

@@ -11,10 +11,8 @@ import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -23,6 +21,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,7 +30,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.FlowPane;
 
 /**
@@ -44,6 +42,7 @@ public class PlatformController implements Initializable
     private Department dep;
     private OrderModel OM;
     private List<String> orderNumbers;
+    private Order order;
 
     @FXML
     private Label departName;
@@ -81,7 +80,6 @@ public class PlatformController implements Initializable
                 if (!orderNumbers.contains(order.getOrderNumber()))
                 {
                     openFXML(order);
-//                    visibleOrders.add(order);
                     flowPane.setVgap(10);
                     flowPane.setHgap(10);
                     orderNumbers.add(order.getOrderNumber());
@@ -91,6 +89,7 @@ public class PlatformController implements Initializable
                 Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        orders.clear();
     }
 
     public void updatePostItNotes()
@@ -121,37 +120,130 @@ public class PlatformController implements Initializable
 
     public void openFXML(Order order) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
-        Parent root = (Parent) loader.load();
-        PostItController pic = loader.getController();
-        pic.setDepartment(dep);
-        pic.setOrderInfo(order);
-        flowPane.getChildren().add(root);
-
-        pic.getButton().setOnAction(e ->
-        {
+        Thread t = new Thread(()->{
             try
             {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Dialog");
-                alert.setHeaderText("You are about to set this task to done");
-                alert.setContentText("Are you sure you want to do this?");
-
-                String header = "You are about to set this task to done";
-                String content = "Are you sure you want to do this?";
-                Optional<ButtonType> result = alert.showAndWait();
-                if ((result.isPresent()) && (result.get() == ButtonType.OK))
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
+                Parent root = (Parent) loader.load();
+                PostItController pic = loader.getController();
+                pic.setDepartment(dep);
+                pic.setOrderInfo(order);
+                
+                pic.getButton().setOnAction(e ->
                 {
-                    pic.setDone();
-                    flowPane.getChildren().remove(root);
-                }
-
-            } catch (BllException ex)
+                    try
+                    {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Dialog");
+                        alert.setHeaderText("You are about to set this task to done");
+                        alert.setContentText("Are you sure you want to do this?");
+                        
+                        String header = "You are about to set this task to done";
+                        String content = "Are you sure you want to do this?";
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if ((result.isPresent()) && (result.get() == ButtonType.OK))
+                        {
+                            pic.setDone();
+                            flowPane.getChildren().remove(root);
+                        }
+                        
+                    } catch (BllException ex)
+                    {
+                        Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
+                });
+                Platform.runLater(()->flowPane.getChildren().add(root));
+            } catch (IOException ex)
             {
                 Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         });
+        t.start();
+    }
+    
+    private void orderList(List<Order> orders){
+        
+        for (Order order : orders)
+        {
+            if (!orderNumbers.contains(order.getOrderNumber()))
+            {
+                try
+                {
+                    openFXML(order);
+                    orderNumbers.add(order.getOrderNumber());
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    private void updateUI(List<Order> orders){
+        
+        flowPane.getChildren().clear();
+        orderNumbers.clear();
+        orderList(orders);
+    }
+    
+    @FXML
+    private void sortByEndDateAsc(ActionEvent event)
+    {
+        Thread t = new Thread(()->{
+        try
+        {
+            List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
+            OM.endDateSortedByAsc(orders);
+            Platform.runLater(
+                    ()->updateUI(orders));
+            
+            
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        });
+        t.start();
+    }
+
+    @FXML
+    private void sortByEndDateDesc(ActionEvent event)
+    {
+        Thread t = new Thread(()->{
+        try
+        {
+            List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
+            OM.endDateSortedByDesc(orders);
+            Platform.runLater(
+                    ()->updateUI(orders));
+            
+            
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        });
+        t.start();
+    }
+
+    @FXML
+    private void sortByDefault(ActionEvent event)
+    {
+        Thread t = new Thread(()->{
+        try
+        {
+            List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
+            Platform.runLater(
+                    ()->updateUI(orders));
+            
+            
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        });
+        t.start();
     }
 
 }
