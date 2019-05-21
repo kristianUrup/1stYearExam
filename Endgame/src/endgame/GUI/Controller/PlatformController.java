@@ -186,7 +186,6 @@ public class PlatformController implements Initializable
 
     private void updateUI(List<Order> orders)
     {
-
         flowPane.getChildren().clear();
         orderNumbers.clear();
         orderList(orders);
