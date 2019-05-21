@@ -19,9 +19,9 @@ import javafx.beans.property.StringProperty;
  */
 public class Order
 {
-    private final IntegerProperty ID;
-    private final StringProperty orderNumber;
-    private final StringProperty customer;
+    private IntegerProperty ID;
+    private StringProperty orderNumber;
+    private StringProperty customer;
     private BooleanProperty isDone;
     
     
@@ -40,6 +40,13 @@ public class Order
         this.startDate = startDate;
         this.endDate = endDate;
         this.deliveryDate = deliveryDate;
+    }
+    
+    public Order(int id, String orderNumber, String customer, Date deliveryDate) {
+        this.ID = new SimpleIntegerProperty(id);
+        this.deliveryDate = deliveryDate;
+        this.orderNumber = new SimpleStringProperty(orderNumber);
+        this.customer = new SimpleStringProperty(customer);
     }
 
     public int getId() {

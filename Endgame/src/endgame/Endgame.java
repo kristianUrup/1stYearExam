@@ -11,8 +11,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 /**
  *
@@ -21,6 +24,7 @@ import javafx.stage.WindowEvent;
 public class Endgame extends Application
 {
     PostItController pic = new PostItController();
+
     @Override
     public void start(Stage stage) throws Exception
     {
@@ -30,10 +34,11 @@ public class Endgame extends Application
         
         stage.setScene(scene);
         stage.show();
-        
+//        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+//        stage.setFullScreen(true);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
           public void handle(WindowEvent we) {
-              System.exit(0);
+                System.exit(0);
           }
       });  
     }
