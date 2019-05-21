@@ -35,5 +35,5 @@ public interface IBLLFacade
             
     public String getLastActivity(Order order) throws BllException;
     
-    public void getJsonFile(File folder) throws BllException;
+    public void getJsonFile() throws BllException;
 }
