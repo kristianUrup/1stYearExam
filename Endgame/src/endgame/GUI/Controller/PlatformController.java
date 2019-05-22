@@ -290,6 +290,7 @@ public class PlatformController implements Initializable
                                 ExpandedPostItNoteController epincontroller = loader.getController();
                                 epincontroller.setDepartment(dep);
                                 epincontroller.setOrderInfo(order);
+                                
                                 Stage stage = new Stage();
                                 Scene scene = new Scene(openPostIt);
                                 stage.setScene(scene);
@@ -325,7 +326,6 @@ public class PlatformController implements Initializable
                                     @Override
                                     public void handle(MouseEvent event1)
                                     {
-
                                         if (bigPostItCheck)
                                         {
                                             stage.close();
