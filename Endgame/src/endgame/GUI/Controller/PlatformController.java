@@ -64,8 +64,6 @@ public class PlatformController implements Initializable
     private FlowPane flowPane;
     ExpandedPostItNoteController epinc;
     PostItController picontroller;
-    @FXML
-    private BorderPane borderPane;
 
     private Parent openPostIt;
 
@@ -197,6 +195,7 @@ public class PlatformController implements Initializable
         orderList(orders);
     }
 
+    @FXML
     private void sortByEndDateAsc(ActionEvent event)
     {
         Thread t = new Thread(() ->
@@ -216,6 +215,7 @@ public class PlatformController implements Initializable
         t.start();
     }
 
+    @FXML
     private void sortByEndDateDesc(ActionEvent event)
     {
         Thread t = new Thread(() ->
@@ -235,6 +235,7 @@ public class PlatformController implements Initializable
         t.start();
     }
 
+    @FXML
     private void sortByDefault(ActionEvent event)
     {
         Thread t = new Thread(() ->
@@ -397,15 +398,9 @@ public class PlatformController implements Initializable
         return flowPane;
     }
 
-    @FXML
     private void handleCloseBtn(ActionEvent event)
     {
         System.exit(0);
     }
 
-    @FXML
-    private void handleMouseFlowPane(MouseEvent event)
-    {
-
-    }
 }
