@@ -85,6 +85,5 @@ public class Worker
     {
         return salaryNumber;
     }
-
     
 }

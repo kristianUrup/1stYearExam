@@ -11,6 +11,7 @@ import endgame.BE.Worker;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.awt.Color;
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,7 +23,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -35,8 +39,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Paint;
-import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -76,10 +79,15 @@ public class ExpandedPostItNoteController implements Initializable
     private Label lblEndDate;
     @FXML
     private Label lblStartDate;
-    PlatformController pfcontroller;
-    OrderModel OMO;
-    Order ordersForDepartment;
-    Department department;
+    
+    private PlatformController pfcontroller;
+    
+    private OrderModel OMO;
+    
+    private Order ordersForDepartment;
+    
+    private Department department;
+    
     private StackPane stackPane;
     @FXML
     private BorderPane borderPane;
@@ -191,7 +199,9 @@ public class ExpandedPostItNoteController implements Initializable
     {
         try
         {
-            estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(ordersForDepartment));
+            Date startDate = ordersForDepartment.getStartDate();
+            Date endDate = ordersForDepartment.getEndDate();
+            estimatedProgress.setProgress(OMO.getProgressedTimeInProcent(startDate, endDate));
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
@@ -323,6 +333,26 @@ public class ExpandedPostItNoteController implements Initializable
     public BorderPane getBorderPane()
     {
         return borderPane;
+    }
+
+    @FXML
+    private void handlerDepartmentClicked(MouseEvent event)
+    {
+        Department depClicked = tableDepartmentList.getSelectionModel().getSelectedItem();
+        if (depClicked != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DepartmentProgression.fxml"));
+                Parent root = (Parent) loader.load();
+                DepartmentProgressionController dpcontroller = loader.getController();
+                dpcontroller.setDepartment(department);
+                
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(ExpandedPostItNoteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public void setAnchorStatusColor()
