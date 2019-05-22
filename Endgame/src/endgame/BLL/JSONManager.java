@@ -3,31 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package endgame;
+package endgame.BLL;
 
+import endgame.BLL.Exception.BllException;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.json.JSONFileReader;
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 /**
  *
- * @author bonde
+ * @author Frederik Jensen
  */
-public class Tester
+public class JSONManager
 {
-    public static void main(String[] args)
-    {
+    private JSONFileReader jfr;
+    
+    public JSONManager() {
+        jfr = new JSONFileReader();
+    }
+    
+    public void getJsonFile() throws BllException {
         try
         {
-            File file = new File("src/data");
-            JSONFileReader json = new JSONFileReader();
-            json.getJsonFile();
+            jfr.getJsonFile();
         } catch (DalException ex)
         {
-            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+            throw new BllException(ex.getMessage());
         }
     }
 }

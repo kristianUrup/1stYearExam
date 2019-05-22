@@ -8,6 +8,7 @@ package endgame.BLL;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class BLLFacade implements IBLLFacade
     private DepartmentManager DMA;
     private FileManager FM;
     private LogManager LM;
+    private JSONManager JM;
     
     public BLLFacade() throws BllException
     {
@@ -33,6 +35,7 @@ public class BLLFacade implements IBLLFacade
             DMA = new DepartmentManager();
             FM = new FileManager();
             LM = new LogManager();
+            JM = new JSONManager();
         } catch (IOException ex)
         {
             throw new BllException("Could not get files");
@@ -91,6 +94,12 @@ public class BLLFacade implements IBLLFacade
     public Order getOrder(Department department, Order order) throws BllException
     {
         return OMA.getOrder(department, order);
+    }
+
+    @Override
+    public void getJsonFile() throws BllException
+    {
+        JM.getJsonFile();
     }
 
     

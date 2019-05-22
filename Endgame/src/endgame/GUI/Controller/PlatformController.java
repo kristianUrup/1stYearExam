@@ -11,10 +11,7 @@ import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -31,20 +28,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 /**
  *
@@ -56,6 +47,7 @@ public class PlatformController implements Initializable
     private Department dep;
     private OrderModel OM;
     private List<String> orderNumbers;
+    private Order order;
     private boolean bigPostItCheck = false;
 
     @FXML
@@ -68,7 +60,7 @@ public class PlatformController implements Initializable
     PostItController picontroller;
     @FXML
     private BorderPane borderPane;
-    
+
     private Parent openPostIt;
 
     @Override
@@ -84,7 +76,7 @@ public class PlatformController implements Initializable
             orderNumbers = new ArrayList<>();
             setPostItNotes();
             updatePostItNotes();
-            
+            readJsonFile();
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,21 +89,15 @@ public class PlatformController implements Initializable
         List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
         for (Order order : orders)
         {
-            try
+            if (!orderNumbers.contains(order.getOrderNumber()))
             {
-                if (!orderNumbers.contains(order.getOrderNumber()))
-                {
-                    openFXML(order);
-//                    visibleOrders.add(order);
-                    flowPane.setVgap(10);
-                    flowPane.setHgap(10);
-                    orderNumbers.add(order.getOrderNumber());
-                }
-            } catch (IOException ex)
-            {
-                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                openFXML(order);
+                flowPane.setVgap(10);
+                flowPane.setHgap(10);
+                orderNumbers.add(order.getOrderNumber());
             }
         }
+        orders.clear();
     }
 
     public void updatePostItNotes()
@@ -140,78 +126,208 @@ public class PlatformController implements Initializable
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
-    public void openFXML(Order order) throws IOException
+    public void openFXML12(Order order) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
-        Parent root1 = (Parent) loader.load();
-        PostItController pic = loader.getController();
-        pic.setDepartment(dep);
-        pic.setOrderInfo(order);
-        flowPane.getChildren().add(root1);
-        pic.getAnchorPane().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+        Thread t = new Thread(() ->
         {
-            @Override
-            public void handle(MouseEvent e)
+            try
             {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
+                Parent root = (Parent) loader.load();
+                ExpandedPostItNoteController pic = loader.getController();
+                pic.setDepartment(dep);
+                pic.setOrderInfo(order);
 
-                ObservableList<Node> allNodes = flowPane.getChildren();
-                BoxBlur blur = new BoxBlur();
-                blur.setWidth(20);
-                blur.setHeight(20);
-                if (!bigPostItCheck)
+                pic.getDoneButton().setOnAction(e ->
                 {
-                    for (Node child : allNodes)
-                    {
-                        child.setEffect(blur);
-                    }
-
                     try
                     {
-                        bigPostItCheck = true;
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
-                        openPostIt = (Parent) loader.load();
-                        ExpandedPostItNoteController epincontroller = loader.getController();
-                        epincontroller.setDepartment(dep);
-                        epincontroller.setOrderInfo(order);
-                        flowPane.getChildren().add(openPostIt);
-                        epincontroller.getDoneButton().setOnAction(event ->
-                        {
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Dialog");
-                            alert.setHeaderText("You are about to set this task to done");
-                            alert.setContentText("Are you sure you want to do this?");
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Dialog");
+                        alert.setHeaderText("You are about to set this task to done");
+                        alert.setContentText("Are you sure you want to do this?");
 
-                            Optional<ButtonType> result = alert.showAndWait();
-                            if ((result.isPresent()) && (result.get() == ButtonType.OK))
-                            {
-                                try
-                                {
-                                    epinc.setDone();
-                                } catch (BllException ex)
-                                {
-                                    Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                flowPane.getChildren().remove(root1);
-                                flowPane.getChildren().remove(openPostIt);
-                                blur.setHeight(-20);
-                                blur.setWidth(-20);
-                                bigPostItCheck = false;
-                            }
-                        });
-                        epincontroller.getCrossView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+                        String header = "You are about to set this task to done";
+                        String content = "Are you sure you want to do this?";
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if ((result.isPresent()) && (result.get() == ButtonType.OK))
                         {
-                            @Override
-                            public void handle(MouseEvent event1) {
-                                
-                                if(bigPostItCheck)
-                                {
-                                    flowPane.getChildren().remove(openPostIt);
-                                    blur.setHeight(-20);
-                                    blur.setWidth(-20);
-                                    bigPostItCheck = false;
-                                }
+                            pic.setDone();
+                            flowPane.getChildren().remove(root);
+                        }
+
+                    } catch (BllException ex)
+                    {
+                        Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                });
+                Platform.runLater(() -> flowPane.getChildren().add(root));
+            } catch (IOException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        t.start();
+    }
+
+    private void orderList(List<Order> orders)
+    {
+
+        for (Order order : orders)
+        {
+            if (!orderNumbers.contains(order.getOrderNumber()))
+            {
+                openFXML(order);
+                orderNumbers.add(order.getOrderNumber());
+            }
+        }
+    }
+
+    private void updateUI(List<Order> orders)
+    {
+        flowPane.getChildren().clear();
+        orderNumbers.clear();
+        orderList(orders);
+    }
+
+    @FXML
+    private void sortByEndDateAsc(ActionEvent event)
+    {
+        Thread t = new Thread(() ->
+        {
+            try
+            {
+                List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
+                OM.endDateSortedByAsc(orders);
+                Platform.runLater(
+                        () -> updateUI(orders));
+
+            } catch (BllException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        t.start();
+    }
+
+    @FXML
+    private void sortByEndDateDesc(ActionEvent event)
+    {
+        Thread t = new Thread(() ->
+        {
+            try
+            {
+                List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
+                OM.endDateSortedByDesc(orders);
+                Platform.runLater(
+                        () -> updateUI(orders));
+
+            } catch (BllException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        t.start();
+    }
+
+    @FXML
+    private void sortByDefault(ActionEvent event)
+    {
+        Thread t = new Thread(() ->
+        {
+            try
+            {
+                List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
+                Platform.runLater(
+                        () -> updateUI(orders));
+
+            } catch (BllException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        t.start();
+    }
+
+    @FXML
+    private void openFXML(Order order)
+    {
+        Thread t = new Thread(() ->
+        {
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
+                Parent root1 = (Parent) loader.load();
+                PostItController pic = loader.getController();
+                pic.setDepartment(dep);
+                pic.setOrderInfo(order);
+//                flowPane.getChildren().add(root1);
+                pic.getAnchorPane().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+                {
+                    @Override
+                    public void handle(MouseEvent e)
+                    {
+
+                        ObservableList<Node> allNodes = flowPane.getChildren();
+                        BoxBlur blur = new BoxBlur();
+                        blur.setWidth(20);
+                        blur.setHeight(20);
+                        if (!bigPostItCheck)
+                        {
+                            for (Node child : allNodes)
+                            {
+                                child.setEffect(blur);
                             }
-                        });
+
+                            try
+                            {
+                                bigPostItCheck = true;
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
+                                openPostIt = (Parent) loader.load();
+                                ExpandedPostItNoteController epincontroller = loader.getController();
+                                epincontroller.setDepartment(dep);
+                                epincontroller.setOrderInfo(order);
+                                flowPane.getChildren().add(openPostIt);
+                                epincontroller.getDoneButton().setOnAction(event ->
+                                {
+                                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                    alert.setTitle("Dialog");
+                                    alert.setHeaderText("You are about to set this task to done");
+                                    alert.setContentText("Are you sure you want to do this?");
+
+                                    Optional<ButtonType> result = alert.showAndWait();
+                                    if ((result.isPresent()) && (result.get() == ButtonType.OK))
+                                    {
+                                        try
+                                        {
+                                            epinc.setDone();
+                                        } catch (BllException ex)
+                                        {
+                                            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                        flowPane.getChildren().remove(root1);
+                                        flowPane.getChildren().remove(openPostIt);
+                                        blur.setHeight(-20);
+                                        blur.setWidth(-20);
+                                        bigPostItCheck = false;
+                                    }
+                                });
+                                epincontroller.getCrossView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+                                {
+                                    @Override
+                                    public void handle(MouseEvent event1)
+                                    {
+
+                                        if (bigPostItCheck)
+                                        {
+                                            flowPane.getChildren().remove(openPostIt);
+                                            blur.setHeight(-20);
+                                            blur.setWidth(-20);
+                                            bigPostItCheck = false;
+                                        }
+                                    }
+                                });
 //
 //                           flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 //                        {
@@ -227,15 +343,48 @@ public class PlatformController implements Initializable
 //                                }
 //                            }
 //                        });
-                    } catch (IOException ex)
+                            } catch (IOException ex)
+                            {
+                                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                });
+                Platform.runLater(() -> flowPane.getChildren().add(root1));
+
+            } catch (IOException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        t.start();
+    }
+    
+    private void readJsonFile() {
+        TimerTask repeatedTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                Platform.runLater(() ->
+                {
+                    try
+                    {
+                        OM.getJsonFile();
+                    } catch (BllException ex)
                     {
                         Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                }
+                });
             }
-        });
-    }
+        };
+        Timer timer = new Timer();
 
+        long delay = 5000L;
+        long period = 5000L;
+        timer.scheduleAtFixedRate(repeatedTask, delay, period);
+    }
+    
     public FlowPane getFlowPane()
     {
         return flowPane;
@@ -250,6 +399,6 @@ public class PlatformController implements Initializable
     @FXML
     private void handleMouseFlowPane(MouseEvent event)
     {
-        
+
     }
 }

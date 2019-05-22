@@ -8,6 +8,7 @@ package endgame.BLL;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -33,4 +34,6 @@ public interface IBLLFacade
     public void setLastActivity(Order order, Department department, String messageLog);
             
     public String getLastActivity(Order order) throws BllException;
+    
+    public void getJsonFile() throws BllException;
 }

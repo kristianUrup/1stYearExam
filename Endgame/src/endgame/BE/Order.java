@@ -19,10 +19,10 @@ import javafx.beans.property.StringProperty;
  */
 public class Order
 {
-    private final IntegerProperty ID;
-    private final StringProperty orderNumber;
-    private final StringProperty customer;
-    private BooleanProperty isDone;
+    private IntegerProperty ID;
+    private StringProperty orderNumber;
+    private StringProperty customer;
+    private StringProperty condition;
     
     
     private Date startDate;
@@ -31,15 +31,22 @@ public class Order
 
     
     
-    public Order(int id, String orderNumber, String customer, Date startDate, Date endDate, boolean isDone, Date deliveryDate)
+    public Order(int id, String orderNumber, String customer, Date startDate, Date endDate, String condition, Date deliveryDate)
     {
         this.ID = new SimpleIntegerProperty(id);
         this.orderNumber = new SimpleStringProperty(orderNumber);
         this.customer = new SimpleStringProperty(customer);
-        this.isDone = new SimpleBooleanProperty(isDone);
+        this.condition = new SimpleStringProperty(condition);
         this.startDate = startDate;
         this.endDate = endDate;
         this.deliveryDate = deliveryDate;
+    }
+    
+    public Order(int id, String orderNumber, String customer, Date deliveryDate) {
+        this.ID = new SimpleIntegerProperty(id);
+        this.deliveryDate = deliveryDate;
+        this.orderNumber = new SimpleStringProperty(orderNumber);
+        this.customer = new SimpleStringProperty(customer);
     }
 
     public int getId() {
@@ -66,9 +73,9 @@ public class Order
         return endDate;
     }
 
-    public boolean getIsDone()
+    public String getCondition()
     {
-        return isDone.get();
+        return condition.get();
     }
 
     public Date getDeliveryDate()
@@ -76,9 +83,9 @@ public class Order
         return deliveryDate;
     }
     
-    public void setIsDone(BooleanProperty isDone)
+    public void setCondition(StringProperty condition)
     {
-        this.isDone = isDone;
+        this.condition = condition;
     }
     
 }

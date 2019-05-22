@@ -55,7 +55,7 @@ public class ExpandedPostItNoteController implements Initializable
     @FXML
     private TableColumn<Department, String> cellDepartment;
     @FXML
-    private TableColumn<Department, Boolean> cellStatus;
+    private TableColumn<Department, String> cellStatus;
     @FXML
     private TableView<Worker> tableWorkersID;
     @FXML
@@ -98,8 +98,12 @@ public class ExpandedPostItNoteController implements Initializable
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
             //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
             //  cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
+<<<<<<< HEAD
             cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
             tableWorkersID.setItems(OMO.getAllWorkers());
+=======
+            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());
+>>>>>>> 765d98140a6d3889fc2639626e3091ed4fa75566
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
@@ -122,11 +126,11 @@ public class ExpandedPostItNoteController implements Initializable
             String output = outputFormatter.format(date);
             
             Date startDate = order.getStartDate();
-            String startStringDate = new SimpleDateFormat("dd/MM/yyyy").format(startDate);
+            String startStringDate = new SimpleDateFormat("ww/u").format(startDate);
             lblStartDate.setText(startStringDate);
             
             Date endDate = order.getEndDate();
-            String endStringDate = new SimpleDateFormat("dd/MM/yyyy").format(endDate);
+            String endStringDate = new SimpleDateFormat("ww/u").format(endDate);
             lblEndDate.setText(endStringDate);
 
             lblDeliveryDate.setText(output);
@@ -257,10 +261,10 @@ public class ExpandedPostItNoteController implements Initializable
     {
         cellStatus.setCellFactory(column ->
         {
-            return new TableCell<Department, Boolean>()
+            return new TableCell<Department, String>()
             {
                 @Override
-                protected void updateItem(Boolean item, boolean empty)
+                protected void updateItem(String item, boolean empty)
                 {
                     super.updateItem(item, empty);
                     
@@ -270,26 +274,26 @@ public class ExpandedPostItNoteController implements Initializable
                         setStyle("");
                     } else
                     {
-                        if (item) //færdig
+                        if (item.equals("finished")) //færdig
                         {
                             setStyle("-fx-background-color: green");
                             setText("Done");
                         } 
-                        else if (!item && System.currentTimeMillis() > ordersForDepartment.getEndDate().getTime()) 
+                        else if (item.equals("behind"))
                         {
                             setStyle("-fx-background-color: red");
                             setText("Behind");
                         } 
-                        else if (!item && System.currentTimeMillis() > ordersForDepartment.getStartDate().getTime()                 
-                            && (ordersForDepartment.getEndDate().getTime()) < System.currentTimeMillis())
-                        {
-                            setStyle("-fx-background-color: blue");
-                            setText("Ongoing");
-                        }
-                        else if (!item && System.currentTimeMillis() < ordersForDepartment.getStartDate().getTime())
+                        else if (item.equals("not started"))
                         {
                             setStyle("-fx-background-color: yellow");
                             setText("Not started");
+                        }
+                        else if (item.equals("ongoing"))
+                        {
+                            System.out.println("dsa");
+                            setStyle("-fx-background-color: #0080FF");
+                            setText("Ongoing");
                         }
                                  
 

@@ -24,9 +24,11 @@ import java.util.List;
  */
 public class DepartmentDAO implements IDepartmentDAO
 {
+
     private ConnectionDAO cdao;
-    
-    public DepartmentDAO() {
+
+    public DepartmentDAO()
+    {
         cdao = new ConnectionDAO();
     }
 
@@ -35,16 +37,18 @@ public class DepartmentDAO implements IDepartmentDAO
     {
         Connection con = null;
         Department department = null;
-        try {
+        try
+        {
             con = cdao.getConnection();
             String sql = "SELECT * FROM Department WHERE name = ?";
             PreparedStatement pst = con.prepareStatement(sql);
-            
+
             pst.setString(1, dName);
-            
+
             ResultSet rs = pst.executeQuery();
-            
-            while (rs.next()) {
+
+            while (rs.next())
+            {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 department = new Department(id, name);
@@ -53,8 +57,10 @@ public class DepartmentDAO implements IDepartmentDAO
         } catch (SQLException ex)
         {
             throw new DalException("Could not find department");
-        } finally {
-            if (con != null) {
+        } finally
+        {
+            if (con != null)
+            {
                 try
                 {
                     con.close();
@@ -70,24 +76,29 @@ public class DepartmentDAO implements IDepartmentDAO
     public List<Department> getDepartments(Order order) throws DalException
     {
         Connection con = null;
-        try  {
+        try
+        {
             con = cdao.getConnection();
             List<Department> departments = new ArrayList<>();
             String sql = "SELECT * FROM DepartmentTask INNER JOIN Department ON DepartmentTask.departmentID = Department.id WHERE orderID = ?";
 
             PreparedStatement pst = con.prepareStatement(sql);
-            
+
             pst.setInt(1, order.getId());
-            
+
             ResultSet rs = pst.executeQuery();
-            
-            while (rs.next()) {
+
+            while (rs.next())
+            {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 Boolean isDone = rs.getInt("finished") == 1;
                 Date startDate = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString("startDate"));
                 Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString("endDate"));
-                Department department = new Department(id, name, isDone, startDate, endDate);
+
+                String condition = getCondition(isDone, endDate, startDate);
+
+                Department department = new Department(id, name, condition, startDate, endDate);
                 departments.add(department);
             }
             return departments;
@@ -97,8 +108,10 @@ public class DepartmentDAO implements IDepartmentDAO
         } catch (ParseException ex)
         {
             throw new DalException("Could not parse start/end date for departments");
-        } finally {
-            if (con != null) {
+        } finally
+        {
+            if (con != null)
+            {
                 try
                 {
                     con.close();
@@ -109,5 +122,26 @@ public class DepartmentDAO implements IDepartmentDAO
             }
         }
     }
-    
+
+    private String getCondition(Boolean isDone, Date endDate, Date startDate)
+    {
+
+        if(isDone)
+        {
+            return "finished";
+        }else {
+            if (System.currentTimeMillis() > endDate.getTime()) {
+                return "behind";
+            }
+            else if (System.currentTimeMillis() > startDate.getTime() && System.currentTimeMillis() < endDate.getTime()) {
+                return "ongoing";
+            }
+            else if (System.currentTimeMillis() < startDate.getTime()){
+                return "not started";
+            }
+        }
+
+        return null;
+    }
+
 }

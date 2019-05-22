@@ -68,12 +68,14 @@ public class OrderDAO implements IOrderDAO
                 Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString);
                 Date deliveryDate = new SimpleDateFormat("dd/MM/yyyy").parse(deliveryDateString);
 
+                String condition = getCondition(isDone, endDate, startDate);
+                
                 Date today = calculateOffSetDate(offset);
                 if (startDate.equals(today) || startDate.before(today))
                 {
                     if (!isDone)
                     {
-                        Order order = new Order(id, ordernumber, customer, startDate, endDate, isDone, deliveryDate);
+                        Order order = new Order(id, ordernumber, customer, startDate, endDate, condition, deliveryDate);
                         orders.add(order);
                     }
                 }
@@ -152,7 +154,7 @@ public class OrderDAO implements IOrderDAO
                 String ordernumber = rs.getString("ordernumber");
                 String customer = rs.getString("costumer");
                 Boolean isDone = rs.getInt("finished") == 1;
-
+                
                 String startDateString = rs.getString("startDate");
                 String endDateString = rs.getString("endDate");
                 String deliveryDateString = rs.getString("deliverydate");
@@ -161,7 +163,9 @@ public class OrderDAO implements IOrderDAO
                 Date endDate = new SimpleDateFormat("dd/MM/yyyy").parse(endDateString);
                 Date deliveryDate = new SimpleDateFormat("dd/MM/yyyy").parse(deliveryDateString);
                 
-                newOrder = new Order(id, ordernumber, customer, startDate, endDate, isDone, deliveryDate);
+                String condition = getCondition(isDone, endDate, startDate);
+                
+                newOrder = new Order(id, ordernumber, customer, startDate, endDate, condition, deliveryDate);
             }
             return newOrder;
             
@@ -172,5 +176,25 @@ public class OrderDAO implements IOrderDAO
         {
             throw new DalException("Could not parse date on order");
         }
+    }
+    
+    private String getCondition(Boolean isDone, Date endDate, Date startDate)
+    {
+        
+        if(isDone)
+        {
+            return "finished";
+        }else {
+            if (System.currentTimeMillis() > endDate.getTime()) {
+                return "behind";
+            }
+            else if (System.currentTimeMillis() > startDate.getTime() && System.currentTimeMillis() < endDate.getTime()) {
+                return "ongoing";
+            }
+            else if (System.currentTimeMillis() < startDate.getTime()){
+                return "not started";
+            }
+        }
+        return null;
     }
 }

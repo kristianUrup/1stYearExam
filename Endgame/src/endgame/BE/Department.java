@@ -21,7 +21,7 @@ public class Department
 {
     private final IntegerProperty ID;
     private final StringProperty NAME;
-    private BooleanProperty isDone;
+    private StringProperty condition;
     private Date startDate;
     private Date endDate;
 
@@ -36,10 +36,10 @@ public class Department
         this.NAME = new SimpleStringProperty(name);
     }
     
-    public Department(int id, String name, Boolean isDone, Date startDate, Date endDate) {
+    public Department(int id, String name, String condition, Date startDate, Date endDate) {
         this.ID = new SimpleIntegerProperty(id);
         this.NAME = new SimpleStringProperty(name);
-        this.isDone = new SimpleBooleanProperty(isDone);
+        this.condition = new SimpleStringProperty(condition);
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -62,13 +62,13 @@ public class Department
         return ID.get();
     }
     
-    public boolean getIsDone() {
-        return isDone.get();
+    public String getCondition() {
+        return condition.get();
     }
 
-    public void setIsDone(Boolean value)
+    public void setCondition(String value)
     {
-        isDone.set(value);
+        condition.set(value);
         
     }
 
@@ -82,9 +82,9 @@ public class Department
         return endDate;
     }
     
-    public BooleanProperty getIsDoneProperty()
+    public StringProperty getConditionProperty()
     {
-        return isDone;
+        return condition;
     }
     
     public StringProperty getNameProperty()
