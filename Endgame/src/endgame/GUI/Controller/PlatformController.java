@@ -28,14 +28,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -66,6 +72,7 @@ public class PlatformController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+//        anchorPane.setStyle("-fx-opacity: 0");
         try
         {
             picontroller = new PostItController();
@@ -137,7 +144,6 @@ public class PlatformController implements Initializable
                 ExpandedPostItNoteController pic = loader.getController();
                 pic.setDepartment(dep);
                 pic.setOrderInfo(order);
-
                 pic.getDoneButton().setOnAction(e ->
                 {
                     try
@@ -191,7 +197,6 @@ public class PlatformController implements Initializable
         orderList(orders);
     }
 
-    @FXML
     private void sortByEndDateAsc(ActionEvent event)
     {
         Thread t = new Thread(() ->
@@ -211,7 +216,6 @@ public class PlatformController implements Initializable
         t.start();
     }
 
-    @FXML
     private void sortByEndDateDesc(ActionEvent event)
     {
         Thread t = new Thread(() ->
@@ -231,7 +235,6 @@ public class PlatformController implements Initializable
         t.start();
     }
 
-    @FXML
     private void sortByDefault(ActionEvent event)
     {
         Thread t = new Thread(() ->
@@ -250,7 +253,6 @@ public class PlatformController implements Initializable
         t.start();
     }
 
-    @FXML
     private void openFXML(Order order)
     {
         Thread t = new Thread(() ->
@@ -288,7 +290,12 @@ public class PlatformController implements Initializable
                                 ExpandedPostItNoteController epincontroller = loader.getController();
                                 epincontroller.setDepartment(dep);
                                 epincontroller.setOrderInfo(order);
-                                flowPane.getChildren().add(openPostIt);
+                                Stage stage = new Stage();
+                                Scene scene = new Scene(openPostIt);
+                                stage.setScene(scene);
+                                stage.initStyle(StageStyle.UNDECORATED);
+                                stage.show();
+                                
                                 epincontroller.getDoneButton().setOnAction(event ->
                                 {
                                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -307,7 +314,7 @@ public class PlatformController implements Initializable
                                             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
                                         }
                                         flowPane.getChildren().remove(root1);
-                                        flowPane.getChildren().remove(openPostIt);
+                                        stage.close();
                                         blur.setHeight(-20);
                                         blur.setWidth(-20);
                                         bigPostItCheck = false;
@@ -321,7 +328,7 @@ public class PlatformController implements Initializable
 
                                         if (bigPostItCheck)
                                         {
-                                            flowPane.getChildren().remove(openPostIt);
+                                            stage.close();
                                             blur.setHeight(-20);
                                             blur.setWidth(-20);
                                             bigPostItCheck = false;
