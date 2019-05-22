@@ -113,19 +113,18 @@ public class OrderModel
             }
         }
     }
-<<<<<<< HEAD
     
     public ObservableList<Worker> getAllWorkers()
     {
         ObservableList<Worker> workers = FXCollections.observableArrayList();
         
-        Worker claus = new Worker(1,"Claus", 2042, "CJ", 1);
+        Worker claus = new Worker(1,"Claus", 2042, "CJ");
         
         workers.add(claus);
         
         return workers;
-=======
-
+    }
+    
     public void endDateSortedByAsc(List<Order> orders)
     {
         orders.sort(Comparator.comparing(Order::getEndDate));
@@ -143,6 +142,5 @@ public class OrderModel
 
     public void getJsonFile() throws BllException {
         BF.getJsonFile();
->>>>>>> 765d98140a6d3889fc2639626e3091ed4fa75566
     }
 }
