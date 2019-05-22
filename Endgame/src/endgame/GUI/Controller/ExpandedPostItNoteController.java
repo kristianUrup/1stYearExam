@@ -335,10 +335,10 @@ public class ExpandedPostItNoteController implements Initializable
         Department depClicked = tableDepartmentList.getSelectionModel().getSelectedItem();
         if (depClicked != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DepartmentProgression.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/DepartmentProgression.fxml"));
                 Parent root = (Parent) loader.load();
-                DepartmentProgressionController dpcontroller = loader.getController();
-                dpcontroller.setDepartment(department);
+                DepartmentProgressionController dpcontroller = loader.getController();         
+                dpcontroller.setDepartment(depClicked);
                 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
