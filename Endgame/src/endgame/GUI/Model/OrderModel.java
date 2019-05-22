@@ -12,7 +12,6 @@ import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
 import java.util.Comparator;
-import java.io.File;
 import java.util.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -119,7 +118,7 @@ public class OrderModel
     {
         ObservableList<Worker> workers = FXCollections.observableArrayList();
         
-        Worker claus = new Worker(1,"Claus", 2042, "CJ", 1);
+        Worker claus = new Worker(1,"Claus", 2042, "CJ");
         
         workers.add(claus);
         
@@ -131,6 +130,10 @@ public class OrderModel
         orders.sort(Comparator.comparing(Order::getEndDate));
     }
 
+    /**
+     * Sorts the list of orders by comparing the end dates with the other orders
+     * @param orders 
+     */
     public void endDateSortedByDesc(List<Order> orders)
     {
         orders.sort(Comparator.comparing(Order::getEndDate).reversed());

@@ -55,7 +55,7 @@ public class WorkerDAO {
                 String initials = rs.getString("initials");
                 int salarynumber = rs.getInt("salarynumber");
                 
-                Worker newWorker = new Worker(id, name, salarynumber, initials);
+                Worker newWorker = new Worker(id,name,salarynumber,initials);
                 workers.add(newWorker);
             }
             return workers;

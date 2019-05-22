@@ -79,6 +79,7 @@ public class ExpandedPostItNoteController implements Initializable
     private Label lblEndDate;
     @FXML
     private Label lblStartDate;
+
     
     private PlatformController pfcontroller;
     
@@ -88,11 +89,14 @@ public class ExpandedPostItNoteController implements Initializable
     
     private Department department;
     
+
     private StackPane stackPane;
     @FXML
     private BorderPane borderPane;
     @FXML
     private ImageView crossBtn;
+    @FXML
+    private Label lblAnchorStatus;
 
     /**
      * Initializes the controller class.
@@ -102,12 +106,17 @@ public class ExpandedPostItNoteController implements Initializable
     {
         try
         {
+            
             pfcontroller = new PlatformController();
             OMO = new OrderModel();
             cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
+            //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+            //  cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
+//            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
             tableWorkersID.setItems(OMO.getAllWorkers());
             cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());
+            
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
@@ -140,6 +149,7 @@ public class ExpandedPostItNoteController implements Initializable
             lblDeliveryDate.setText(output);
 
             setProgressBar();
+            setAnchorStatusColor();
 
             tableDepartmentList.setItems(OMO.getAllDepartments(ordersForDepartment));
             setStatusColor();
@@ -297,7 +307,6 @@ public class ExpandedPostItNoteController implements Initializable
                         }
                         else if (item.equals("ongoing"))
                         {
-                            System.out.println("dsa");
                             setStyle("-fx-background-color: #0080FF");
                             setText("Ongoing");
                         }
@@ -349,6 +358,33 @@ public class ExpandedPostItNoteController implements Initializable
         }
     }
     
-    
+    public void setAnchorStatusColor()
+    {
+       String cond = ordersForDepartment.getCondition();
+       lblAnchorStatus.setStyle("-fx-text-fill: black");
+       
+       if (cond.equals("finished")) //færdig
+        {
+            topAnchorPane.setStyle("-fx-background-color: green");
+            lblAnchorStatus.setText("Finished");
+        } 
+        else if (cond.equals("behind"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: red");
+            lblAnchorStatus.setText("Behind");
+            
+        } 
+        else if (cond.equals("not started"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: yellow");
+            lblAnchorStatus.setText("Not Started");
+            
+        }
+        else if (cond.equals("ongoing"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: #0080FF");
+            lblAnchorStatus.setText("Ongoing");
+        }
+       
+    }
 }
-
