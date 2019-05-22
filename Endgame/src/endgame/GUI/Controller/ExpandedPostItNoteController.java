@@ -7,6 +7,7 @@ package endgame.GUI.Controller;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.BE.Worker;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
 import java.awt.Color;
@@ -56,9 +57,9 @@ public class ExpandedPostItNoteController implements Initializable
     @FXML
     private TableColumn<Department, String> cellStatus;
     @FXML
-    private TableView<Department> tableWorkersID;
+    private TableView<Worker> tableWorkersID;
     @FXML
-    private TableColumn<Department, Integer> cellWorkersID;
+    private TableColumn<Worker, Integer> cellWorkersID;
     @FXML
     private ProgressBar estimatedProgress;
     @FXML
@@ -98,10 +99,16 @@ public class ExpandedPostItNoteController implements Initializable
         {
             pfcontroller = new PlatformController();
             OMO = new OrderModel();
+            cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
             //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
             //  cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
+<<<<<<< HEAD
+            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
+            tableWorkersID.setItems(OMO.getAllWorkers());
+=======
             cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());
+>>>>>>> 765d98140a6d3889fc2639626e3091ed4fa75566
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());

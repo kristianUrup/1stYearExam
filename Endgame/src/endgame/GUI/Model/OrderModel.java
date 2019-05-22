@@ -7,6 +7,7 @@ package endgame.GUI.Model;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.BE.Worker;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
@@ -112,6 +113,18 @@ public class OrderModel
             }
         }
     }
+<<<<<<< HEAD
+    
+    public ObservableList<Worker> getAllWorkers()
+    {
+        ObservableList<Worker> workers = FXCollections.observableArrayList();
+        
+        Worker claus = new Worker(1,"Claus", 2042, "CJ", 1);
+        
+        workers.add(claus);
+        
+        return workers;
+=======
 
     public void endDateSortedByAsc(List<Order> orders)
     {
@@ -130,5 +143,6 @@ public class OrderModel
 
     public void getJsonFile() throws BllException {
         BF.getJsonFile();
+>>>>>>> 765d98140a6d3889fc2639626e3091ed4fa75566
     }
 }
