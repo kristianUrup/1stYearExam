@@ -7,12 +7,12 @@ package endgame.GUI.Model;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.BE.Worker;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
 import java.util.Comparator;
-import java.io.File;
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,16 +48,16 @@ public class OrderModel
         return BF.getDepartment(dName);
     }
 
-    public double getProgressedTimeInProcent(Order order) throws BllException
+    public double getProgressedTimeInProcent(Date startDate, Date endDate) throws BllException
     {
-        long endDate = order.getEndDate().getTime();
-        long startDate = order.getStartDate().getTime();
+        long endTime = endDate.getTime();
+        long startTime = startDate.getTime();
 
-        double estimatedTime = (endDate - startDate) / (1000 * 60 * 60 * 24);  // Den tilgængelige tid
+        double estimatedTime = (endTime - startTime) / (1000 * 60 * 60 * 24);  // Den tilgængelige tid
 
         double todaysTime = System.currentTimeMillis() / (1000 * 60 * 60 * 24); // Idags tid
 
-        double daysSpent = todaysTime - (startDate / (1000 * 60 * 60 * 24));
+        double daysSpent = todaysTime - (startTime / (1000 * 60 * 60 * 24));
 
         double elapsedTime = daysSpent / estimatedTime;  // Den brugte tid
 
@@ -113,7 +113,17 @@ public class OrderModel
             }
         }
     }
-
+    
+    public ObservableList<Worker> getAllWorkers()
+    {
+        ObservableList<Worker> workers = FXCollections.observableArrayList();
+        
+        Worker claus = new Worker(1,"Claus", 2042, "CJ");
+        
+        workers.add(claus);
+        
+        return workers;
+    }
     public void endDateSortedByAsc(List<Order> orders)
     {
         orders.sort(Comparator.comparing(Order::getEndDate));
