@@ -322,5 +322,6 @@ public class ExpandedPostItNoteController implements Initializable
         return borderPane;
     }
     
+    
 }
 
