@@ -113,7 +113,6 @@ public class OrderModel
             }
         }
     }
-<<<<<<< HEAD
     
     public ObservableList<Worker> getAllWorkers()
     {
@@ -124,7 +123,7 @@ public class OrderModel
         workers.add(claus);
         
         return workers;
-=======
+    }
 
     public void endDateSortedByAsc(List<Order> orders)
     {
@@ -143,6 +142,5 @@ public class OrderModel
 
     public void getJsonFile() throws BllException {
         BF.getJsonFile();
->>>>>>> 765d98140a6d3889fc2639626e3091ed4fa75566
     }
 }

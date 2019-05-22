@@ -101,14 +101,8 @@ public class ExpandedPostItNoteController implements Initializable
             OMO = new OrderModel();
             cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
-            //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-            //  cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
-<<<<<<< HEAD
-            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
             tableWorkersID.setItems(OMO.getAllWorkers());
-=======
             cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());
->>>>>>> 765d98140a6d3889fc2639626e3091ed4fa75566
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
