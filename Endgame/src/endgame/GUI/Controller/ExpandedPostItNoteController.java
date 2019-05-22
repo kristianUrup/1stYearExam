@@ -73,10 +73,15 @@ public class ExpandedPostItNoteController implements Initializable
     private Label lblEndDate;
     @FXML
     private Label lblStartDate;
-    PlatformController pfcontroller;
-    OrderModel OMO;
-    Order ordersForDepartment;
-    Department department;
+    
+    private PlatformController pfcontroller;
+    
+    private OrderModel OMO;
+    
+    private Order ordersForDepartment;
+    
+    private Department department;
+    
     private StackPane stackPane;
     @FXML
     private BorderPane borderPane;
@@ -315,7 +320,6 @@ public class ExpandedPostItNoteController implements Initializable
     {
         return borderPane;
     }
-
     
 }
 
