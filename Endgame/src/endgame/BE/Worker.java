@@ -22,7 +22,8 @@ public class Worker
     private StringProperty initials;
 //    private IntegerProperty departmentId;
 
-    public Worker(int id, String name, int salaryNumber, String initials/*, int departmentId*/)
+
+    public Worker(int id, String name, int salaryNumber, String initials)
     {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
