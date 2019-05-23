@@ -82,7 +82,7 @@ public class PlatformController implements Initializable
             setPostItNotes();
             updatePostItNotes();
             readJsonFile();
-            setCombobox();
+            //setCombobox();
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
