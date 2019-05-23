@@ -338,24 +338,7 @@ public class PlatformController implements Initializable
                                         bigPostItCheck = false;
                                     }
                                 }
-                            });
-//
-//                           flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-//                        {
-//                            @Override
-//                            public void handle(MouseEvent event1) {
-//                                
-//                                if(bigPostItCheck)
-//                                {
-//                                    flowPane.getChildren().remove(openPostIt);
-////                                    blur.setHeight(-20);
-////                                    blur.setWidth(-20);
-//                                    bigPostItCheck = false;
-//                                }
-//                            }
-//                        });
-
-                            flowPane.getChildren().add(smallPostIt);
+                            });                           
                         } catch (IOException ex)
                         {
                             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -363,6 +346,7 @@ public class PlatformController implements Initializable
                     }
                 }
             });
+            flowPane.getChildren().add(smallPostIt);
         } catch (IOException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
