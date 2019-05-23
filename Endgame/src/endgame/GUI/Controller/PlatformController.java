@@ -61,7 +61,8 @@ public class PlatformController implements Initializable
     ExpandedPostItNoteController epinc;
     PostItController picontroller;
 
-    private Parent openPostIt;
+    private Parent smallPostIt;
+    private Parent bigPostIt;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -257,81 +258,12 @@ public class PlatformController implements Initializable
             try
             {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
-                Parent root1 = (Parent) loader.load();
+                smallPostIt = (Parent) loader.load();
                 PostItController pic = loader.getController();
                 pic.setDepartment(dep);
                 pic.setOrderInfo(order);
 //                flowPane.getChildren().add(root1);
-                pic.getAnchorPane().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-                {
-                    @Override
-                    public void handle(MouseEvent e)
-                    {
-
-                        ObservableList<Node> allNodes = flowPane.getChildren();
-                        BoxBlur blur = new BoxBlur();
-                        blur.setWidth(20);
-                        blur.setHeight(20);
-                        if (!bigPostItCheck)
-                        {
-                            for (Node child : allNodes)
-                            {
-                                child.setEffect(blur);
-                            }
-
-                            try
-                            {
-                                bigPostItCheck = true;
-                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
-                                openPostIt = (Parent) loader.load();
-                                ExpandedPostItNoteController epincontroller = loader.getController();
-                                epincontroller.setDepartment(dep);
-                                epincontroller.setOrderInfo(order);
-                                
-                                Stage stage = new Stage();
-                                Scene scene = new Scene(openPostIt);
-                                stage.setScene(scene);
-                                stage.initStyle(StageStyle.UNDECORATED);
-                                stage.show();
-                                
-                                epincontroller.getDoneButton().setOnAction(event ->
-                                {
-                                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                                    alert.setTitle("Dialog");
-                                    alert.setHeaderText("You are about to set this task to done");
-                                    alert.setContentText("Are you sure you want to do this?");
-
-                                    Optional<ButtonType> result = alert.showAndWait();
-                                    if ((result.isPresent()) && (result.get() == ButtonType.OK))
-                                    {
-                                        try
-                                        {
-                                            epinc.setDone();
-                                        } catch (BllException ex)
-                                        {
-                                            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-                                        }
-                                        flowPane.getChildren().remove(root1);
-                                        stage.close();
-                                        blur.setHeight(-20);
-                                        blur.setWidth(-20);
-                                        bigPostItCheck = false;
-                                    }
-                                });
-                                epincontroller.getCrossView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-                                {
-                                    @Override
-                                    public void handle(MouseEvent event1)
-                                    {
-                                        if (bigPostItCheck)
-                                        {
-                                            stage.close();
-                                            blur.setHeight(-20);
-                                            blur.setWidth(-20);
-                                            bigPostItCheck = false;
-                                        }
-                                    }
-                                });
+ 
 //
 //                           flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
 //                        {
@@ -347,15 +279,8 @@ public class PlatformController implements Initializable
 //                                }
 //                            }
 //                        });
-                            } catch (IOException ex)
-                            {
-                                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }
-                    }
-                });
-                Platform.runLater(() -> flowPane.getChildren().add(root1));
 
+                Platform.runLater(() -> flowPane.getChildren().add(smallPostIt));
             } catch (IOException ex)
             {
                 Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -398,5 +323,19 @@ public class PlatformController implements Initializable
     {
         System.exit(0);
     }
+
+    public boolean isBigPostItCheck() {
+        return bigPostItCheck;
+    }
+
+    public Parent getSmallPostIt() {
+        return smallPostIt;
+    }
+
+    public Parent getBigPostIt() {
+        return bigPostIt;
+    }
+    
+    
 
 }

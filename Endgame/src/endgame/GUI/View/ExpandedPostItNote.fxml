@@ -9,9 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane fx:id="borderPane" prefHeight="522.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.ExpandedPostItNoteController">
    <top>
@@ -29,7 +27,7 @@
    <bottom>
       <AnchorPane prefHeight="493.0" prefWidth="799.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="done" layoutX="120.0" layoutY="394.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="176.0" stylesheets="@../../Data/DesignPostItNote.css" text="Done!" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="394.0" />
+            <Button fx:id="done" layoutX="120.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleDoneBtn" prefHeight="76.0" prefWidth="176.0" stylesheets="@../../Data/DesignPostItNote.css" text="Done!" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="394.0" />
             <TableView fx:id="tableDepartmentList" layoutX="427.0" layoutY="89.0" onMouseClicked="#handlerDepartmentClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="90.0">
                <columns>
                   <TableColumn fx:id="cellDepartment" prefWidth="101.0" text="Department" />
@@ -133,4 +131,3 @@
       </AnchorPane>
    </bottom>
 </BorderPane>
-
