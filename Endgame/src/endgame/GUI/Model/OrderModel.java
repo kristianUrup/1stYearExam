@@ -120,12 +120,13 @@ public class OrderModel
     
     public ObservableList<Worker> getAllWorkers()
     {
-        if (!workerList.isEmpty())
-        {
-            workerList.clear();
-        }
-       workerList.addAll(workerList);
-       return workerList;
+        ObservableList<Worker> workers = FXCollections.observableArrayList();
+        
+        Worker claus = new Worker(1,"Claus", 2042, "CJ");
+        
+        workers.add(claus);
+        
+        return workers;
     }
 
     public void endDateSortedByAsc(List<Order> orders)
@@ -161,6 +162,4 @@ public class OrderModel
         ManagementDepartmentList.addAll(BF.getManagementDepartments(department));
         return ManagementDepartmentList;
     }
-    
-    
 }

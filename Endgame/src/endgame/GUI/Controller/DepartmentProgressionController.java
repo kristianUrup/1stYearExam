@@ -19,8 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -42,8 +40,6 @@ public class DepartmentProgressionController implements Initializable
     private Label lblStartDate;
     @FXML
     private Label lblEndDate;
-    @FXML
-    private AnchorPane anchorPane;
 
     /**
      * Initializes the controller class.
@@ -61,15 +57,14 @@ public class DepartmentProgressionController implements Initializable
     }
     
     public void setDepartment(Department department) {
-        this.currentDep = department;
-        setAttributes(currentDep);
+        currentDep = department;
     }
     
     private void setAttributes(Department department) {
         try
         {
-            Date startDate = department.getStartDate();
-            Date endDate = department.getEndDate();
+            Date startDate = currentDep.getStartDate();
+            Date endDate = currentDep.getEndDate();
             prgDepProg.setProgress(OMO.getProgressedTimeInProcent(startDate, endDate));
             
             String startDateText = new SimpleDateFormat("dd/MM/yyyy").format(startDate);
@@ -77,10 +72,16 @@ public class DepartmentProgressionController implements Initializable
             
             lblStartDate.setText(startDateText);
             lblEndDate.setText(endDateText);
-            lblDepartment.setText(department.getName());
         } catch (BllException ex)
         {
             Logger.getLogger(DepartmentProgressionController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } 
+    }
+
+    @FXML
+    private void handlerCloseWindow(ActionEvent event)
+    {
+        
+    }
+    
 }

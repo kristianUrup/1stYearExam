@@ -105,18 +105,13 @@ public class ExpandedPostItNoteController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         try
-        {
-            
+        {          
             pfcontroller = new PlatformController();
             OMO = new OrderModel();
             cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
-            //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-            //  cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
-//            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
             tableWorkersID.setItems(OMO.getAllWorkers());
-            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());
-            
+            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());            
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
@@ -344,10 +339,10 @@ public class ExpandedPostItNoteController implements Initializable
         Department depClicked = tableDepartmentList.getSelectionModel().getSelectedItem();
         if (depClicked != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/DepartmentProgression.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DepartmentProgression.fxml"));
                 Parent root = (Parent) loader.load();
-                DepartmentProgressionController dpcontroller = loader.getController();         
-                dpcontroller.setDepartment(depClicked);
+                DepartmentProgressionController dpcontroller = loader.getController();
+                dpcontroller.setDepartment(department);
                 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
