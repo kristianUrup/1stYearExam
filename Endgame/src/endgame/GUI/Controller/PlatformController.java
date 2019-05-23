@@ -302,7 +302,7 @@ public class PlatformController implements Initializable
                     }
                 }
             });
-            flowPane.getChildren().add(root1);
+            Platform.runLater(() -> flowPane.getChildren().add(root1));
         } catch (IOException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
