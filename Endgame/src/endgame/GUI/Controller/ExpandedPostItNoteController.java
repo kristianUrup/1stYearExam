@@ -39,6 +39,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -139,11 +140,11 @@ public class ExpandedPostItNoteController implements Initializable
             String output = outputFormatter.format(date);
             
             Date startDate = order.getStartDate();
-            String startStringDate = new SimpleDateFormat("ww/u").format(startDate);
+            String startStringDate = new SimpleDateFormat("[ww:u]").format(startDate);
             lblStartDate.setText(startStringDate);
             
             Date endDate = order.getEndDate();
-            String endStringDate = new SimpleDateFormat("ww/u").format(endDate);
+            String endStringDate = new SimpleDateFormat("[ww:u]").format(endDate);
             lblEndDate.setText(endStringDate);
 
             lblDeliveryDate.setText(output);
@@ -349,8 +350,13 @@ public class ExpandedPostItNoteController implements Initializable
                 DepartmentProgressionController dpcontroller = loader.getController();         
                 dpcontroller.setDepartment(depClicked);
                 
+                Stage st = (Stage) borderPane.getScene().getWindow();
+                
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.initOwner(st);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.setResizable(false);
                 stage.show();
             } catch (IOException ex) {
                 Logger.getLogger(ExpandedPostItNoteController.class.getName()).log(Level.SEVERE, null, ex);

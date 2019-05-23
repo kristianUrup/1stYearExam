@@ -35,6 +35,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -62,6 +63,8 @@ public class PlatformController implements Initializable
     PostItController picontroller;
 
     private Parent openPostIt;
+    @FXML
+    private BorderPane borderPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -288,9 +291,12 @@ public class PlatformController implements Initializable
                                 epincontroller.setDepartment(dep);
                                 epincontroller.setOrderInfo(order);
                                 
+                                Stage st = (Stage) borderPane.getScene().getWindow();
+                                
                                 Stage stage = new Stage();
                                 Scene scene = new Scene(openPostIt);
                                 stage.setScene(scene);
+                                stage.initOwner(st);
                                 stage.initStyle(StageStyle.UNDECORATED);
                                 stage.show();
                                 
