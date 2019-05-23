@@ -151,13 +151,17 @@ public class ExpandedPostItNoteController implements Initializable
             String output = outputFormatter.format(date);
             
             Date startDate = order.getStartDate();
-            String startStringDate = new SimpleDateFormat("dd/MM/yyyy").format(startDate);
+            String startStringDate = new SimpleDateFormat("ww/u").format(startDate);
             lblStartDate.setText(startStringDate);
             
             Date endDate = order.getEndDate();
+<<<<<<< HEAD
             String endStringDate = new SimpleDateFormat("dd/MM/yyyy").format(endDate);
             lblStartDate.setText(startStringDate);
             
+=======
+            String endStringDate = new SimpleDateFormat("ww/u").format(endDate);
+>>>>>>> parent of 1aa4dcf... sorting updates
             lblEndDate.setText(endStringDate);
 
             lblDeliveryDate.setText(output);
