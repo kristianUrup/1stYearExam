@@ -124,7 +124,6 @@ public class PostItController implements Initializable
         lblDeliveryDate.setText(output);
     }
 
-    @FXML
     private void handleMouseAnchorPane(MouseEvent event) throws IOException
     {
         ObservableList<Node> allNodes = pfcontroller.getFlowPane().getChildren();

@@ -114,8 +114,7 @@ public class ExpandedPostItNoteController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         try
-        {
-            
+        {          
             pfcontroller = new PlatformController();
             OMO = new OrderModel();
             smallPostIt = pfcontroller.getSmallPostIt();
@@ -123,12 +122,8 @@ public class ExpandedPostItNoteController implements Initializable
             bigPostItCheck = pfcontroller.isBigPostItCheck();
             cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
-            //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-            //  cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
-//            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
             tableWorkersID.setItems(OMO.getAllWorkers());
-            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());
-            
+            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());            
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
