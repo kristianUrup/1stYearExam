@@ -22,11 +22,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -39,6 +41,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.swing.ImageIcon;
 
 /**
@@ -54,6 +58,7 @@ public class PostItController implements Initializable
     PlatformController pfcontroller;
     OrderModel OMO;
     ExpandedPostItNoteController epinc;
+    boolean bigPostItCheck;
 
     @FXML
     private Label lblOrderNumber;
@@ -75,6 +80,7 @@ public class PostItController implements Initializable
             epinc = new ExpandedPostItNoteController();
             pfcontroller = new PlatformController();
             OMO = new OrderModel();
+            bigPostItCheck = pfcontroller.isBigPostItCheck();
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
@@ -92,11 +98,18 @@ public class PostItController implements Initializable
         String output = outputFormatter.format(date);
         lblDeliveryDate.setText(output);
     }
-
+    
     public void setDepartment(Department department)
     {
         this.department = department;
     }
+    
+    public Department getDepartment()
+    {
+        return this.department;
+    }
+    
+    
 
 
     public void showDeliveryDate(Order order) throws BllException
@@ -114,48 +127,32 @@ public class PostItController implements Initializable
     @FXML
     private void handleMouseAnchorPane(MouseEvent event) throws IOException
     {
+        ObservableList<Node> allNodes = pfcontroller.getFlowPane().getChildren();
+        BoxBlur blur = new BoxBlur();
+        blur.setWidth(20);
+        blur.setHeight(20);
+        if (!pfcontroller.isBigPostItCheck())
+        {
+            for (Node child : allNodes)
+            {
+                child.setEffect(blur);
+            }
+        }
+        bigPostItCheck = true;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
+        Parent root = (Parent) loader.load();
+        ExpandedPostItNoteController epincontroller = loader.getController();
         
-//        ObservableList<Node> allNodes = anchorPane.getChildren();
-//        BoxBlur blur = new BoxBlur();
-//        blur.setWidth(25);
-//        blur.setHeight(25);
-//        for (Node node : allNodes)
-//        {
-//            node.setEffect(blur);
-//        }
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
-//        Parent root = (Parent) loader.load();
-//        ExpandedPostItNoteController epincontroller = loader.getController();
-//        epincontroller.setDepartment(department);
-//        epincontroller.setOrderInfo(ordersForDepartment);
-//        pfcontroller.getFlowPane().getChildren().add(root);
-//        epinc.getButton().setOnAction(e ->
-//        {
-//            try
-//            {
-//                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//                alert.setTitle("Dialog");
-//                alert.setHeaderText("You are about to set this task to done");
-//                alert.setContentText("Are you sure you want to do this?");
-//
-//                String header = "You are about to set this task to done";
-//                String content = "Are you sure you want to do this?";
-//                Optional<ButtonType> result = alert.showAndWait();
-//                if ((result.isPresent()) && (result.get() == ButtonType.OK))
-//                {
-//                    epinc.setDone();
-//                    pfcontroller.getFlowPane().getChildren().remove(root);
-//                }
-//
-//            } catch (BllException ex)
-//            {
-//                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//
-//        });
+        epincontroller.setDepartment(getDepartment());
+        epincontroller.setOrderInfo(ordersForDepartment);
 
-        
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
     }
+    
     
     public AnchorPane getAnchorPane()
     {
