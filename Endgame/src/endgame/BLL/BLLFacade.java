@@ -7,6 +7,7 @@ package endgame.BLL;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
+import endgame.BE.Worker;
 import endgame.BLL.Exception.BllException;
 import java.io.File;
 import java.io.IOException;
@@ -102,6 +103,16 @@ public class BLLFacade implements IBLLFacade
         JM.getJsonFile();
     }
 
+//    public List<Worker> getAllWorkers(Worker worker) throws BllException
+//    {
+//        return WM.getAllWorkers(worker);
+//    }
+
     
+    @Override
+    public List<Department> getManagementDepartments(Department department) throws BllException
+    {
+        return DMA.getManagementDepartments(department);
+    }
     
 }

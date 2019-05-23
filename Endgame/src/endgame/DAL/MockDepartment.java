@@ -55,4 +55,10 @@ public class MockDepartment implements IDepartmentDAO
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<Department> getManagementDepartments(Department department) throws DalException
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

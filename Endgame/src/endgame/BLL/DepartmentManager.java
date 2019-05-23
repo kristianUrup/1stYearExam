@@ -57,5 +57,17 @@ public class DepartmentManager
             throw new BllException(ex.getMessage());
         }
     }
+    
+    public List<Department> getManagementDepartments(Department department) throws BllException
+    {
+        try
+        {
+            return iddao.getManagementDepartments(department);
+        }
+        catch (DalException ex)
+        {
+            throw new BllException(ex.getMessage());
+        }
+    }
 
 }

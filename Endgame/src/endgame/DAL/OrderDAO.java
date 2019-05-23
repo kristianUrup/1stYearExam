@@ -197,4 +197,17 @@ public class OrderDAO implements IOrderDAO
         }
         return null;
     }
+    
+//    private Order getManagementOrders()
+//    {
+//        Connection con = null;
+//        
+//        try {
+//            con = cdao.getConnection();
+//            String sql = 
+//            
+//            PreparedStatement pst = con.prepareStatement(sql);
+//            
+//            pst.setString(1, Order.);
+//    }
 }

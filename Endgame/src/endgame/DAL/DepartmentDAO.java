@@ -5,6 +5,7 @@
  */
 package endgame.DAL;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.DAL.Exception.DalException;
@@ -17,6 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -143,5 +146,39 @@ public class DepartmentDAO implements IDepartmentDAO
 
         return null;
     }
-
+    
+    public List<Department> getManagementDepartments(Department department) throws DalException
+    {
+        Connection con = null;
+        
+        List<Department> departments = new ArrayList<>();
+        
+        try {
+            con = cdao.getConnection();
+            
+            String sql = "SELECT name FROM Department";
+            
+            PreparedStatement pst = con.prepareStatement(sql);
+            
+            pst.setInt(1, department.getId());
+            pst.setString(2, department.getName());
+            
+            ResultSet rs = pst.executeQuery();
+            
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                department = new Department(id, name);
+            }
+            
+            
+            departments.add(department);
+            
+    }   catch (SQLException ex)
+        {
+            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return departments;
+    }
 }
