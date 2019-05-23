@@ -21,5 +21,5 @@ public interface IDepartmentDAO
     
     public List<Department> getDepartments(Order order) throws DalException;
     
-    public List<Department> getManagementDepartments(Department department) throws DalException;
+    public List<Department> getManagementDepartments() throws DalException;
 }

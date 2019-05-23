@@ -72,6 +72,7 @@ public class PlatformController implements Initializable
 //        anchorPane.setStyle("-fx-opacity: 0");
         try
         {
+            comboDepartment.setVisible(false);
             picontroller = new PostItController();
             epinc = new ExpandedPostItNoteController();
             OM = new OrderModel();
@@ -81,7 +82,7 @@ public class PlatformController implements Initializable
             setPostItNotes();
             updatePostItNotes();
             readJsonFile();
-            //setCombobox();
+            //setManagement();
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -355,13 +356,38 @@ public class PlatformController implements Initializable
     @FXML
     private void setCombobox()
     {
-        
         try
         {
-            comboDepartment.setItems(OM.getManagementDepartments(dep));
+            comboDepartment.setItems(OM.getManagementDepartments());
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+//    private void setManagement()
+//    {
+//        if(dep.getName().equals("Management"))
+//        {
+//            comboDepartment.setVisible(true);
+//            setCombobox();
+//            
+//            try
+//            {
+//                Department department = comboDepartment.getSelectionModel().getSelectedItem();
+//                
+//                setPostItNotes();
+//                updatePostItNotes();
+//                
+//                
+//                
+//            } catch (BllException ex)
+//            {
+//                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//    }
+    
+    
+    
 }

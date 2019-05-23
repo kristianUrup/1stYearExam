@@ -91,5 +91,11 @@ public class Department
     {
         return NAME;
     }
+
+    @Override
+    public String toString()
+    {
+        return NAME.getValue();
+    }
     
 }

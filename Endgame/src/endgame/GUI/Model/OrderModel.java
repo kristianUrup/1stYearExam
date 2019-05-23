@@ -157,9 +157,9 @@ public class OrderModel
         return "OrderModel{" + "workerList=" + workerList + '}';
     }
     
-    public ObservableList<Department> getManagementDepartments(Department department) throws BllException
+    public ObservableList<Department> getManagementDepartments() throws BllException
     {
-        ManagementDepartmentList.addAll(BF.getManagementDepartments(department));
+        ManagementDepartmentList.addAll(BF.getManagementDepartments());
         return ManagementDepartmentList;
     }
 }

@@ -147,37 +147,29 @@ public class DepartmentDAO implements IDepartmentDAO
         return null;
     }
     
-    public List<Department> getManagementDepartments(Department department) throws DalException
+    public List<Department> getManagementDepartments() throws DalException
     {
         Connection con = null;
         
         List<Department> departments = new ArrayList<>();
-        
         try {
             con = cdao.getConnection();
             
-            String sql = "SELECT name FROM Department";
+            String sql = "SELECT * FROM Department";
             
             PreparedStatement pst = con.prepareStatement(sql);
-            
-            pst.setInt(1, department.getId());
-            pst.setString(2, department.getName());
-            
             ResultSet rs = pst.executeQuery();
-            
-            while (rs.next())
+            while(rs.next())
             {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
-                department = new Department(id, name);
+                
+                Department department = new Department(id,name);
+                departments.add(department);
             }
-            
-            
-            departments.add(department);
-            
-    }   catch (SQLException ex)
+        } catch (SQLException ex)
         {
-            Logger.getLogger(DepartmentDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new DalException("Could not get departments");
         }
         return departments;
     }

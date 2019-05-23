@@ -39,5 +39,5 @@ public interface IBLLFacade
     
     //public List<Worker> getAllWorkers(Worker worker) throws BllException;
     
-    public List<Department> getManagementDepartments(Department department) throws BllException;
+    public List<Department> getManagementDepartments() throws BllException;
 }
