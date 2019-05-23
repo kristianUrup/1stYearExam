@@ -6,6 +6,8 @@
 package endgame.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import endgame.BE.Department;
+import endgame.BE.Order;
 import endgame.BE.Worker;
 import endgame.DAL.Exception.DalException;
 import java.sql.Connection;
@@ -22,40 +24,40 @@ import java.util.logging.Logger;
  *
  * @author KristianUrup
  */
-public class WorkerDAO {
-    
+public class WorkerDAO implements IWorkerDAO
+{
+
     private ConnectionDAO cdao;
-    
+
     public WorkerDAO()
     {
         cdao = new ConnectionDAO();
     }
-    
-    
-    public List<Worker> getAllWorkers(Worker worker) throws DalException
+
+    @Override
+    public List<Worker> getWorkers(Department department, Order order) throws DalException
     {
+
         Connection con = null;
-        
+
         try
         {
             con = cdao.getConnection();
             List<Worker> workers = new ArrayList<>();
             String sql = "SELECT * FROM Worker";
-            
+
             PreparedStatement pst = con.prepareStatement(sql);
-            
-            pst.setInt(1, worker.getId());
-            
+
             ResultSet rs = pst.executeQuery();
-            
-            while(rs.next())
+
+            while (rs.next())
             {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String initials = rs.getString("initials");
                 int salarynumber = rs.getInt("salarynumber");
-                
-                Worker newWorker = new Worker(id,name,salarynumber,initials);
+
+                Worker newWorker = new Worker(id, name, salarynumber, initials);
                 workers.add(newWorker);
             }
             return workers;
