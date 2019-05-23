@@ -20,16 +20,16 @@ public class Worker
     private StringProperty name;
     private IntegerProperty salaryNumber;
     private StringProperty initials;
-//    private IntegerProperty departmentId;
+    private IntegerProperty departmentId;
 
 
-    public Worker(int id, String name, int salaryNumber, String initials)
+    public Worker(int id, String name, int salaryNumber, String initials, int departmentId)
     {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
         this.salaryNumber = new SimpleIntegerProperty(salaryNumber);
         this.initials = new SimpleStringProperty(initials);
-//        this.departmentId = new SimpleIntegerProperty(departmentId);
+        this.departmentId = new SimpleIntegerProperty(departmentId);
     }
 
     public int getId()
