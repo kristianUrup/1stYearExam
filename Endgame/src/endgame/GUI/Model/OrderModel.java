@@ -25,14 +25,12 @@ public class OrderModel
 {
 
     private final ObservableList<Department> departmentList;
-    private final ObservableList<Worker> workerList;
     private final IBLLFacade BF;
 
     public OrderModel() throws BllException
     {
         BF = new BLLFacade();
         departmentList = FXCollections.observableArrayList();
-        workerList = FXCollections.observableArrayList();
     }
 
     public List<Order> getAllOrders(Department department, int offset) throws BllException
@@ -118,12 +116,13 @@ public class OrderModel
     
     public ObservableList<Worker> getAllWorkers()
     {
-        if (!workerList.isEmpty())
-        {
-            workerList.clear();
-        }
-       workerList.addAll(workerList);
-       return workerList;
+        ObservableList<Worker> workers = FXCollections.observableArrayList();
+        
+        Worker claus = new Worker(1,"Claus", 2042, "CJ");
+        
+        workers.add(claus);
+        
+        return workers;
     }
 
     public void endDateSortedByAsc(List<Order> orders)
@@ -148,11 +147,4 @@ public class OrderModel
     public void getJsonFile() throws BllException {
         BF.getJsonFile();
     }
-
-    @Override
-    public String toString() {
-        return "OrderModel{" + "workerList=" + workerList + '}';
-    }
-    
-    
 }

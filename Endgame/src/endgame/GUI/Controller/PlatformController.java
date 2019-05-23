@@ -19,6 +19,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -35,7 +36,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -50,7 +50,6 @@ public class PlatformController implements Initializable
     private Department dep;
     private OrderModel OM;
     private List<String> orderNumbers;
-    private Order order;
     private boolean bigPostItCheck = false;
 
     @FXML
@@ -62,14 +61,7 @@ public class PlatformController implements Initializable
     ExpandedPostItNoteController epinc;
     PostItController picontroller;
 
-    private Parent openPostIt;
-    @FXML
-    private BorderPane borderPane;
-    private Parent smallPostIt;
-    private Parent bigPostIt;
-
     @Override
-
     public void initialize(URL url, ResourceBundle rb)
     {
 //        anchorPane.setStyle("-fx-opacity: 0");
@@ -133,61 +125,20 @@ public class PlatformController implements Initializable
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
-    public void openFXML12(Order order) throws IOException
+    private void orderList(List<Order> orders)
     {
         Thread t = new Thread(() ->
         {
-            try
+            for (Order order : orders)
             {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
-                Parent root = (Parent) loader.load();
-                ExpandedPostItNoteController pic = loader.getController();
-                pic.setDepartment(dep);
-                pic.setOrderInfo(order);
-                pic.getDoneButton().setOnAction(e ->
+                if (!orderNumbers.contains(order.getOrderNumber()))
                 {
-                    try
-                    {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Dialog");
-                        alert.setHeaderText("You are about to set this task to done");
-                        alert.setContentText("Are you sure you want to do this?");
-
-                        String header = "You are about to set this task to done";
-                        String content = "Are you sure you want to do this?";
-                        Optional<ButtonType> result = alert.showAndWait();
-                        if ((result.isPresent()) && (result.get() == ButtonType.OK))
-                        {
-                            pic.setDone();
-                            flowPane.getChildren().remove(root);
-                        }
-
-                    } catch (BllException ex)
-                    {
-                        Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                });
-                Platform.runLater(() -> flowPane.getChildren().add(root));
-            } catch (IOException ex)
-            {
-                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                    openFXML(order);
+                    orderNumbers.add(order.getOrderNumber());
+                }
             }
         });
         t.start();
-    }
-
-    private void orderList(List<Order> orders)
-    {
-
-        for (Order order : orders)
-        {
-            if (!orderNumbers.contains(order.getOrderNumber()))
-            {
-                openFXML(order);
-                orderNumbers.add(order.getOrderNumber());
-            }
-        }
     }
 
     private void updateUI(List<Order> orders)
@@ -198,23 +149,18 @@ public class PlatformController implements Initializable
     }
 
     @FXML
-    private void sortByEndDateAsc(ActionEvent event)
+    private void sortByEndDateAsc(ActionEvent event) throws BllException
     {
+
+        List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
         Thread t = new Thread(() ->
         {
-            try
-            {
-                List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
-                OM.endDateSortedByAsc(orders);
-                Platform.runLater(
-                        () -> updateUI(orders));
-
-            } catch (BllException ex)
-            {
-                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            OM.endDateSortedByAsc(orders);
+            Platform.runLater(
+                    () -> updateUI(orders));
         });
         t.start();
+
     }
 
     @FXML
@@ -261,17 +207,15 @@ public class PlatformController implements Initializable
         try
         {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/PostIt.fxml"));
-            smallPostIt = (Parent) loader.load();
+            Parent root1 = (Parent) loader.load();
             PostItController pic = loader.getController();
             pic.setDepartment(dep);
             pic.setOrderInfo(order);
-//                flowPane.getChildren().add(root1);
             pic.getAnchorPane().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
             {
                 @Override
                 public void handle(MouseEvent e)
                 {
-
                     ObservableList<Node> allNodes = flowPane.getChildren();
                     BoxBlur blur = new BoxBlur();
                     blur.setWidth(20);
@@ -287,17 +231,14 @@ public class PlatformController implements Initializable
                         {
                             bigPostItCheck = true;
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
-                            openPostIt = (Parent) loader.load();
+                            Parent openPostIt = (Parent) loader.load();
                             ExpandedPostItNoteController epincontroller = loader.getController();
                             epincontroller.setDepartment(dep);
                             epincontroller.setOrderInfo(order);
 
-                            Stage st = (Stage) borderPane.getScene().getWindow();
-
                             Stage stage = new Stage();
                             Scene scene = new Scene(openPostIt);
                             stage.setScene(scene);
-                            stage.initOwner(st);
                             stage.initStyle(StageStyle.UNDECORATED);
                             stage.show();
 
@@ -318,7 +259,7 @@ public class PlatformController implements Initializable
                                     {
                                         Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
                                     }
-                                    flowPane.getChildren().remove(smallPostIt);
+                                    flowPane.getChildren().remove(root1);
                                     stage.close();
                                     blur.setHeight(-20);
                                     blur.setWidth(-20);
@@ -338,7 +279,22 @@ public class PlatformController implements Initializable
                                         bigPostItCheck = false;
                                     }
                                 }
-                            });                           
+                            });
+//
+//                           flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+//                        {
+//                            @Override
+//                            public void handle(MouseEvent event1) {
+//                                
+//                                if(bigPostItCheck)
+//                                {
+//                                    flowPane.getChildren().remove(openPostIt);
+//                                    blur.setHeight(-20);
+//                                    blur.setWidth(-20);
+//                                    bigPostItCheck = false;
+//                                }
+//                            }
+//                        });
                         } catch (IOException ex)
                         {
                             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -346,11 +302,12 @@ public class PlatformController implements Initializable
                     }
                 }
             });
-            flowPane.getChildren().add(smallPostIt);
+            flowPane.getChildren().add(root1);
         } catch (IOException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     private void readJsonFile()
@@ -388,20 +345,4 @@ public class PlatformController implements Initializable
     {
         System.exit(0);
     }
-
-    public boolean isBigPostItCheck()
-    {
-        return bigPostItCheck;
-    }
-
-    public Parent getSmallPostIt()
-    {
-        return smallPostIt;
-    }
-
-    public Parent getBigPostIt()
-    {
-        return bigPostIt;
-    }
-
 }
