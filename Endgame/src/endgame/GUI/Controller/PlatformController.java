@@ -5,6 +5,7 @@
  */
 package endgame.GUI.Controller;
 
+import com.jfoenix.controls.JFXComboBox;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
@@ -31,6 +32,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
@@ -60,6 +62,10 @@ public class PlatformController implements Initializable
     ExpandedPostItNoteController epinc;
     PostItController picontroller;
 
+    private Parent openPostIt;
+    @FXML
+    private ComboBox<Department> comboDepartment;
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -75,6 +81,7 @@ public class PlatformController implements Initializable
             setPostItNotes();
             updatePostItNotes();
             readJsonFile();
+            setCombobox();
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -343,5 +350,18 @@ public class PlatformController implements Initializable
     private void handleCloseBtn(ActionEvent event)
     {
         System.exit(0);
+    }
+    
+    @FXML
+    private void setCombobox()
+    {
+        
+        try
+        {
+            comboDepartment.setItems(OM.getManagementDepartments(dep));
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
