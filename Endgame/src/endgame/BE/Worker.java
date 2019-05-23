@@ -20,7 +20,8 @@ public class Worker
     private StringProperty name;
     private IntegerProperty salaryNumber;
     private StringProperty initials;
-    private IntegerProperty departmentId;
+//    private IntegerProperty departmentId;
+
 
     public Worker(int id, String name, int salaryNumber, String initials)
     {
@@ -71,19 +72,18 @@ public class Worker
         this.initials = initials;
     }
 
-    public int getDepartmentId()
-    {
-        return departmentId.get();
-    }
-
-    public void setDepartmentId(IntegerProperty departmentId)
-    {
-        this.departmentId = departmentId;
-    }
+//    public int getDepartmentId()
+//    {
+//        return departmentId.get();
+//    }
+//
+//    public void setDepartmentId(IntegerProperty departmentId)
+//    {
+//        this.departmentId = departmentId;
+//    }
     
     public IntegerProperty getSalaryNumberProperty()
     {
         return salaryNumber;
     }
-    
 }

@@ -79,6 +79,7 @@ public class ExpandedPostItNoteController implements Initializable
     private Label lblEndDate;
     @FXML
     private Label lblStartDate;
+
     
     private PlatformController pfcontroller;
     
@@ -88,6 +89,7 @@ public class ExpandedPostItNoteController implements Initializable
     
     private Department department;
     
+
     private StackPane stackPane;
     @FXML
     private BorderPane borderPane;
@@ -104,15 +106,16 @@ public class ExpandedPostItNoteController implements Initializable
     {
         try
         {
+            
             pfcontroller = new PlatformController();
             OMO = new OrderModel();
             cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
             //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
             //  cellStatus.setCellValueFactory(new PropertyValueFactory<>("isDone"));
-            
-            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());
+//            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getIsDoneProperty());
             tableWorkersID.setItems(OMO.getAllWorkers());
+            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());
             
         } catch (BllException ex)
         {
