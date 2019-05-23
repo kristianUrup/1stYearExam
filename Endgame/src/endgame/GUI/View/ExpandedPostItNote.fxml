@@ -9,9 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
 
 <BorderPane fx:id="borderPane" prefHeight="522.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.ExpandedPostItNoteController">
    <top>
@@ -29,7 +27,7 @@
    <bottom>
       <AnchorPane prefHeight="493.0" prefWidth="799.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="done" layoutX="120.0" layoutY="394.0" mnemonicParsing="false" prefHeight="76.0" prefWidth="176.0" stylesheets="@../../Data/DesignPostItNote.css" text="Done!" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="394.0" />
+            <Button fx:id="done" layoutX="120.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleDoneBtn" prefHeight="76.0" prefWidth="176.0" stylesheets="@../../Data/DesignPostItNote.css" text="Done!" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="394.0" />
             <TableView fx:id="tableDepartmentList" layoutX="427.0" layoutY="89.0" onMouseClicked="#handlerDepartmentClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="90.0">
                <columns>
                   <TableColumn fx:id="cellDepartment" prefWidth="101.0" text="Department" />
@@ -122,8 +120,8 @@
                   <Image url="@../../Data/drawedLineSmall.png" />
                </image>
             </ImageView>
-            <Label fx:id="lblEndDate" layoutX="410.0" layoutY="375.0" AnchorPane.leftAnchor="410.0" AnchorPane.topAnchor="375.0" />
-            <Label fx:id="lblStartDate" layoutX="35.0" layoutY="376.0" />
+            <Label fx:id="lblEndDate" alignment="CENTER_RIGHT" layoutX="396.0" layoutY="371.0" prefHeight="18.0" prefWidth="59.0" AnchorPane.bottomAnchor="108.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="370.0" />
+            <Label fx:id="lblStartDate" layoutX="50.0" layoutY="370.0" prefHeight="18.0" prefWidth="65.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="49.0" AnchorPane.topAnchor="369.0" />
             <ImageView fx:id="crossBtn" fitHeight="51.0" fitWidth="42.0" layoutX="762.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@../../Data/cross.png" />
@@ -133,4 +131,3 @@
       </AnchorPane>
    </bottom>
 </BorderPane>
-

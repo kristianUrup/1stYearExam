@@ -19,6 +19,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Department
 {
+
     private final IntegerProperty ID;
     private final StringProperty NAME;
     private StringProperty condition;
@@ -27,16 +28,18 @@ public class Department
 
     /**
      * Constructs a department with an id and a name.
+     *
      * @param id
-     * @param name 
+     * @param name
      */
     public Department(int id, String name)
     {
         this.ID = new SimpleIntegerProperty(id);
         this.NAME = new SimpleStringProperty(name);
     }
-    
-    public Department(int id, String name, String condition, Date startDate, Date endDate) {
+
+    public Department(int id, String name, String condition, Date startDate, Date endDate)
+    {
         this.ID = new SimpleIntegerProperty(id);
         this.NAME = new SimpleStringProperty(name);
         this.condition = new SimpleStringProperty(condition);
@@ -46,7 +49,8 @@ public class Department
 
     /**
      * Gets the name of the created department.
-     * @return 
+     *
+     * @return
      */
     public String getName()
     {
@@ -55,21 +59,23 @@ public class Department
 
     /**
      * Gets the id of the created department.
-     * @return 
+     *
+     * @return
      */
     public int getId()
     {
         return ID.get();
     }
-    
-    public String getCondition() {
+
+    public String getCondition()
+    {
         return condition.get();
     }
 
     public void setCondition(String value)
     {
         condition.set(value);
-        
+
     }
 
     public Date getStartDate()
@@ -81,15 +87,15 @@ public class Department
     {
         return endDate;
     }
-    
+
     public StringProperty getConditionProperty()
     {
         return condition;
     }
-    
+
     public StringProperty getNameProperty()
     {
         return NAME;
     }
-    
+
 }

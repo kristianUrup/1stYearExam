@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  *
  * @author KristianUrup
  */
-public class WorkerDAO {
+public class WorkerDAO implements IWorkerDAO{
     
     private ConnectionDAO cdao;
     
@@ -40,7 +40,9 @@ public class WorkerDAO {
         {
             con = cdao.getConnection();
             List<Worker> workers = new ArrayList<>();
-            String sql = "SELECT * FROM Worker";
+            String sql = "SELECT * FROM Worker wo"
+                    + "INNER JOIN \"DWO\" dwo ON wo.id = dwo.workerId"
+                    + "WHERE wo.departmentId = ?";
             
             PreparedStatement pst = con.prepareStatement(sql);
             
@@ -54,8 +56,9 @@ public class WorkerDAO {
                 String name = rs.getString("name");
                 String initials = rs.getString("initials");
                 int salarynumber = rs.getInt("salarynumber");
+                int departmentId = rs.getInt("departmentId");
                 
-                Worker newWorker = new Worker(id,name,salarynumber,initials);
+                Worker newWorker = new Worker(id,name,salarynumber,initials,departmentId);
                 workers.add(newWorker);
             }
             return workers;

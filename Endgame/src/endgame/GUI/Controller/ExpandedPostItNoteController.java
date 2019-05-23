@@ -16,29 +16,35 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -89,8 +95,11 @@ public class ExpandedPostItNoteController implements Initializable
     
     private Department department;
     
-
-    private StackPane stackPane;
+    private Parent smallPostIt;
+    private Parent bigPostIt;
+    
+    private boolean bigPostItCheck;
+    
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -109,6 +118,9 @@ public class ExpandedPostItNoteController implements Initializable
             
             pfcontroller = new PlatformController();
             OMO = new OrderModel();
+            smallPostIt = pfcontroller.getSmallPostIt();
+            bigPostIt = pfcontroller.getBigPostIt();
+            bigPostItCheck = pfcontroller.isBigPostItCheck();
             cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
             //   cellDepartment.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
@@ -144,6 +156,8 @@ public class ExpandedPostItNoteController implements Initializable
             
             Date endDate = order.getEndDate();
             String endStringDate = new SimpleDateFormat("dd/MM/yyyy").format(endDate);
+            lblStartDate.setText(startStringDate);
+            
             lblEndDate.setText(endStringDate);
 
             lblDeliveryDate.setText(output);
@@ -328,11 +342,6 @@ public class ExpandedPostItNoteController implements Initializable
         }
     }
     
-    public StackPane getStackPane()
-    {
-        return stackPane;
-    }
-    
     public BorderPane getBorderPane()
     {
         return borderPane;
@@ -344,13 +353,18 @@ public class ExpandedPostItNoteController implements Initializable
         Department depClicked = tableDepartmentList.getSelectionModel().getSelectedItem();
         if (depClicked != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DepartmentProgression.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/DepartmentProgression.fxml"));
                 Parent root = (Parent) loader.load();
-                DepartmentProgressionController dpcontroller = loader.getController();
-                dpcontroller.setDepartment(department);
+                DepartmentProgressionController dpcontroller = loader.getController();         
+                dpcontroller.setDepartment(depClicked);
+                
+                Stage st = (Stage) borderPane.getScene().getWindow();
                 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.initOwner(st);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.setResizable(false);
                 stage.show();
             } catch (IOException ex) {
                 Logger.getLogger(ExpandedPostItNoteController.class.getName()).log(Level.SEVERE, null, ex);
@@ -386,5 +400,33 @@ public class ExpandedPostItNoteController implements Initializable
             lblAnchorStatus.setText("Ongoing");
         }
        
+    }
+
+    @FXML
+    private void handleDoneBtn(ActionEvent event) 
+    {
+        BoxBlur blur = new BoxBlur();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Dialog");
+        alert.setHeaderText("You are about to set this task to done");
+        alert.setContentText("Are you sure you want to do this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if ((result.isPresent()) && (result.get() == ButtonType.OK))
+        {
+            try
+            {
+                setDone();
+            } catch (BllException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            pfcontroller.getFlowPane().getChildren().remove(smallPostIt);
+            Stage stage = (Stage) borderPane.getScene().getWindow();
+            stage.close();
+            blur.setHeight(-20);
+            blur.setWidth(-20);
+            bigPostItCheck = false;
+        }
     }
 }
