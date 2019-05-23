@@ -9,6 +9,7 @@ import endgame.BE.Worker;
 import endgame.BLL.Exception.BllException;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.IWorkerDAO;
+import endgame.DAL.WorkerDAO;
 import java.util.List;
 
 /**
@@ -18,12 +19,8 @@ import java.util.List;
 public class WorkerManager {
     IWorkerDAO wdao;
 
-    public WorkerManager(IWorkerDAO wdao) {
-        this.wdao = wdao;
-    }
-
-    WorkerManager() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public WorkerManager() {
+        wdao = new WorkerDAO();
     }
     
     public List<Worker> getAllWorkers(Worker worker) throws BllException
