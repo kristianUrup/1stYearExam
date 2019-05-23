@@ -36,10 +36,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -62,14 +65,7 @@ public class PlatformController implements Initializable
     ExpandedPostItNoteController epinc;
     PostItController picontroller;
 
-    private Parent openPostIt;
-    @FXML
-    private BorderPane borderPane;
-    private Parent smallPostIt;
-    private Parent bigPostIt;
-
     @Override
-
     public void initialize(URL url, ResourceBundle rb)
     {
 //        anchorPane.setStyle("-fx-opacity: 0");
@@ -219,10 +215,6 @@ public class PlatformController implements Initializable
             PostItController pic = loader.getController();
             pic.setDepartment(dep);
             pic.setOrderInfo(order);
-            smallPostIt = (Parent) loader.load();
-            pic.setDepartment(dep);
-            pic.setOrderInfo(order);
-//                flowPane.getChildren().add(root1);
             pic.getAnchorPane().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
             {
                 @Override
@@ -244,17 +236,13 @@ public class PlatformController implements Initializable
                             bigPostItCheck = true;
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
                             Parent openPostIt = (Parent) loader.load();
-                            openPostIt = (Parent) loader.load();
                             ExpandedPostItNoteController epincontroller = loader.getController();
                             epincontroller.setDepartment(dep);
                             epincontroller.setOrderInfo(order);
+
                             Stage stage = new Stage();
                             Scene scene = new Scene(openPostIt);
                             stage.setScene(scene);
-                            Stage st = (Stage) borderPane.getScene().getWindow();
-                            
-                            stage.setScene(scene);
-                            stage.initOwner(st);
                             stage.initStyle(StageStyle.UNDECORATED);
                             stage.show();
 
@@ -276,7 +264,6 @@ public class PlatformController implements Initializable
                                         Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
                                     }
                                     flowPane.getChildren().remove(root1);
-                                    flowPane.getChildren().remove(smallPostIt);
                                     stage.close();
                                     blur.setHeight(-20);
                                     blur.setWidth(-20);
@@ -312,8 +299,6 @@ public class PlatformController implements Initializable
 //                                }
 //                            }
 //                        });
-
-                            flowPane.getChildren().add(smallPostIt);
                         } catch (IOException ex)
                         {
                             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -326,6 +311,7 @@ public class PlatformController implements Initializable
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     private void readJsonFile()
@@ -362,20 +348,5 @@ public class PlatformController implements Initializable
     private void handleCloseBtn(ActionEvent event)
     {
         System.exit(0);
-    }
-
-    public boolean isBigPostItCheck()
-    {
-        return bigPostItCheck;
-    }
-
-    public Parent getSmallPostIt()
-    {
-        return smallPostIt;
-    }
-
-    public Parent getBigPostIt()
-    {
-        return bigPostIt;
     }
 }
