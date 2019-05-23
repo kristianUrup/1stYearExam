@@ -110,6 +110,13 @@ public class BLLFacade implements IBLLFacade
     {
         return WM.getAllWorkers(worker);
     }
+
+    
+    @Override
+    public List<Department> getManagementDepartments(Department department) throws BllException
+    {
+        return DMA.getManagementDepartments(department);
+    }
     
     
 }

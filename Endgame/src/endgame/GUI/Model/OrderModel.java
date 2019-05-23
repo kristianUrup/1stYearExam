@@ -26,6 +26,7 @@ public class OrderModel
 
     private final ObservableList<Department> departmentList;
     private final ObservableList<Worker> workerList;
+    private final ObservableList<Department> ManagementDepartmentList;
     private final IBLLFacade BF;
 
     public OrderModel() throws BllException
@@ -33,6 +34,7 @@ public class OrderModel
         BF = new BLLFacade();
         departmentList = FXCollections.observableArrayList();
         workerList = FXCollections.observableArrayList();
+        ManagementDepartmentList = FXCollections.observableArrayList();
     }
 
     public List<Order> getAllOrders(Department department, int offset) throws BllException
@@ -152,6 +154,12 @@ public class OrderModel
     @Override
     public String toString() {
         return "OrderModel{" + "workerList=" + workerList + '}';
+    }
+    
+    public ObservableList<Department> getManagementDepartments(Department department) throws BllException
+    {
+        ManagementDepartmentList.addAll(BF.getManagementDepartments(department));
+        return ManagementDepartmentList;
     }
     
     

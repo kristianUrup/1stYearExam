@@ -39,5 +39,7 @@ public interface IBLLFacade
     public void getJsonFile() throws BllException;
     
     public List<Worker> getAllWorkers(Worker worker) throws BllException;
+    
+    public List<Department> getManagementDepartments(Department department) throws BllException;
 
 }
