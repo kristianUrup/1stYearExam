@@ -98,6 +98,19 @@ public class PostItController implements Initializable
         this.department = department;
     }
 
+
+    public void showDeliveryDate(Order order) throws BllException
+    {
+        lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
+
+        Date date = ordersForDepartment.getDeliveryDate();
+
+        DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        String output = outputFormatter.format(date);
+
+        lblDeliveryDate.setText(output);
+    }
+
     @FXML
     private void handleMouseAnchorPane(MouseEvent event) throws IOException
     {
