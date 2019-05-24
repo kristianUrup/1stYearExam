@@ -62,7 +62,6 @@ public class PlatformController implements Initializable
     ExpandedPostItNoteController epinc;
     PostItController picontroller;
 
-    private Parent openPostIt;
     @FXML
     private ComboBox<Department> comboDepartment;
 
@@ -384,20 +383,17 @@ public class PlatformController implements Initializable
             List<Order> orders = OM.getAllOrders(department, OM.getOffSet());
             for (Order order : orders)
             {
-                if (!orderNumbers.contains(order.getOrderNumber()))
-                {
                     openFXML(order);
                     flowPane.setVgap(10);
                     flowPane.setHgap(10);
                     orderNumbers.add(order.getOrderNumber());
-               }
           }
         orders.clear();
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        }
     
     
     
