@@ -44,6 +44,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -91,8 +92,7 @@ public class ExpandedPostItNoteController implements Initializable
     private Label lblEndDate;
     @FXML
     private Label lblStartDate;
-
-    private StackPane stackPane;
+    
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -318,11 +318,6 @@ public class ExpandedPostItNoteController implements Initializable
         }
     }
 
-    public StackPane getStackPane()
-    {
-        return stackPane;
-    }
-
     public BorderPane getBorderPane()
     {
         return borderPane;
@@ -347,6 +342,7 @@ public class ExpandedPostItNoteController implements Initializable
                 Stage stage2 = (Stage) borderPane.getScene().getWindow();
                 stage.initOwner(stage2);
                 stage.initModality(Modality.WINDOW_MODAL);
+                stage.initStyle(StageStyle.UNDECORATED);
 
                 stage.show();
             } catch (IOException ex)

@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,15 +21,12 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -38,6 +34,7 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -70,7 +67,7 @@ public class PlatformController implements Initializable
 //        anchorPane.setStyle("-fx-opacity: 0");
         try
         {
-            comboDepartment.setVisible(false);
+            //comboDepartment.setVisible(false);
             OM = new OrderModel();
             dep = OM.getDepartment(OM.getConfig());
             departName.setText(dep.getName());
@@ -270,6 +267,10 @@ public class PlatformController implements Initializable
                     Stage stage = new Stage();
                     Scene scene = new Scene(openPostIt);
                     stage.setScene(scene);
+                    
+                    Stage platformStage = (Stage) scrollPane.getScene().getWindow();
+                    stage.initOwner(platformStage);
+                    stage.initModality(Modality.WINDOW_MODAL);
                     
                     stage.initStyle(StageStyle.UNDECORATED);
                     stage.show();

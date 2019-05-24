@@ -19,6 +19,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -40,6 +43,8 @@ public class DepartmentProgressionController implements Initializable
     private Label lblStartDate;
     @FXML
     private Label lblEndDate;
+    @FXML
+    private AnchorPane anchorPane;
 
     /**
      * Initializes the controller class.
@@ -81,9 +86,10 @@ public class DepartmentProgressionController implements Initializable
     }
 
     @FXML
-    private void handlerCloseWindow(ActionEvent event)
+    private void handlerClosePostIt(MouseEvent event)
     {
-        
+        Stage stage = (Stage) anchorPane.getScene().getWindow();
+        stage.close();
     }
     
 }
