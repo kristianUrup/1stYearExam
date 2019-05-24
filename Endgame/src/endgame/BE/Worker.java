@@ -20,8 +20,6 @@ public class Worker
     private StringProperty name;
     private IntegerProperty salaryNumber;
     private StringProperty initials;
-//    private IntegerProperty departmentId;
-
 
     public Worker(int id, String name, int salaryNumber, String initials)
     {
@@ -29,7 +27,6 @@ public class Worker
         this.name = new SimpleStringProperty(name);
         this.salaryNumber = new SimpleIntegerProperty(salaryNumber);
         this.initials = new SimpleStringProperty(initials);
-//        this.departmentId = new SimpleIntegerProperty(departmentId);
     }
 
     public int getId()
@@ -71,16 +68,6 @@ public class Worker
     {
         this.initials = initials;
     }
-
-//    public int getDepartmentId()
-//    {
-//        return departmentId.get();
-//    }
-//
-//    public void setDepartmentId(IntegerProperty departmentId)
-//    {
-//        this.departmentId = departmentId;
-//    }
     
     public IntegerProperty getSalaryNumberProperty()
     {
