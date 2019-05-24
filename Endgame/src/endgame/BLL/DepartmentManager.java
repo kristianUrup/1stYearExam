@@ -58,11 +58,11 @@ public class DepartmentManager
         }
     }
     
-    public List<Department> getManagementDepartments(Department department) throws BllException
+    public List<Department> getManagementDepartments() throws BllException
     {
         try
         {
-            return iddao.getManagementDepartments(department);
+            return iddao.getManagementDepartments();
         }
         catch (DalException ex)
         {

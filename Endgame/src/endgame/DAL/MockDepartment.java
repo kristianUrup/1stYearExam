@@ -57,7 +57,7 @@ public class MockDepartment implements IDepartmentDAO
     }
 
     @Override
-    public List<Department> getManagementDepartments(Department department) throws DalException
+    public List<Department> getManagementDepartments() throws DalException
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

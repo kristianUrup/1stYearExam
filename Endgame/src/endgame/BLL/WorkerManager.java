@@ -8,6 +8,7 @@ package endgame.BLL;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BE.Worker;
+import endgame.BLL.Exception.BllException;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.IWorkerDAO;
 import endgame.DAL.WorkerDAO;
@@ -25,8 +26,14 @@ public class WorkerManager
         wdao = new WorkerDAO();
     }
     
-    public List<Worker> getWorkers(Department department, Order order) throws DalException {
-        return wdao.getWorkers(department, order);
+    public List<Worker> getWorkers(Department department, Order order) throws BllException {
+        try
+        {
+            return wdao.getWorkers(department, order);
+        }catch (DalException ex)
+        {
+            throw new BllException(ex.getMessage());
+        }
     }
     
 }

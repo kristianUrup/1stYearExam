@@ -11,6 +11,7 @@ import endgame.BE.Worker;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -118,15 +119,10 @@ public class OrderModel
         }
     }
     
-    public ObservableList<Worker> getAllWorkers()
+    public ObservableList<Worker> getAllWorkers(Department deparment, Order order) throws BllException
     {
-        ObservableList<Worker> workers = FXCollections.observableArrayList();
-        
-        Worker claus = new Worker(1,"Claus", 2042, "CJ");
-        
-        workers.add(claus);
-        
-        return workers;
+        workerList.addAll(BF.getAllWorkers(deparment, order));
+        return workerList;
     }
 
     public void endDateSortedByAsc(List<Order> orders)
@@ -143,11 +139,6 @@ public class OrderModel
         orders.sort(Comparator.comparing(Order::getEndDate).reversed());
     }
 
-    public void sortBehindOrders(List<Order> orders)
-    {
-
-    }
-
     public void getJsonFile() throws BllException {
         BF.getJsonFile();
     }
@@ -157,9 +148,9 @@ public class OrderModel
         return "OrderModel{" + "workerList=" + workerList + '}';
     }
     
-    public ObservableList<Department> getManagementDepartments(Department department) throws BllException
+    public ObservableList<Department> getManagementDepartments() throws BllException
     {
-        ManagementDepartmentList.addAll(BF.getManagementDepartments(department));
+        ManagementDepartmentList.addAll(BF.getManagementDepartments());
         return ManagementDepartmentList;
     }
 }
