@@ -155,86 +155,83 @@ public class PlatformController implements Initializable
     }
 
     @FXML
-    private void sortByEndDateAsc(ActionEvent event) throws BllException
+    private void sortByEndDateAsc(ActionEvent event)
     {
-
-        if(dep.getName().equals("Management"))
+        try
         {
-            Department department = comboDepartment.getSelectionModel().getSelectedItem();
-            List<Order> orders = OM.getAllOrders(department, OM.getOffSet());
+            Department depa;
+            if (dep.getName().toLowerCase().equals("management"))
+            {
+                depa = comboDepartment.getSelectionModel().getSelectedItem();
+            }
+            else
+            {
+                depa = dep;
+            }
+            List<Order> orders = OM.getAllOrders(depa, OM.getOffSet());
             Thread t = new Thread(() ->
             {
-            OM.endDateSortedByAsc(orders);
-            Platform.runLater(
-                    () -> updateUI(orders));
-        });
-        t.start();
-        } 
-        
-        else
+                OM.endDateSortedByAsc(orders);
+                Platform.runLater(
+                        () -> updateUI(orders));
+            });
+            t.start();
+        } catch (BllException ex)
         {
-        List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
-        Thread t = new Thread(() ->
-        {
-            OM.endDateSortedByAsc(orders);
-            Platform.runLater(
-                    () -> updateUI(orders));
-        });
-        t.start();
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     @FXML
-    private void sortByEndDateDesc(ActionEvent event)
+    private void sortByEndDateDesc (ActionEvent event)
     {
-        if(dep.getName().equals("Management"))
+        Department depa;
+        if (dep.getName().toLowerCase().equals("management"))
         {
-            try
-            {
-                Department department = comboDepartment.getSelectionModel().getSelectedItem();
-                List<Order> orders = OM.getAllOrders(department, OM.getOffSet());
-                OM.endDateSortedByDesc(orders);
-                Platform.runLater(
-                        () -> updateUI(orders));
-
-            } catch (BllException ex)
-            {
-                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
+            depa = comboDepartment.getSelectionModel().getSelectedItem();
+            
+        } 
         else
         {
+            depa = dep;
+        }
         Thread t = new Thread(() ->
         {
             try
             {
-                List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
+                List<Order> orders = OM.getAllOrders(depa, OM.getOffSet());
                 OM.endDateSortedByDesc(orders);
                 Platform.runLater(
                         () -> updateUI(orders));
-
             } catch (BllException ex)
             {
                 Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
-        t.start();
+
+                
+            });
+            t.start();
         }
-    }
 
     @FXML
     private void sortByDefault(ActionEvent event)
     {
-        if(dep.getName().equals("Management"))
+        Department depa;
+        if (dep.getName().toLowerCase().equals("management"))
         {
+            depa = comboDepartment.getSelectionModel().getSelectedItem();
+            
+        } else
+        {
+            depa = dep;
+        }
         Thread t = new Thread(() ->
         {
             try
             {
-                Department department = comboDepartment.getSelectionModel().getSelectedItem();
-                List<Order> orders = OM.getAllOrders(department, OM.getOffSet());
+
+                List<Order> orders = OM.getAllOrders(depa, OM.getOffSet());
                 Platform.runLater(
                         () -> updateUI(orders));
 
@@ -244,25 +241,7 @@ public class PlatformController implements Initializable
             }
         });
         t.start();
-        }
-        else
-        {
-            Thread t = new Thread(() ->
-        {
-            try
-            {
-                
-                List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
-                Platform.runLater(
-                        () -> updateUI(orders));
-
-            } catch (BllException ex)
-            {
-                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        t.start();
-        }
+        
     }
 
     private void openFXML(Order order)
@@ -408,7 +387,7 @@ public class PlatformController implements Initializable
     {
         System.exit(0);
     }
-    
+
     private void setCombobox()
     {
         try
@@ -419,10 +398,10 @@ public class PlatformController implements Initializable
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void setManagement()
     {
-        if(dep.getName().equals("Management"))
+        if (dep.getName().equals("Management"))
         {
             comboDepartment.setVisible(true);
             setCombobox();
@@ -440,18 +419,16 @@ public class PlatformController implements Initializable
             List<Order> orders = OM.getAllOrders(department, OM.getOffSet());
             for (Order order : orders)
             {
-                    openFXML(order);
-                    flowPane.setVgap(10);
-                    flowPane.setHgap(10);
-                    orderNumbers.add(order.getOrderNumber());
-          }
-        orders.clear();
+                openFXML(order);
+                flowPane.setVgap(10);
+                flowPane.setHgap(10);
+                orderNumbers.add(order.getOrderNumber());
+            }
+            orders.clear();
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }
-    
-    
-    
+    }
+
 }

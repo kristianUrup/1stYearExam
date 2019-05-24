@@ -88,7 +88,6 @@ public class ExpandedPostItNoteController implements Initializable
     private Order ordersForDepartment;
     
     private Department department;
-    
 
     private StackPane stackPane;
     @FXML
@@ -152,6 +151,10 @@ public class ExpandedPostItNoteController implements Initializable
             getLastActive();
             updateOrder(ordersForDepartment);
             updateDepartmentList();
+            
+            if(OMO.getConfig().toLowerCase().equals("management")) {
+                done.setVisible(false);
+            }
 
         } catch (BllException ex)
         {
