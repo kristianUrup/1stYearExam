@@ -158,6 +158,21 @@ public class PlatformController implements Initializable
     private void sortByEndDateAsc(ActionEvent event) throws BllException
     {
 
+        if(dep.getName().equals("Management"))
+        {
+            Department department = comboDepartment.getSelectionModel().getSelectedItem();
+            List<Order> orders = OM.getAllOrders(department, OM.getOffSet());
+            Thread t = new Thread(() ->
+            {
+            OM.endDateSortedByAsc(orders);
+            Platform.runLater(
+                    () -> updateUI(orders));
+        });
+        t.start();
+        } 
+        
+        else
+        {
         List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
         Thread t = new Thread(() ->
         {
@@ -166,12 +181,31 @@ public class PlatformController implements Initializable
                     () -> updateUI(orders));
         });
         t.start();
+        }
 
     }
 
     @FXML
     private void sortByEndDateDesc(ActionEvent event)
     {
+        if(dep.getName().equals("Management"))
+        {
+            try
+            {
+                Department department = comboDepartment.getSelectionModel().getSelectedItem();
+                List<Order> orders = OM.getAllOrders(department, OM.getOffSet());
+                OM.endDateSortedByDesc(orders);
+                Platform.runLater(
+                        () -> updateUI(orders));
+
+            } catch (BllException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        else
+        {
         Thread t = new Thread(() ->
         {
             try
@@ -187,15 +221,37 @@ public class PlatformController implements Initializable
             }
         });
         t.start();
+        }
     }
 
     @FXML
     private void sortByDefault(ActionEvent event)
     {
+        if(dep.getName().equals("Management"))
+        {
         Thread t = new Thread(() ->
         {
             try
             {
+                Department department = comboDepartment.getSelectionModel().getSelectedItem();
+                List<Order> orders = OM.getAllOrders(department, OM.getOffSet());
+                Platform.runLater(
+                        () -> updateUI(orders));
+
+            } catch (BllException ex)
+            {
+                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        t.start();
+        }
+        else
+        {
+            Thread t = new Thread(() ->
+        {
+            try
+            {
+                
                 List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
                 Platform.runLater(
                         () -> updateUI(orders));
@@ -206,6 +262,7 @@ public class PlatformController implements Initializable
             }
         });
         t.start();
+        }
     }
 
     private void openFXML(Order order)
