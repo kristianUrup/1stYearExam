@@ -353,7 +353,6 @@ public class PlatformController implements Initializable
         System.exit(0);
     }
     
-    @FXML
     private void setCombobox()
     {
         try
@@ -387,7 +386,4 @@ public class PlatformController implements Initializable
 //            }
 //        }
 //    }
-    
-    
-    
 }
