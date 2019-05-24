@@ -33,7 +33,7 @@
                 <JFXButton layoutX="569.0" layoutY="7.0" onAction="#sortByEndDateAsc" prefHeight="33.0" prefWidth="152.0" style="-fx-border-color: blue;" text="Sort by end date ▲" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="7.0" />
             <JFXButton layoutX="511.0" layoutY="7.0" onAction="#sortByDefault" style="-fx-border-color: blue;" text="Sort by default" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="7.0" />
             <JFXButton layoutX="569.0" layoutY="42.0" onAction="#sortByEndDateDesc" prefHeight="33.0" prefWidth="152.0" style="-fx-border-color: blue;" text="Sort by end date ▼" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="42.0" />
-            <ComboBox fx:id="comboDepartment" layoutX="433.0" layoutY="42.0" prefHeight="31.0" prefWidth="198.0" />
+            <ComboBox fx:id="comboDepartment" layoutX="433.0" layoutY="42.0" onAction="#ComboChoice" prefHeight="31.0" prefWidth="198.0" />
             </children>
         </AnchorPane>
     </top>
