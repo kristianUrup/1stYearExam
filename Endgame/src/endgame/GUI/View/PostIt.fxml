@@ -9,7 +9,7 @@
    <center>
       <AnchorPane prefHeight="134.0" prefWidth="334.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="134.0" prefWidth="334.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane id="AnchorPane" fx:id="anchorPane" onMouseClicked="#handlerPostItClicked" prefHeight="134.0" prefWidth="334.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="168.0" layoutY="33.0" text="Order number:" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="20.0">
                      <font>

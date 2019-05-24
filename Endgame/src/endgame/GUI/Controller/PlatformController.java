@@ -5,7 +5,6 @@
  */
 package endgame.GUI.Controller;
 
-import com.jfoenix.controls.JFXComboBox;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BLL.Exception.BllException;
@@ -37,9 +36,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -51,7 +52,6 @@ public class PlatformController implements Initializable
     private Department dep;
     private OrderModel OM;
     private List<String> orderNumbers;
-    private boolean bigPostItCheck = false;
 
     @FXML
     private Label departName;
@@ -59,12 +59,10 @@ public class PlatformController implements Initializable
     private ScrollPane scrollPane;
     @FXML
     private FlowPane flowPane;
-    ExpandedPostItNoteController epinc;
-    PostItController picontroller;
 
-    private Parent openPostIt;
-    @FXML
     private ComboBox<Department> comboDepartment;
+    @FXML
+    private BorderPane borderPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -72,8 +70,6 @@ public class PlatformController implements Initializable
 //        anchorPane.setStyle("-fx-opacity: 0");
         try
         {
-            picontroller = new PostItController();
-            epinc = new ExpandedPostItNoteController();
             OM = new OrderModel();
             dep = OM.getDepartment(OM.getConfig());
             departName.setText(dep.getName());
@@ -217,95 +213,42 @@ public class PlatformController implements Initializable
             PostItController pic = loader.getController();
             pic.setDepartment(dep);
             pic.setOrderInfo(order);
-            pic.getAnchorPane().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
+            pic.getAnchorPane().addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent e) ->
             {
-                @Override
-                public void handle(MouseEvent e)
+                ObservableList<Node> allNodes = flowPane.getChildren();
+                BoxBlur blur = new BoxBlur();
+                blur.setWidth(20);
+                blur.setHeight(20);
+                for (Node child : allNodes)
                 {
-                    ObservableList<Node> allNodes = flowPane.getChildren();
-                    BoxBlur blur = new BoxBlur();
-                    blur.setWidth(20);
-                    blur.setHeight(20);
-                    if (!bigPostItCheck)
+                    child.setEffect(blur);
+                }
+                try
+                {
+                    FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
+                    Parent openPostIt = (Parent) loader1.load();
+                    ExpandedPostItNoteController epincontroller = loader1.getController();
+                    epincontroller.setDepartment(dep);
+                    epincontroller.setOrderInfo(order);
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(openPostIt);
+                    stage.setScene(scene);
+                    
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.show();
+                    stage.setOnHidden((WindowEvent event1) ->
                     {
-                        for (Node child : allNodes)
+                        blur.setWidth(-20);
+                        blur.setHeight(-20);
+                        if (epincontroller.getState())
                         {
-                            child.setEffect(blur);
+                            flowPane.getChildren().remove(root1);
+                            
                         }
-
-                        try
-                        {
-                            bigPostItCheck = true;
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/ExpandedPostItNote.fxml"));
-                            Parent openPostIt = (Parent) loader.load();
-                            ExpandedPostItNoteController epincontroller = loader.getController();
-                            epincontroller.setDepartment(dep);
-                            epincontroller.setOrderInfo(order);
-
-                            Stage stage = new Stage();
-                            Scene scene = new Scene(openPostIt);
-                            stage.setScene(scene);
-                            stage.initStyle(StageStyle.UNDECORATED);
-                            stage.show();
-
-                            epincontroller.getDoneButton().setOnAction(event ->
-                            {
-                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                                alert.setTitle("Dialog");
-                                alert.setHeaderText("You are about to set this task to done");
-                                alert.setContentText("Are you sure you want to do this?");
-
-                                Optional<ButtonType> result = alert.showAndWait();
-                                if ((result.isPresent()) && (result.get() == ButtonType.OK))
-                                {
-                                    try
-                                    {
-                                        epinc.setDone();
-                                    } catch (BllException ex)
-                                    {
-                                        Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-                                    }
-                                    flowPane.getChildren().remove(root1);
-                                    stage.close();
-                                    blur.setHeight(-20);
-                                    blur.setWidth(-20);
-                                    bigPostItCheck = false;
-                                }
-                            });
-                            epincontroller.getCrossView().addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-                            {
-                                @Override
-                                public void handle(MouseEvent event1)
-                                {
-                                    if (bigPostItCheck)
-                                    {
-                                        stage.close();
-                                        blur.setHeight(-20);
-                                        blur.setWidth(-20);
-                                        bigPostItCheck = false;
-                                    }
-                                }
-                            });
-//
-//                           flowPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>()
-//                        {
-//                            @Override
-//                            public void handle(MouseEvent event1) {
-//                                
-//                                if(bigPostItCheck)
-//                                {
-//                                    flowPane.getChildren().remove(openPostIt);
-//                                    blur.setHeight(-20);
-//                                    blur.setWidth(-20);
-//                                    bigPostItCheck = false;
-//                                }
-//                            }
-//                        });
-                        } catch (IOException ex)
-                        {
-                            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }
+                    });
+                }catch (IOException ex)
+                {
+                    Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             });
             Platform.runLater(() -> flowPane.getChildren().add(root1));
@@ -328,9 +271,11 @@ public class PlatformController implements Initializable
                     try
                     {
                         OM.getJsonFile();
+
                     } catch (BllException ex)
                     {
-                        Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(PlatformController.class
+                                .getName()).log(Level.SEVERE, null, ex);
                     }
                 });
             }
@@ -351,17 +296,18 @@ public class PlatformController implements Initializable
     {
         System.exit(0);
     }
-    
-    @FXML
+
     private void setCombobox()
     {
-        
+
         try
         {
             comboDepartment.setItems(OM.getManagementDepartments(dep));
+
         } catch (BllException ex)
         {
-            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PlatformController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

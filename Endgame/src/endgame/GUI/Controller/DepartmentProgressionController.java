@@ -58,20 +58,22 @@ public class DepartmentProgressionController implements Initializable
     
     public void setDepartment(Department department) {
         currentDep = department;
+        setAttributes();
     }
     
-    private void setAttributes(Department department) {
+    private void setAttributes() {
         try
         {
             Date startDate = currentDep.getStartDate();
             Date endDate = currentDep.getEndDate();
             prgDepProg.setProgress(OMO.getProgressedTimeInProcent(startDate, endDate));
             
-            String startDateText = new SimpleDateFormat("dd/MM/yyyy").format(startDate);
-            String endDateText = new SimpleDateFormat("dd/MM/yyyy").format(endDate);
+            String startDateText = new SimpleDateFormat("[ww:u]").format(startDate);
+            String endDateText = new SimpleDateFormat("[ww:u]").format(endDate);
             
             lblStartDate.setText(startDateText);
             lblEndDate.setText(endDateText);
+            lblDepartment.setText(currentDep.getName());
         } catch (BllException ex)
         {
             Logger.getLogger(DepartmentProgressionController.class.getName()).log(Level.SEVERE, null, ex);
