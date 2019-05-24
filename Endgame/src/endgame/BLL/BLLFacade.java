@@ -9,9 +9,11 @@ import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.BE.Worker;
 import endgame.BLL.Exception.BllException;
+import endgame.DAL.Exception.DalException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -26,12 +28,13 @@ public class BLLFacade implements IBLLFacade
     private FileManager FM;
     private LogManager LM;
     private JSONManager JM;
+    private WorkerManager WM;
     
     public BLLFacade() throws BllException
     {
         try
         {
-            
+            WM = new WorkerManager();
             OMA = new OrderManager();
             DMA = new DepartmentManager();
             FM = new FileManager();
@@ -114,5 +117,13 @@ public class BLLFacade implements IBLLFacade
     {
         return DMA.getManagementDepartments();
     }
+
+    @Override
+    public List<Worker> getAllWorkers(Department department, Order order) throws BllException
+    {
+        return WM.getWorkers(department, order);
+    }
+    
+    
     
 }

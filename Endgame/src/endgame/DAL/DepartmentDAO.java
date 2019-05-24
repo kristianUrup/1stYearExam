@@ -155,7 +155,7 @@ public class DepartmentDAO implements IDepartmentDAO
         try {
             con = cdao.getConnection();
             
-            String sql = "SELECT * FROM Department";
+            String sql = "SELECT * FROM Department WHERE NOT name = 'management'";
             
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();

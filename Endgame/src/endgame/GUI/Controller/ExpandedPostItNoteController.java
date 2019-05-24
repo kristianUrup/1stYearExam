@@ -88,7 +88,6 @@ public class ExpandedPostItNoteController implements Initializable
     private Order ordersForDepartment;
     
     private Department department;
-    
 
     private StackPane stackPane;
     @FXML
@@ -110,7 +109,7 @@ public class ExpandedPostItNoteController implements Initializable
             OMO = new OrderModel();
             cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
-            tableWorkersID.setItems(OMO.getAllWorkers());
+            tableWorkersID.setItems(OMO.getAllWorkers(department, ordersForDepartment));
             cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());            
         } catch (BllException ex)
         {
@@ -152,6 +151,10 @@ public class ExpandedPostItNoteController implements Initializable
             getLastActive();
             updateOrder(ordersForDepartment);
             updateDepartmentList();
+            
+            if(OMO.getConfig().toLowerCase().equals("management")) {
+                done.setVisible(false);
+            }
 
         } catch (BllException ex)
         {

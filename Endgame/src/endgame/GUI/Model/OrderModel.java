@@ -119,15 +119,10 @@ public class OrderModel
         }
     }
     
-    public ObservableList<Worker> getAllWorkers()
+    public ObservableList<Worker> getAllWorkers(Department deparment, Order order) throws BllException
     {
-        ObservableList<Worker> workers = FXCollections.observableArrayList();
-        
-        Worker claus = new Worker(1,"Claus", 2042, "CJ");
-        
-        workers.add(claus);
-        
-        return workers;
+        workerList.addAll(BF.getAllWorkers(deparment, order));
+        return workerList;
     }
 
     public void endDateSortedByAsc(List<Order> orders)

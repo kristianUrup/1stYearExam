@@ -62,7 +62,6 @@ public class PlatformController implements Initializable
     ExpandedPostItNoteController epinc;
     PostItController picontroller;
 
-    private Parent openPostIt;
     @FXML
     private ComboBox<Department> comboDepartment;
 
@@ -82,7 +81,7 @@ public class PlatformController implements Initializable
             setPostItNotes();
             updatePostItNotes();
             readJsonFile();
-            //setManagement();
+            setManagement();
         } catch (BllException ex)
         {
             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,48 +155,83 @@ public class PlatformController implements Initializable
     }
 
     @FXML
-    private void sortByEndDateAsc(ActionEvent event) throws BllException
+    private void sortByEndDateAsc(ActionEvent event)
     {
-
-        List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
-        Thread t = new Thread(() ->
+        try
         {
-            OM.endDateSortedByAsc(orders);
-            Platform.runLater(
-                    () -> updateUI(orders));
-        });
-        t.start();
+            Department depa;
+            if (dep.getName().toLowerCase().equals("management"))
+            {
+                depa = comboDepartment.getSelectionModel().getSelectedItem();
+            }
+            else
+            {
+                depa = dep;
+            }
+            List<Order> orders = OM.getAllOrders(depa, OM.getOffSet());
+            Thread t = new Thread(() ->
+            {
+                OM.endDateSortedByAsc(orders);
+                Platform.runLater(
+                        () -> updateUI(orders));
+            });
+            t.start();
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     @FXML
-    private void sortByEndDateDesc(ActionEvent event)
+    private void sortByEndDateDesc (ActionEvent event)
     {
+        Department depa;
+        if (dep.getName().toLowerCase().equals("management"))
+        {
+            depa = comboDepartment.getSelectionModel().getSelectedItem();
+            
+        } 
+        else
+        {
+            depa = dep;
+        }
         Thread t = new Thread(() ->
         {
             try
             {
-                List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
+                List<Order> orders = OM.getAllOrders(depa, OM.getOffSet());
                 OM.endDateSortedByDesc(orders);
                 Platform.runLater(
                         () -> updateUI(orders));
-
             } catch (BllException ex)
             {
                 Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
-        t.start();
-    }
+
+                
+            });
+            t.start();
+        }
 
     @FXML
     private void sortByDefault(ActionEvent event)
     {
+        Department depa;
+        if (dep.getName().toLowerCase().equals("management"))
+        {
+            depa = comboDepartment.getSelectionModel().getSelectedItem();
+            
+        } else
+        {
+            depa = dep;
+        }
         Thread t = new Thread(() ->
         {
             try
             {
-                List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
+
+                List<Order> orders = OM.getAllOrders(depa, OM.getOffSet());
                 Platform.runLater(
                         () -> updateUI(orders));
 
@@ -207,6 +241,7 @@ public class PlatformController implements Initializable
             }
         });
         t.start();
+        
     }
 
     private void openFXML(Order order)
@@ -352,7 +387,7 @@ public class PlatformController implements Initializable
     {
         System.exit(0);
     }
-    
+
     private void setCombobox()
     {
         try
@@ -386,4 +421,36 @@ public class PlatformController implements Initializable
 //            }
 //        }
 //    }
+
+    private void setManagement()
+    {
+        if (dep.getName().equals("Management"))
+        {
+            comboDepartment.setVisible(true);
+            setCombobox();
+        }
+    }
+
+    @FXML
+    private void ComboChoice(ActionEvent event)
+    {
+        Department department = comboDepartment.getSelectionModel().getSelectedItem();
+        System.out.println(department.getName());
+        flowPane.getChildren().clear();
+        try
+        {
+            List<Order> orders = OM.getAllOrders(department, OM.getOffSet());
+            for (Order order : orders)
+            {
+                openFXML(order);
+                flowPane.setVgap(10);
+                flowPane.setHgap(10);
+                orderNumbers.add(order.getOrderNumber());
+            }
+            orders.clear();
+        } catch (BllException ex)
+        {
+            Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
