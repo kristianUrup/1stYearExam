@@ -34,13 +34,13 @@ public class Endgame extends Application
         
         stage.setScene(scene);
         stage.show();
-//        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-//        stage.setFullScreen(true);
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-          public void handle(WindowEvent we) {
-                System.exit(0);
-          }
-      });  
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        stage.setFullScreen(true);
+//        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//          public void handle(WindowEvent we) {
+//                System.exit(0);
+//          }
+//      });  
     }
 
     /**
