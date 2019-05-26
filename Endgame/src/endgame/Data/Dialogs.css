@@ -1,0 +1,51 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13-12-2018, 01:22:10
+    Author     : KristianUrup
+*/
+
+ .dialog-pane{
+  -fx-background-color: #fcef96;;
+ }
+
+/**Costumization of The Bar where the buttons are located**/
+.dialog-pane > .button-bar > .container {
+  -fx-background-color:#fcef96;
+}
+
+.dialog-pane > .content.label {
+    -fx-text-fill: #184981;
+   -fx-font-size:15.0px;
+}
+
+/**Costumization of DialogPane Header**/
+.dialog-pane:header .header-panel {
+  -fx-background-color: #fcef96;;
+}
+
+.dialog-pane:header .header-panel .label{
+  -fx-background-color: #fcef96;;
+  -fx-background-radius:10px;
+  -fx-text-fill: #184981;
+  -fx-font-size:15.0px;
+}
+
+
+/**Costumization of Buttons**/
+.dialog-pane .button{
+   -fx-text-fill:#0b6623;
+   -fx-wrap-text: true;
+   -fx-effect: dropshadow( three-pass-box, #0b6623, 10.0, 0.0, 0.0, 0.0);
+   -fx-cursor:hand;
+   -fx-background-color: #fcef96;;
+ }
+
+.dialog-pane .button:hover{     
+  -fx-background-color:#0b6623;
+  -fx-text-fill: #fcef96;;
+  -fx-font-weight:bold; 
+ }

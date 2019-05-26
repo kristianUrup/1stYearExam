@@ -33,6 +33,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BoxBlur;
@@ -241,6 +242,7 @@ public class PlatformController implements Initializable
                             ExpandedPostItNoteController epincontroller = loader.getController();
                             epincontroller.setDepartment(dep);
                             epincontroller.setOrderInfo(order);
+//                            epincontroller.setTableID(order, dep);
 
                             Stage stage = new Stage();
                             Scene scene = new Scene(openPostIt);
@@ -254,6 +256,10 @@ public class PlatformController implements Initializable
                                 alert.setTitle("Dialog");
                                 alert.setHeaderText("You are about to set this task to done");
                                 alert.setContentText("Are you sure you want to do this?");
+                                
+                                DialogPane dialogPane = alert.getDialogPane();
+                                dialogPane.getStylesheets().add(getClass().getResource("/endgame/Data/Dialogs.css").toExternalForm());
+                                dialogPane.getStyleClass().add("dialogPane");
 
                                 Optional<ButtonType> result = alert.showAndWait();
                                 if ((result.isPresent()) && (result.get() == ButtonType.OK))
@@ -304,7 +310,7 @@ public class PlatformController implements Initializable
                         } catch (IOException ex)
                         {
                             Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        } 
                     }
                 }
             });
