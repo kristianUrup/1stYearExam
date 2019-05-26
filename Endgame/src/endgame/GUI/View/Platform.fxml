@@ -11,10 +11,11 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.PlatformController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="860.0" prefWidth="889.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.PlatformController">
     <top>
         <AnchorPane prefHeight="71.0" prefWidth="800.0" styleClass="background2" stylesheets="@../../Data/DesignPlatform.css" BorderPane.alignment="CENTER">
             <children>
+                <ComboBox fx:id="comboDepartment" layoutX="433.0" layoutY="42.0" onAction="#ComboChoice" prefHeight="31.0" prefWidth="198.0" />
                 <Label fx:id="departName" layoutX="174.0" layoutY="23.0" prefHeight="29.0" prefWidth="202.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="174.0" AnchorPane.topAnchor="23.0">
                     <font>
                         <Font size="24.0" />
@@ -30,11 +31,11 @@
                         <Font size="24.0" />
                     </font>
                 </Label>
-                <JFXButton layoutX="569.0" layoutY="7.0" onAction="#sortByEndDateAsc" prefHeight="33.0" prefWidth="152.0" style="-fx-border-color: blue;" text="Sort by end date ▲" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="7.0" />
-            <JFXButton layoutX="511.0" layoutY="7.0" onAction="#sortByDefault" style="-fx-border-color: blue;" text="Sort by default" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="7.0" />
-            <JFXButton layoutX="569.0" layoutY="42.0" onAction="#sortByEndDateDesc" prefHeight="33.0" prefWidth="152.0" style="-fx-border-color: blue;" text="Sort by end date ▼" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="42.0" />
-            <ComboBox fx:id="comboDepartment" layoutX="433.0" layoutY="42.0" onAction="#ComboChoice" prefHeight="31.0" prefWidth="198.0" />
+                <JFXButton layoutX="569.0" layoutY="7.0" onAction="#sortByEndDateAsc" prefHeight="33.0" prefWidth="152.0" text="Sort by end date ▲" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="7.0" />
+            <JFXButton layoutX="511.0" layoutY="7.0" onAction="#sortByDefault" text="Sort by default" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="7.0" />
+            <JFXButton layoutX="569.0" layoutY="42.0" onAction="#sortByEndDateDesc" prefHeight="33.0" prefWidth="152.0" text="Sort by end date ▼" AnchorPane.rightAnchor="106.0" AnchorPane.topAnchor="42.0" />
             </children>
+            
         </AnchorPane>
     </top>
     <center>

@@ -10,24 +10,27 @@ import endgame.BE.Order;
 import endgame.BE.Worker;
 import endgame.BLL.Exception.BllException;
 import endgame.GUI.Model.OrderModel;
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableCell;
@@ -38,8 +41,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * FXML Controller class
@@ -48,6 +52,14 @@ import javafx.stage.Stage;
  */
 public class ExpandedPostItNoteController implements Initializable
 {
+
+    private OrderModel OMO;
+
+    private Order ordersForDepartment;
+
+    private Department department;
+    
+    private boolean isDone = false;
 
     @FXML
     private AnchorPane topAnchorPane;
@@ -79,18 +91,7 @@ public class ExpandedPostItNoteController implements Initializable
     private Label lblEndDate;
     @FXML
     private Label lblStartDate;
-
     
-    private PlatformController pfcontroller;
-    
-    private OrderModel OMO;
-    
-    private Order ordersForDepartment;
-    
-    private Department department;
-    
-
-    private StackPane stackPane;
     @FXML
     private BorderPane borderPane;
     @FXML
@@ -101,17 +102,15 @@ public class ExpandedPostItNoteController implements Initializable
     /**
      * Initializes the controller class.
      */
-       @Override
+    @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         try
-        {          
-            pfcontroller = new PlatformController();
+        {
             OMO = new OrderModel();
-            cellWorkersID.setCellValueFactory(new PropertyValueFactory <>("salaryNumber"));
+            cellWorkersID.setCellValueFactory(new PropertyValueFactory<>("salaryNumber"));
             cellDepartment.setCellValueFactory(new PropertyValueFactory<>("name"));
-            tableWorkersID.setItems(OMO.getAllWorkers(department, ordersForDepartment));
-            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());            
+            cellStatus.setCellValueFactory(cellData -> cellData.getValue().getConditionProperty());
         } catch (BllException ex)
         {
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
@@ -132,13 +131,13 @@ public class ExpandedPostItNoteController implements Initializable
 
             DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
             String output = outputFormatter.format(date);
-            
+
             Date startDate = order.getStartDate();
-            String startStringDate = new SimpleDateFormat("ww/u").format(startDate);
+            String startStringDate = new SimpleDateFormat("[ww:u]").format(startDate);
             lblStartDate.setText(startStringDate);
-            
+
             Date endDate = order.getEndDate();
-            String endStringDate = new SimpleDateFormat("ww/u").format(endDate);
+            String endStringDate = new SimpleDateFormat("[ww:u]").format(endDate);
             lblEndDate.setText(endStringDate);
 
             lblDeliveryDate.setText(output);
@@ -152,6 +151,12 @@ public class ExpandedPostItNoteController implements Initializable
             getLastActive();
             updateOrder(ordersForDepartment);
             updateDepartmentList();
+            
+            if(OMO.getConfig().toLowerCase().equals("management")) {
+                done.setVisible(false);
+            }
+            
+            tableWorkersID.setItems(OMO.getAllWorkers(department, ordersForDepartment));
 
         } catch (BllException ex)
         {
@@ -164,15 +169,9 @@ public class ExpandedPostItNoteController implements Initializable
     {
         this.department = department;
     }
-
-    public ImageView getCrossView()
-    {
-        return crossBtn;
-    }
     
-    public Button getDoneButton()
-    {
-        return done;
+    public boolean getState() {
+        return isDone;
     }
 
     public void setDone() throws BllException
@@ -226,9 +225,9 @@ public class ExpandedPostItNoteController implements Initializable
                     Platform.runLater(() -> lblDeliveryDate.setText(output));
 
                     Platform.runLater(() -> setProgressBar());
-                    
+
                     String lastActive = OMO.getLastActivity(ordersForDepartment);
-                    
+
                     Platform.runLater(() -> lblLastActive.setText(lastActive));
                 } catch (BllException ex)
                 {
@@ -278,7 +277,7 @@ public class ExpandedPostItNoteController implements Initializable
                 protected void updateItem(String item, boolean empty)
                 {
                     super.updateItem(item, empty);
-                    
+
                     if (item == null || empty)
                     {
                         setText(null);
@@ -289,28 +288,25 @@ public class ExpandedPostItNoteController implements Initializable
                         {
                             setStyle("-fx-background-color: green");
                             setText("Done");
-                        } 
-                        else if (item.equals("behind"))
+                        } else if (item.equals("behind"))
                         {
                             setStyle("-fx-background-color: red");
                             setText("Behind");
-                        } 
-                        else if (item.equals("not started"))
+                        } else if (item.equals("not started"))
                         {
                             setStyle("-fx-background-color: yellow");
                             setText("Not started");
-                        }
-                        else if (item.equals("ongoing"))
+                        } else if (item.equals("ongoing"))
                         {
                             setStyle("-fx-background-color: #0080FF");
                             setText("Ongoing");
                         }
-                                 
 
                     }
                 }
             };
-        });}
+        });
+    }
 
     public void getLastActive()
     {
@@ -322,12 +318,7 @@ public class ExpandedPostItNoteController implements Initializable
             OMO.setLastActivity(ordersForDepartment, department, ex.getMessage());
         }
     }
-    
-    public StackPane getStackPane()
-    {
-        return stackPane;
-    }
-    
+
     public BorderPane getBorderPane()
     {
         return borderPane;
@@ -337,49 +328,88 @@ public class ExpandedPostItNoteController implements Initializable
     private void handlerDepartmentClicked(MouseEvent event)
     {
         Department depClicked = tableDepartmentList.getSelectionModel().getSelectedItem();
-        if (depClicked != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/DepartmentProgression.fxml"));
+        if (depClicked != null)
+        {
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/endgame/GUI/View/DepartmentProgression.fxml"));
                 Parent root = (Parent) loader.load();
                 DepartmentProgressionController dpcontroller = loader.getController();
-                dpcontroller.setDepartment(department);
-                
+                dpcontroller.setDepartment(depClicked);
+
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+
+                Stage stage2 = (Stage) borderPane.getScene().getWindow();
+                stage.initOwner(stage2);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initStyle(StageStyle.UNDECORATED);
+
                 stage.show();
-            } catch (IOException ex) {
+            } catch (IOException ex)
+            {
                 Logger.getLogger(ExpandedPostItNoteController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
+
     public void setAnchorStatusColor()
     {
-       String cond = ordersForDepartment.getCondition();
-       lblAnchorStatus.setStyle("-fx-text-fill: black");
-       
-       if (cond.equals("finished")) //færdig
+        String cond = ordersForDepartment.getCondition();
+        lblAnchorStatus.setStyle("-fx-text-fill: black");
+
+        if (cond.equals("finished")) //færdig
         {
             topAnchorPane.setStyle("-fx-background-color: green");
             lblAnchorStatus.setText("Finished");
-        } 
-        else if (cond.equals("behind"))
+        } else if (cond.equals("behind"))
         {
             topAnchorPane.setStyle("-fx-background-color: red");
             lblAnchorStatus.setText("Behind");
-            
-        } 
-        else if (cond.equals("not started"))
+
+        } else if (cond.equals("not started"))
         {
             topAnchorPane.setStyle("-fx-background-color: yellow");
             lblAnchorStatus.setText("Not Started");
-            
-        }
-        else if (cond.equals("ongoing"))
+
+        } else if (cond.equals("ongoing"))
         {
             topAnchorPane.setStyle("-fx-background-color: #0080FF");
             lblAnchorStatus.setText("Ongoing");
         }
-       
+
+    }
+
+    @FXML
+    private void handleDoneBtn(ActionEvent event)
+    {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Dialog");
+        alert.setHeaderText("You are about to set this task to done");
+        alert.setContentText("Are you sure you want to do this?");
+
+        String header = "You are about to set this task to done";
+        String content = "Are you sure you want to do this?";
+        Optional<ButtonType> result = alert.showAndWait();
+        if ((result.isPresent()) && (result.get() == ButtonType.OK))
+        {
+            try
+            {
+                setDone();
+                isDone = true;
+                Stage stage = (Stage) borderPane.getScene().getWindow();
+                stage.close();
+            } catch (BllException ex)
+            {
+                Logger.getLogger(ExpandedPostItNoteController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @FXML
+    private void handlerClosePostIt(MouseEvent event)
+    {
+        Stage stage = (Stage) borderPane.getScene().getWindow();
+        stage.close();
     }
 }

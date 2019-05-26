@@ -44,9 +44,13 @@ public class WorkerDAO implements IWorkerDAO
         {
             con = cdao.getConnection();
             List<Worker> workers = new ArrayList<>();
-            String sql = "SELECT * FROM Worker";
+            String sql = "SELECT * FROM Worker INNER JOIN DWO on Worker.id = DWO.workerId"
+                    + " WHERE departmentId = ? AND orderId = ?";
 
             PreparedStatement pst = con.prepareStatement(sql);
+            
+            pst.setInt(1, department.getId());
+            pst.setInt(2, order.getId());
 
             ResultSet rs = pst.executeQuery();
 

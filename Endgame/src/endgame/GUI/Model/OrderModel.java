@@ -11,6 +11,7 @@ import endgame.BE.Worker;
 import endgame.BLL.BLLFacade;
 import endgame.BLL.Exception.BllException;
 import endgame.BLL.IBLLFacade;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -120,6 +121,9 @@ public class OrderModel
     
     public ObservableList<Worker> getAllWorkers(Department deparment, Order order) throws BllException
     {
+        if (!workerList.isEmpty()) {
+            workerList.clear();
+        }
         workerList.addAll(BF.getAllWorkers(deparment, order));
         return workerList;
     }
@@ -136,11 +140,6 @@ public class OrderModel
     public void endDateSortedByDesc(List<Order> orders)
     {
         orders.sort(Comparator.comparing(Order::getEndDate).reversed());
-    }
-
-    public void sortBehindOrders(List<Order> orders)
-    {
-
     }
 
     public void getJsonFile() throws BllException {
