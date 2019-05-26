@@ -67,7 +67,7 @@ public class PlatformController implements Initializable
 //        anchorPane.setStyle("-fx-opacity: 0");
         try
         {
-            //comboDepartment.setVisible(false);
+            comboDepartment.setVisible(false);
             OM = new OrderModel();
             dep = OM.getDepartment(OM.getConfig());
             departName.setText(dep.getName());

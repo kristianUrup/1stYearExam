@@ -27,6 +27,55 @@ and open the template in the editor.
 .button
 {
     -fx-background-color: transparent;
+    -fx-border-color: #184981;
+    -fx-border-radius:  10 10 10 10;
+    -fx-border-width: 2;
+    -fx-background-radius: 10 10 10 10;
+}
+
+.button:hover
+{
+    -fx-background-color: transparent;
+    -fx-border-color: green;
+    -fx-border-radius:  10 10 10 10;
+    -fx-border-width: 2;
+    -fx-background-radius: 10 10 10 10;
+}
+
+.combo-box
+{
+    -fx-background-color: transparent;
+    -fx-border-color: #184981;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.combo-box:hover
+{
+    -fx-background-color: transparent;
+    -fx-border-color: green;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;  
+}
+
+.combo-box .list-view
+{
+    -fx-background-color: #c4cace;
+    -fx-border-color: #C4cace;
+}
+
+.combo-box .list-view .list-cell
+{
+    -fx-background-color: #c4cace;
+    -fx-border-color: #C4cace;
+}
+
+.combo-box .list-view .list-cell:hover
+{
+    -fx-background-color: #184981;
+    -fx-border-color: #C4cace;
 }
 
 
