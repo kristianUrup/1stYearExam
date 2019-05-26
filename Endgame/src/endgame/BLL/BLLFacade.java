@@ -105,12 +105,6 @@ public class BLLFacade implements IBLLFacade
     {
         JM.getJsonFile();
     }
-
-//    public List<Worker> getAllWorkers(Worker worker) throws BllException
-//    {
-//        return WM.getAllWorkers(worker);
-//    }
-
     
     @Override
     public List<Department> getManagementDepartments() throws BllException

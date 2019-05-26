@@ -41,7 +41,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -156,6 +155,8 @@ public class ExpandedPostItNoteController implements Initializable
             if(OMO.getConfig().toLowerCase().equals("management")) {
                 done.setVisible(false);
             }
+            
+            tableWorkersID.setItems(OMO.getAllWorkers(department, ordersForDepartment));
 
         } catch (BllException ex)
         {

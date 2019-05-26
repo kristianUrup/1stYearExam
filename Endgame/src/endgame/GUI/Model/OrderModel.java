@@ -121,6 +121,9 @@ public class OrderModel
     
     public ObservableList<Worker> getAllWorkers(Department deparment, Order order) throws BllException
     {
+        if (!workerList.isEmpty()) {
+            workerList.clear();
+        }
         workerList.addAll(BF.getAllWorkers(deparment, order));
         return workerList;
     }
