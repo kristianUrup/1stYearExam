@@ -41,13 +41,13 @@
             </TableView>
             <Label layoutX="78.0" layoutY="50.0" />
             <Label layoutX="71.0" layoutY="109.0" text="Order number:" AnchorPane.rightAnchor="620.0" AnchorPane.topAnchor="110.0" />
-            <Label layoutX="90.0" layoutY="142.0" text="Customer: " AnchorPane.rightAnchor="620.0" AnchorPane.topAnchor="142.0" />
+            <Label layoutX="60.0" layoutY="143.0" text="Customer:" AnchorPane.rightAnchor="620.0" AnchorPane.topAnchor="143.0" />
             <Label layoutX="75.0" layoutY="182.0" text="Delivery date:" AnchorPane.rightAnchor="620.0" AnchorPane.topAnchor="182.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="177.0" layoutY="310.0" prefHeight="18.0" prefWidth="81.0" text="Time left:" AnchorPane.leftAnchor="177.0" AnchorPane.topAnchor="310.0">
+            <Label layoutX="179.0" layoutY="312.0" prefHeight="25.0" prefWidth="123.0" text="Time left:" AnchorPane.leftAnchor="178.0" AnchorPane.topAnchor="311.0">
                <font>
                   <Font size="14.0" />
                </font>

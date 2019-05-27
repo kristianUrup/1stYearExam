@@ -5,38 +5,38 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="134.0" prefWidth="334.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.PostItController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="endgame.GUI.Controller.PostItController">
    <center>
-      <AnchorPane prefHeight="134.0" prefWidth="334.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="350.0" prefWidth="350.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="134.0" prefWidth="334.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane id="AnchorPane" fx:id="anchorPane" layoutY="23.0" prefHeight="236.0" prefWidth="350.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label layoutX="168.0" layoutY="33.0" text="Order number:" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="20.0">
+                  <Label layoutX="12.0" layoutY="46.0" text="Order number:" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="46.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="43.0" layoutY="62.0" prefHeight="18.0" prefWidth="82.0" text="Customer:" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="45.0">
+                  <Label layoutX="62.0" layoutY="96.0" prefHeight="25.0" prefWidth="116.0" text="Customer:" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="96.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="49.0" layoutY="98.0" text="Delivery date:" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="70.0">
+                  <Label layoutX="21.0" layoutY="148.0" text="Delivery date:" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="148.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblOrderNumber" layoutX="127.0" layoutY="30.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="lblOrderNumber" layoutX="188.0" layoutY="47.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="188.0" AnchorPane.topAnchor="47.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblCustomer" layoutX="126.0" layoutY="59.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="45.0">
+                  <Label fx:id="lblCustomer" layoutX="186.0" layoutY="97.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="186.0" AnchorPane.topAnchor="97.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblDeliveryDate" layoutX="127.0" layoutY="85.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="140.0" AnchorPane.topAnchor="70.0">
+                  <Label fx:id="lblDeliveryDate" layoutX="187.0" layoutY="149.0" prefHeight="20.0" prefWidth="144.0" AnchorPane.leftAnchor="187.0" AnchorPane.topAnchor="149.0">
                      <font>
                         <Font size="14.0" />
                      </font>
