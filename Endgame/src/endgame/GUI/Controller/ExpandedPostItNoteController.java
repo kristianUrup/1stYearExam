@@ -31,6 +31,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableCell;
@@ -387,8 +388,9 @@ public class ExpandedPostItNoteController implements Initializable
         alert.setHeaderText("You are about to set this task to done");
         alert.setContentText("Are you sure you want to do this?");
 
-        String header = "You are about to set this task to done";
-        String content = "Are you sure you want to do this?";
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/endgame/Data/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialogPane");
         Optional<ButtonType> result = alert.showAndWait();
         if ((result.isPresent()) && (result.get() == ButtonType.OK))
         {
