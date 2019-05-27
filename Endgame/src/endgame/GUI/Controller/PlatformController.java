@@ -384,7 +384,7 @@ public class PlatformController implements Initializable
     private void ComboChoice(ActionEvent event)
     {
         Department department = comboDepartment.getSelectionModel().getSelectedItem();
-        System.out.println(department.getName());
+        dep = department;
         flowPane.getChildren().clear();
         try
         {

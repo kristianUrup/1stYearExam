@@ -147,6 +147,7 @@ public class DepartmentDAO implements IDepartmentDAO
         return null;
     }
     
+    @Override
     public List<Department> getManagementDepartments() throws DalException
     {
         Connection con = null;

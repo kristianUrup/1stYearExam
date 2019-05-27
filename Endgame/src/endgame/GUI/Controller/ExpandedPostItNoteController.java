@@ -214,7 +214,6 @@ public class ExpandedPostItNoteController implements Initializable
             {
                 try
                 {
-                    ordersForDepartment = OMO.getOrder(department, order);
                     Platform.runLater(() -> lblOrderNumber.setText(ordersForDepartment.getOrderNumber()));
                     Platform.runLater(() -> lblCustomer.setText(ordersForDepartment.getCustomer()));
                     Date date = ordersForDepartment.getDeliveryDate();
