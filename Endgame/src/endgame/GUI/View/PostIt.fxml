@@ -46,4 +46,11 @@
          </children>
       </AnchorPane>
    </center>
+   <top>
+      <AnchorPane fx:id="topAnchorPane" prefHeight="39.0" prefWidth="350.0" stylesheets="@../../Data/DesignPostItNote.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lblAnchorPane" alignment="CENTER" layoutX="107.0" layoutY="7.0" prefHeight="25.0" prefWidth="136.0" />
+         </children>
+      </AnchorPane>
+   </top>
 </BorderPane>

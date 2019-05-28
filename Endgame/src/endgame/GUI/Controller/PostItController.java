@@ -41,6 +41,10 @@ public class PostItController implements Initializable
     private Label lblDeliveryDate;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private AnchorPane topAnchorPane;
+    @FXML
+    private Label lblAnchorPane;
 
     /**
      * Initializes the controller class.
@@ -68,8 +72,11 @@ public class PostItController implements Initializable
         DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
         String output = outputFormatter.format(date);
         lblDeliveryDate.setText(output);
+        setAnchorPane();
+        
+        
     }
-
+    
     public void setDepartment(Department department)
     {
         this.department = department;
@@ -85,6 +92,33 @@ public class PostItController implements Initializable
         String output = outputFormatter.format(date);
 
         lblDeliveryDate.setText(output);
+    }
+    
+    public void setAnchorPane()
+    {
+        String cond = ordersForDepartment.getCondition();
+        lblAnchorPane.setStyle("-fx-text-fill: black");
+
+        if (cond.equals("finished"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: green");
+            lblAnchorPane.setText("Finished");
+        } else if (cond.equals("behind"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: red");
+            lblAnchorPane.setText("Behind");
+
+        } else if (cond.equals("not started"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: yellow");
+            lblAnchorPane.setText("Not Started");
+
+        } else if (cond.equals("ongoing"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: #0080FF");
+            lblAnchorPane.setText("Ongoing");
+        }
+
     }
     
     public AnchorPane getAnchorPane() {
