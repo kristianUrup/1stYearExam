@@ -63,6 +63,13 @@ public class PostItController implements Initializable
 
     }
 
+    /**
+     * Setting order and setting date
+     * as a readable format. 
+     * 
+     * 
+     * @param order 
+     */
     public void setOrderInfo(Order order)
     {
         ordersForDepartment = order;
@@ -73,15 +80,15 @@ public class PostItController implements Initializable
         String output = outputFormatter.format(date);
         lblDeliveryDate.setText(output);
         setAnchorPane();
-        
-        
     }
+    
     
     public void setDepartment(Department department)
     {
         this.department = department;
     }
 
+    
     public void showDeliveryDate(Order order) throws BllException
     {
         lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
@@ -94,6 +101,10 @@ public class PostItController implements Initializable
         lblDeliveryDate.setText(output);
     }
     
+    /**
+     * Sets the AnchorPane, so it got the right color and text
+     * for the orders status.
+     */
     public void setAnchorPane()
     {
         String cond = ordersForDepartment.getCondition();
@@ -121,6 +132,10 @@ public class PostItController implements Initializable
 
     }
     
+    /**
+     * Gettiing the AnchorPane of PostItController
+     * @return anchorPane
+     */
     public AnchorPane getAnchorPane() {
         return anchorPane;
     }
