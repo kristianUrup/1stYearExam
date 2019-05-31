@@ -385,7 +385,7 @@ public class ExpandedPostItNoteController implements Initializable
     }
 
     /**
-     * Sets the status color on the postit note depending on the item status
+     * Sets the status color on the postit note depending on the cond string
      */
     public void setAnchorStatusColor()
     {
