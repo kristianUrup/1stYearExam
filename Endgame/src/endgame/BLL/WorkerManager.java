@@ -26,6 +26,13 @@ public class WorkerManager
         wdao = new WorkerDAO();
     }
     
+    /**
+     * Gets a list containing all workers depending on the departmentid and orderid
+     * @param department
+     * @param order
+     * @return
+     * @throws BllException 
+     */
     public List<Worker> getWorkers(Department department, Order order) throws BllException {
         try
         {

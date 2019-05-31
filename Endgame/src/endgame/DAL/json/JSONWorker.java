@@ -14,6 +14,11 @@ import org.json.simple.JSONObject;
 public class JSONWorker implements IWorker
 {
 
+    /**
+     * Gets the name of the worker and then returns it
+     * @param object
+     * @return 
+     */
     @Override
     public String getName(Object object)
     {
@@ -22,6 +27,11 @@ public class JSONWorker implements IWorker
         return workerName;
     }
 
+    /**
+     * Gets the initials of the worker and then returns it
+     * @param object
+     * @return 
+     */
     @Override
     public String getInitials(Object object)
     {
@@ -30,6 +40,11 @@ public class JSONWorker implements IWorker
         return workerInitials;
     }
 
+    /**
+     * Gets the salarynumber of the worker and then returns it
+     * @param object
+     * @return 
+     */
     @Override
     public int getSalaryNumber(Object object)
     {

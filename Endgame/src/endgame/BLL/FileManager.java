@@ -21,10 +21,18 @@ public class FileManager
         rpfile = new ReadPropertyFile();
     }
     
+    /**
+     * Gets the configfile
+     * @return 
+     */
     public String getConfig(){
         return rpfile.getConfig();
     }
     
+    /**
+     * checks if the offset is null, if not then gets the offset
+     * @return 
+     */
     public int getOffSet() {
         return rpfile.getOffSet();
     }

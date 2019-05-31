@@ -37,6 +37,12 @@ public class LogDAO implements ILogDAO
         cdao = new ConnectionDAO();
     }
 
+    /**
+     * Inserts an acitivitylog containing orderid, departmentid, an exception and the current date
+     * @param order
+     * @param department
+     * @param messageLog 
+     */
     @Override
     public void setLastActivity(Order order, Department department, String messageLog)
     {
@@ -64,6 +70,12 @@ public class LogDAO implements ILogDAO
         }
     }
 
+    /**
+     * Gets the latest acitivtlog depending on orderid
+     * @param order
+     * @return
+     * @throws DalException 
+     */
     @Override
     public String getLastActivity(Order order) throws DalException
     {

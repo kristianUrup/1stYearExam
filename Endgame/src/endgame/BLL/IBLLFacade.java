@@ -19,29 +19,36 @@ import javafx.collections.ObservableList;
  */
 public interface IBLLFacade
 {
-    public List<Order> getAllOrders(Department department, int offset) throws BllException;
-    
-    public Order getOrder(Department department, Order order) throws BllException;
-    
+    // DepartmentManager
     public Department getDepartment(String dName) throws BllException;
     
     public List<Department> getDepartments(Order order) throws BllException;
     
+    public List<Department> getManagementDepartments() throws BllException;
+    
+    // OrderManager
+    public List<Order> getAllOrders(Department department, int offset) throws BllException;
+    
     public void changeOrderState(Order order, Department department) throws BllException;
     
-    public String getConfig();
+    public Order getOrder(Department department, Order order) throws BllException;
     
-    public int getOffSet();
-    
+    // LogManager
     public void setLastActivity(Order order, Department department, String messageLog);
             
     public String getLastActivity(Order order) throws BllException;
     
+    // FileManager
+    public String getConfig();
+    
+    public int getOffSet();
+    
+    // JSONManager
     public void getJsonFile() throws BllException;
     
+    // WorkerManager
     public List<Worker> getAllWorkers(Department department, Order order) throws BllException;
     
-    public List<Department> getManagementDepartments() throws BllException;
     
     
 }

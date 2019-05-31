@@ -22,6 +22,10 @@ public class JSONManager
         jfr = new JSONFileReader();
     }
     
+    /**
+     * Gets the Json file
+     * @throws BllException 
+     */
     public void getJsonFile() throws BllException {
         try
         {

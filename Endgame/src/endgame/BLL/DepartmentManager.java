@@ -32,6 +32,12 @@ public class DepartmentManager
         iddao = new DepartmentDAO();
     }
 
+    /**
+     * Gets a specific department depending on the name
+     * @param dName
+     * @return
+     * @throws BllException 
+     */
     public Department getDepartment(String dName) throws BllException
     {
         try
@@ -42,7 +48,13 @@ public class DepartmentManager
             throw new BllException(ex.getMessage());
         }
     }
-
+    
+    /**
+     * Gets a list containing all departments
+     * @param order
+     * @return
+     * @throws BllException 
+     */
     public List<Department> getDepartments(Order order) throws BllException
     {
         try
@@ -58,6 +70,11 @@ public class DepartmentManager
         }
     }
     
+    /**
+     * Gets a List containing alle the department names except for management
+     * @return
+     * @throws BllException 
+     */
     public List<Department> getManagementDepartments() throws BllException
     {
         try

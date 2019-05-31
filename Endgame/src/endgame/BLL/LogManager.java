@@ -27,11 +27,23 @@ public class LogManager
         iLog = new LogDAO();
     }
     
+    /**
+     * Inserts an acitivitylog containing orderid, departmentid, an exception and the current date
+     * @param order
+     * @param department
+     * @param messageLog 
+     */
     public void setLastActivity(Order order, Department department, String messageLog)
     {
         iLog.setLastActivity(order, department, messageLog);
     }
     
+    /**
+     * Gets the latest acitivtlog depending on orderid
+     * @param order
+     * @return
+     * @throws BllException 
+     */
     public String getLastActivity(Order order) throws BllException
     {
         try

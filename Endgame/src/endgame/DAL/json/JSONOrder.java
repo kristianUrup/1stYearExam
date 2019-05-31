@@ -20,6 +20,12 @@ import org.json.simple.JSONObject;
 public class JSONOrder implements IOrder
 {
 
+    /**
+     * Gets the delivery time from the Json object, converts the date and then returns it
+     * @param object
+     * @return
+     * @throws DalException 
+     */
     @Override
     public Date getDeliveryTime(Object object) throws DalException
     {
@@ -35,6 +41,12 @@ public class JSONOrder implements IOrder
         }
     }
 
+    /**
+     * Gets the ordernumber from the Json object and casts it to a string
+     * Then the ordernumber is returned
+     * @param object
+     * @return 
+     */
     @Override
     public String getOrderNumber(Object object)
     {
@@ -44,6 +56,12 @@ public class JSONOrder implements IOrder
         return number;
     }
 
+    /**
+     * Gets the customer from the Json object and casts it to a string
+     * returns the name
+     * @param object
+     * @return 
+     */
     @Override
     public String getCustomer(Object object)
     {
@@ -53,6 +71,14 @@ public class JSONOrder implements IOrder
         return name;
     }
     
+    /**
+     * Converts the Json date with a time zone into a date object without the timezone
+     * Then parses the date object into a readable date object
+     * Then returns the date
+     * @param jsonDate
+     * @return
+     * @throws ParseException 
+     */
     private Date convertJSONDate(String jsonDate) throws ParseException {
         int timeZoneIndex = jsonDate.indexOf("+");
         String date = "";

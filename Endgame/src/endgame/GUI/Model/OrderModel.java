@@ -38,6 +38,7 @@ public class OrderModel
         ManagementDepartmentList = FXCollections.observableArrayList();
     }
 
+    
     public List<Order> getAllOrders(Department department, int offset) throws BllException
     {
         return BF.getAllOrders(department, offset);
