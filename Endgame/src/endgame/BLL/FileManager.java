@@ -30,7 +30,7 @@ public class FileManager
     }
     
     /**
-     * checks if the offset is null, if not then gets the offset
+     * checks if the offset is empty, if not then gets the offset
      * @return 
      */
     public int getOffSet() {

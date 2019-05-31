@@ -119,6 +119,10 @@ public class ExpandedPostItNoteController implements Initializable
 
     }
 
+    /**
+     * Sets the information on the orders depending on the department
+     * @param order 
+     */
     public void setOrderInfo(Order order)
     {
 
@@ -166,21 +170,36 @@ public class ExpandedPostItNoteController implements Initializable
 
     }
 
+    /**
+     * Sets the department
+     * @param department 
+     */
     public void setDepartment(Department department)
     {
         this.department = department;
     }
     
+    /**
+     * Gets the state of the order and returns isDone
+     * @return 
+     */
     public boolean getState() {
         return isDone;
     }
 
+    /**
+     * Sets the order as done
+     * @throws BllException 
+     */
     public void setDone() throws BllException
     {
         OMO.changeOrderState(ordersForDepartment, department);
         OMO.setLastActivity(ordersForDepartment, department, "Task was marked as done");
     }
 
+    /**
+     * Sets the progressbar in percentage
+     */
     private void setProgressBar()
     {
         try
@@ -194,6 +213,10 @@ public class ExpandedPostItNoteController implements Initializable
         }
     }
 
+    /**
+     * Updates the order information by filling out the information on the order
+     * @param order 
+     */
     public void updateOrder(Order order)
     {
         TimerTask repeatedTask = new TimerTask()
@@ -230,6 +253,11 @@ public class ExpandedPostItNoteController implements Initializable
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
+    /**
+     * Runs the refreshDepartments method, 
+     * which runs through every department
+     * and inserts them into a list
+     */
     public void updateDepartmentList()
     {
         TimerTask repeatedTask = new TimerTask()
@@ -255,6 +283,10 @@ public class ExpandedPostItNoteController implements Initializable
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
+    /**
+     * Sets the status color of the cellstatus depending on the item status
+     * @throws BllException 
+     */
     public void setStatusColor() throws BllException
     {
         cellStatus.setCellFactory(column ->
@@ -296,6 +328,9 @@ public class ExpandedPostItNoteController implements Initializable
         });
     }
 
+    /**
+     * Gets the last active department on the order
+     */
     public void getLastActive()
     {
         try
@@ -307,11 +342,19 @@ public class ExpandedPostItNoteController implements Initializable
         }
     }
 
+    /**
+     * Gets the borderPane
+     * @return 
+     */
     public BorderPane getBorderPane()
     {
         return borderPane;
     }
 
+    /**
+     * Gets the clicked department and displays the department progression
+     * @param event 
+     */
     @FXML
     private void handlerDepartmentClicked(MouseEvent event)
     {
@@ -341,6 +384,9 @@ public class ExpandedPostItNoteController implements Initializable
         }
     }
 
+    /**
+     * Sets the status color on the postit note depending on the item status
+     */
     public void setAnchorStatusColor()
     {
         String cond = ordersForDepartment.getCondition();
@@ -368,6 +414,11 @@ public class ExpandedPostItNoteController implements Initializable
 
     }
 
+    /**
+     * Handles the done button, displays an alertbox 
+     * and if the alerboxes are clicked upon, then the isdone is set as true
+     * @param event 
+     */
     @FXML
     private void handleDoneBtn(ActionEvent event)
     {
@@ -395,6 +446,10 @@ public class ExpandedPostItNoteController implements Initializable
         }
     }
 
+    /**
+     * Closes the postit note
+     * @param event 
+     */
     @FXML
     private void handlerClosePostIt(MouseEvent event)
     {

@@ -137,6 +137,11 @@ public class PlatformController implements Initializable
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
+    /**
+     * Checks if the list ordernumbers does not contain the ordernumber from order
+     * if it does not, then it adds the ordernumber
+     * @param orders 
+     */
     private void orderList(List<Order> orders)
     {
         Thread t = new Thread(() ->
@@ -153,6 +158,10 @@ public class PlatformController implements Initializable
         t.start();
     }
 
+    /**
+     * Updates the user-interface by clearing the flowpane and ordernumbers
+     * @param orders 
+     */
     private void updateUI(List<Order> orders)
     {
         flowPane.getChildren().clear();
@@ -404,29 +413,6 @@ public class PlatformController implements Initializable
         }
     }
     
-//    private void setManagement()
-//    {
-//        if(dep.getName().equals("Management"))
-//        {
-//            comboDepartment.setVisible(true);
-//            setCombobox();
-//            
-//            try
-//            {
-//                Department department = comboDepartment.getSelectionModel().getSelectedItem();
-//                
-//                setPostItNotes();
-//                updatePostItNotes();
-//                
-//                
-//                
-//            } catch (BllException ex)
-//            {
-//                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
-
     /**
      * Sets the comboBox visibility to true if
      * it is logged in as Management.

@@ -92,7 +92,7 @@ public class PostItController implements Initializable
     }
     
     /**
-     * Sets the AnchorPane, so it got the right color and text
+     * Sets the topAnchorPane, so it got the right color and text
      * for the orders status.
      */
     public void setAnchorPane()
