@@ -56,7 +56,8 @@ public class JSONFileReader
     }
 
     /**
-     * Gets the extension of the file and checks if the 
+     * Gets the extension of the file and and returns it
+     * else it returns nothing
      * @param file
      * @return 
      */

@@ -339,6 +339,9 @@ public class PlatformController implements Initializable
 
     }
     
+    /**
+     * runs the getJsonFile method in a thread
+     */
     private void readJsonFile()
     {
         TimerTask repeatedTask = new TimerTask()
