@@ -11,8 +11,6 @@ import endgame.BLL.Exception.BllException;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.ILogDAO;
 import endgame.DAL.LogDAO;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -5,21 +5,15 @@
  */
 package endgame.DAL;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import endgame.BE.Department;
 import endgame.BE.Order;
-import endgame.BLL.Exception.BllException;
-import endgame.BLL.IBLLFacade;
 import endgame.DAL.Exception.DalException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.jar.Attributes;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

@@ -69,6 +69,7 @@ public class PlatformController implements Initializable
     {
         try
         {
+            
             comboDepartment.setVisible(false);
             OM = new OrderModel();
             dep = OM.getDepartment(OM.getConfig());

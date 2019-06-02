@@ -5,7 +5,6 @@
  */
 package endgame.DAL;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.DAL.Exception.DalException;
@@ -18,8 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
