@@ -5,7 +5,6 @@
  */
 package endgame.DAL;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.DAL.Exception.DalException;
@@ -121,6 +120,16 @@ public class OrderDAO implements IOrderDAO
         } catch (SQLException ex)
         {
             Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                try
+                {
+                    con.close();
+                } catch (SQLException ex)
+                {
+                    Logger.getLogger(OrderDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 
@@ -197,17 +206,4 @@ public class OrderDAO implements IOrderDAO
         }
         return null;
     }
-    
-//    private Order getManagementOrders()
-//    {
-//        Connection con = null;
-//        
-//        try {
-//            con = cdao.getConnection();
-//            String sql = 
-//            
-//            PreparedStatement pst = con.prepareStatement(sql);
-//            
-//            pst.setString(1, Order.);
-//    }
 }
