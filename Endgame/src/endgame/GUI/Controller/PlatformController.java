@@ -61,12 +61,15 @@ public class PlatformController implements Initializable
     @FXML
     private BorderPane borderPane;
 
+    /**
+     * initializes the controller class
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-//        anchorPane.setStyle("-fx-opacity: 0");
         try
         {
+            
             comboDepartment.setVisible(false);
             OM = new OrderModel();
             dep = OM.getDepartment(OM.getConfig());
@@ -83,6 +86,13 @@ public class PlatformController implements Initializable
 
     }
 
+    /**
+     * Sets all of the post it notes, 
+     * and using order to set all of the data
+     * and setting the right size of the List
+     * 
+     * @throws BllException 
+     */
     public void setPostItNotes() throws BllException
     {
         List<Order> orders = OM.getAllOrders(dep, OM.getOffSet());
@@ -99,6 +109,9 @@ public class PlatformController implements Initializable
         orders.clear();
     }
 
+    /**
+     * Uses a thread to update all of the Post It notes. 
+     */
     public void updatePostItNotes()
     {
         TimerTask repeatedTask = new TimerTask()
@@ -125,6 +138,11 @@ public class PlatformController implements Initializable
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
+    /**
+     * Checks if the list ordernumbers does not contain the ordernumber from order
+     * if it does not, then it adds the ordernumber
+     * @param orders 
+     */
     private void orderList(List<Order> orders)
     {
         Thread t = new Thread(() ->
@@ -141,6 +159,10 @@ public class PlatformController implements Initializable
         t.start();
     }
 
+    /**
+     * Updates the user-interface by clearing the flowpane and ordernumbers
+     * @param orders 
+     */
     private void updateUI(List<Order> orders)
     {
         flowPane.getChildren().clear();
@@ -148,6 +170,13 @@ public class PlatformController implements Initializable
         orderList(orders);
     }
 
+    /**
+     * Using eventhandler to sort by endDate,
+     * so the endDate that is closest to now
+     * is at the bottom
+     * 
+     * @param event 
+     */
     @FXML
     private void sortByEndDateAsc(ActionEvent event)
     {
@@ -177,6 +206,13 @@ public class PlatformController implements Initializable
 
     }
 
+    /**
+     * Using eventhandler to sort by endDate,
+     * so the endDate that is closest to now
+     * is at the top.
+     * 
+     * @param event 
+     */
     @FXML
     private void sortByEndDateDesc (ActionEvent event)
     {
@@ -208,6 +244,12 @@ public class PlatformController implements Initializable
             t.start();
         }
 
+    /** 
+     * Sorting the list, like it was normally
+     * this is like when you just opened the program.
+     * 
+     * @param event 
+     */
     @FXML
     private void sortByDefault(ActionEvent event)
     {
@@ -238,6 +280,15 @@ public class PlatformController implements Initializable
         
     }
 
+    /**
+     * This is opening one FXML file,
+     * with all of the data (order and department)
+     * It makes a BoxBlur to set the flowPane blurred,
+     * when expandedPostItNote opens.
+     * ExpandedPostItNote only opens if you click on the PostIt pane.
+     * 
+     * @param order 
+     */
     private void openFXML(Order order)
     {
         try
@@ -297,7 +348,10 @@ public class PlatformController implements Initializable
         }
 
     }
-
+    
+    /**
+     * runs the getJsonFile method in a thread
+     */
     private void readJsonFile()
     {
         TimerTask repeatedTask = new TimerTask()
@@ -326,16 +380,29 @@ public class PlatformController implements Initializable
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 
+    /**
+     * Gets the FlowPane of PlatformController
+     * 
+     * @return 
+     */
     public FlowPane getFlowPane()
     {
         return flowPane;
     }
 
+    /**
+     * Closes the system
+     * 
+     * @param event 
+     */
     private void handleCloseBtn(ActionEvent event)
     {
         System.exit(0);
     }
 
+    /**
+     * Sets the items in the comboBox.
+     */
     private void setCombobox()
     {
         try
@@ -347,29 +414,10 @@ public class PlatformController implements Initializable
         }
     }
     
-//    private void setManagement()
-//    {
-//        if(dep.getName().equals("Management"))
-//        {
-//            comboDepartment.setVisible(true);
-//            setCombobox();
-//            
-//            try
-//            {
-//                Department department = comboDepartment.getSelectionModel().getSelectedItem();
-//                
-//                setPostItNotes();
-//                updatePostItNotes();
-//                
-//                
-//                
-//            } catch (BllException ex)
-//            {
-//                Logger.getLogger(PlatformController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//    }
-
+    /**
+     * Sets the comboBox visibility to true if
+     * it is logged in as Management.
+     */
     private void setManagement()
     {
         if (dep.getName().equals("Management"))
@@ -379,6 +427,13 @@ public class PlatformController implements Initializable
         }
     }
 
+    /**
+     * Clears the FlowPane, so when you choose
+     * another department, it sets the orders for
+     * that department. 
+     * 
+     * @param event 
+     */
     @FXML
     private void ComboChoice(ActionEvent event)
     {

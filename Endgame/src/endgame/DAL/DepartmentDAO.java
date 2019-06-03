@@ -5,7 +5,6 @@
  */
 package endgame.DAL;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import endgame.BE.Department;
 import endgame.BE.Order;
 import endgame.DAL.Exception.DalException;
@@ -18,8 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -35,6 +32,12 @@ public class DepartmentDAO implements IDepartmentDAO
         cdao = new ConnectionDAO();
     }
 
+    /**
+     * Gets a specific department depending on the name
+     * @param dName
+     * @return
+     * @throws DalException 
+     */
     @Override
     public Department getDepartment(String dName) throws DalException
     {
@@ -75,6 +78,12 @@ public class DepartmentDAO implements IDepartmentDAO
         }
     }
 
+    /**
+     * Gets a list containing all departments
+     * @param order
+     * @return
+     * @throws DalException 
+     */
     @Override
     public List<Department> getDepartments(Order order) throws DalException
     {
@@ -126,6 +135,13 @@ public class DepartmentDAO implements IDepartmentDAO
         }
     }
 
+    /**
+     * Gets the condition of the order
+     * @param isDone
+     * @param endDate
+     * @param startDate
+     * @return 
+     */
     private String getCondition(Boolean isDone, Date endDate, Date startDate)
     {
 
@@ -147,6 +163,11 @@ public class DepartmentDAO implements IDepartmentDAO
         return null;
     }
     
+    /**
+     * Gets a List containing alle the department names except for management
+     * @return
+     * @throws DalException 
+     */
     @Override
     public List<Department> getManagementDepartments() throws DalException
     {

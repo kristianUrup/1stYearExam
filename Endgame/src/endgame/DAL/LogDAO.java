@@ -5,21 +5,15 @@
  */
 package endgame.DAL;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import endgame.BE.Department;
 import endgame.BE.Order;
-import endgame.BLL.Exception.BllException;
-import endgame.BLL.IBLLFacade;
 import endgame.DAL.Exception.DalException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.jar.Attributes;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +31,12 @@ public class LogDAO implements ILogDAO
         cdao = new ConnectionDAO();
     }
 
+    /**
+     * Inserts an acitivitylog containing orderid, departmentid, an exception and the current date
+     * @param order
+     * @param department
+     * @param messageLog 
+     */
     @Override
     public void setLastActivity(Order order, Department department, String messageLog)
     {
@@ -64,6 +64,12 @@ public class LogDAO implements ILogDAO
         }
     }
 
+    /**
+     * Gets the latest acitivtlog depending on orderid
+     * @param order
+     * @return
+     * @throws DalException 
+     */
     @Override
     public String getLastActivity(Order order) throws DalException
     {

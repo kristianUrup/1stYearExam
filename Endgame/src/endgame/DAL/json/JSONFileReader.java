@@ -39,6 +39,10 @@ public class JSONFileReader
         jdao = new JSONDAO();
     }
 
+    /**
+     * Gets the JsonFile
+     * @throws DalException 
+     */
     public void getJsonFile() throws DalException
     {
         for (File fileEntry : getFiles().listFiles())
@@ -51,6 +55,12 @@ public class JSONFileReader
         }
     }
 
+    /**
+     * Gets the extension of the file and and returns it
+     * else it returns nothing
+     * @param file
+     * @return 
+     */
     private static String getFileExtension(File file)
     {
         String fileName = file.getName();
@@ -63,12 +73,23 @@ public class JSONFileReader
         }
     }
 
+    /**
+     * Uses the methods getWorkersfromJson and getOrdersFromJson to read the Json file
+     * @param json
+     * @throws DalException 
+     */
     private void readJsonFile(String json) throws DalException
     {
         getWorkersFromJson(json);
         getOrdersFromJson(json);
     }
 
+    /**
+     * Gets all available workers from the Json file containing name, initials and salary number
+     * Then the workers are added to the database by using the addWorker method from JsonDAO
+     * @param json
+     * @throws DalException 
+     */
     private void getWorkersFromJson(String json) throws DalException
     {
         try
@@ -89,7 +110,12 @@ public class JSONFileReader
         }
 
     }
-
+    /**
+     * Gets all production orders from the Json file containing ordernumber, customer and deliverydate
+     * Then the orders are added to the database by using the addOrder method from JsonDAO
+     * @param json
+     * @throws DalException 
+     */
     private void getOrdersFromJson(String json) throws DalException
     {
         try
@@ -111,6 +137,13 @@ public class JSONFileReader
         }
     }
 
+    /**
+     * Gets all department tasks from the Json file containing department, order, startdate, enddate and isDone
+     * Then the tasks are added to the database by using the addDepartmentTask method from JsonDAO
+     * @param object
+     * @param order
+     * @throws DalException 
+     */
     private void getTasksFromJson(Object object, Order order) throws DalException
     {
         JSONObject jObject = (JSONObject) object;
@@ -131,6 +164,11 @@ public class JSONFileReader
         }
     }
     
+    /**
+     * Creates a file object with the filedestination of the data folder
+     * Then returns the folder
+     * @return 
+     */
     private File getFiles() {
         File folder = new File("src/data");
         return folder;

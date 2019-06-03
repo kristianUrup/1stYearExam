@@ -41,6 +41,10 @@ public class PostItController implements Initializable
     private Label lblDeliveryDate;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private AnchorPane topAnchorPane;
+    @FXML
+    private Label lblAnchorPane;
 
     /**
      * Initializes the controller class.
@@ -59,6 +63,13 @@ public class PostItController implements Initializable
 
     }
 
+    /**
+     * Setting order and setting date
+     * as a readable format. 
+     * 
+     * 
+     * @param order 
+     */
     public void setOrderInfo(Order order)
     {
         ordersForDepartment = order;
@@ -68,25 +79,53 @@ public class PostItController implements Initializable
         DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
         String output = outputFormatter.format(date);
         lblDeliveryDate.setText(output);
+        setAnchorPane();
     }
-
+    
+    /**
+     * Sets department
+     * @param department 
+     */
     public void setDepartment(Department department)
     {
         this.department = department;
     }
-
-    public void showDeliveryDate(Order order) throws BllException
+    
+    /**
+     * Sets the topAnchorPane, so it got the right color and text
+     * for the orders status.
+     */
+    public void setAnchorPane()
     {
-        lblDeliveryDate.setText(ordersForDepartment.getDeliveryDate().toString());
+        String cond = ordersForDepartment.getCondition();
+        lblAnchorPane.setStyle("-fx-text-fill: black");
 
-        Date date = ordersForDepartment.getDeliveryDate();
+        if (cond.equals("finished"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: green");
+            lblAnchorPane.setText("Finished");
+        } else if (cond.equals("behind"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: red");
+            lblAnchorPane.setText("Behind");
 
-        DateFormat outputFormatter = new SimpleDateFormat("dd/MM/yyyy");
-        String output = outputFormatter.format(date);
+        } else if (cond.equals("not started"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: yellow");
+            lblAnchorPane.setText("Not Started");
 
-        lblDeliveryDate.setText(output);
+        } else if (cond.equals("ongoing"))
+        {
+            topAnchorPane.setStyle("-fx-background-color: #0080FF");
+            lblAnchorPane.setText("Ongoing");
+        }
+
     }
     
+    /**
+     * Gettiing the AnchorPane of PostItController
+     * @return anchorPane
+     */
     public AnchorPane getAnchorPane() {
         return anchorPane;
     }

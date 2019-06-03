@@ -17,6 +17,11 @@ import org.json.simple.JSONObject;
 public class JSONDepartmentTask implements IDepartmentTask
 {
 
+    /**
+     * Gets the department object and then returns it
+     * @param object
+     * @return name
+     */
     @Override
     public String getDepartment(Object object)
     {
@@ -26,6 +31,11 @@ public class JSONDepartmentTask implements IDepartmentTask
         return name;
     }
 
+    /**
+     * Gets the condition of the JsonObject(finished || !finished) and then returns it
+     * @param object
+     * @return 
+     */
     @Override
     public boolean isOrderFinished(Object object)
     {
@@ -34,6 +44,12 @@ public class JSONDepartmentTask implements IDepartmentTask
         return isOrderDone;
     }
 
+    /**
+     * Gets the startdate of the json object, converts it and then returns it
+     * @param object
+     * @return
+     * @throws DalException 
+     */
     @Override
     public Date getStartDate(Object object) throws DalException
     {
@@ -48,6 +64,12 @@ public class JSONDepartmentTask implements IDepartmentTask
         }
     }
 
+    /**
+     * Gets the enddate of the json object, converts it and then returns it
+     * @param object
+     * @return
+     * @throws DalException 
+     */
     @Override
     public Date getEndDate(Object object) throws DalException
     {
@@ -62,6 +84,12 @@ public class JSONDepartmentTask implements IDepartmentTask
         }
     }
     
+    /**
+     * Gets the json Object as a string, converts it and then returns it
+     * @param jsonDate
+     * @return
+     * @throws ParseException 
+     */
     private Date convertJSONDate(String jsonDate) throws ParseException {
         int timeZoneIndex = jsonDate.indexOf("+");
         String date = "";

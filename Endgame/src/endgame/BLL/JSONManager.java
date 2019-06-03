@@ -8,7 +8,6 @@ package endgame.BLL;
 import endgame.BLL.Exception.BllException;
 import endgame.DAL.Exception.DalException;
 import endgame.DAL.json.JSONFileReader;
-import java.io.File;
 
 /**
  *
@@ -22,6 +21,10 @@ public class JSONManager
         jfr = new JSONFileReader();
     }
     
+    /**
+     * Gets the Json file
+     * @throws BllException 
+     */
     public void getJsonFile() throws BllException {
         try
         {

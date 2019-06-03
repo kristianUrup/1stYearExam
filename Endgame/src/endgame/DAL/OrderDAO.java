@@ -34,6 +34,13 @@ public class OrderDAO implements IOrderDAO
         cdao = new ConnectionDAO();
     }
 
+    /**
+     * Gets a list containing all orders depending on the departmentid
+     * @param department
+     * @param offset
+     * @return
+     * @throws DalException 
+     */
     @Override
     public List<Order> getAllOrders(Department department, int offset) throws DalException
     {
@@ -102,6 +109,12 @@ public class OrderDAO implements IOrderDAO
         }
     }
 
+    /**
+     * Updates departmenttask and sets the task as finished, 
+     * depending on the departmentid and the orderid
+     * @param order
+     * @param department 
+     */
     @Override
     public void changeOrderState(Order order, Department department)
     {
@@ -133,6 +146,11 @@ public class OrderDAO implements IOrderDAO
         }
     }
 
+    /**
+     * Gets todays offset in days
+     * @param offset
+     * @return 
+     */
     private Date calculateOffSetDate(int offset)
     {
         Date today = new Date();
@@ -141,6 +159,13 @@ public class OrderDAO implements IOrderDAO
         return todayOffSet;
     }
 
+    /**
+     * Gets an order depending on the departmentid and the orderid
+     * @param department
+     * @param order
+     * @return
+     * @throws DalException 
+     */
     @Override
     public Order getOrder(Department department, Order order) throws DalException
     {
@@ -187,6 +212,13 @@ public class OrderDAO implements IOrderDAO
         }
     }
     
+    /**
+     * Gets the condition of the order
+     * @param isDone
+     * @param endDate
+     * @param startDate
+     * @return 
+     */
     private String getCondition(Boolean isDone, Date endDate, Date startDate)
     {
         

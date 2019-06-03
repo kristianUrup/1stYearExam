@@ -29,6 +29,12 @@ public class JSONDAO
         cdao = new ConnectionDAO();
     }
     
+    /**
+     * Gets a name from a department depending on the name
+     * @param department
+     * @return
+     * @throws DalException 
+     */
     public boolean departmentExists(String department) throws DalException {
         Connection con = null;
         try {
@@ -63,6 +69,12 @@ public class JSONDAO
         }
     }
     
+    /**
+     * Inserts a name into a department
+     * @param department
+     * @return
+     * @throws DalException 
+     */
     public Department addDepartment(String department) throws DalException {
         Connection con = null;
         try {
@@ -98,6 +110,14 @@ public class JSONDAO
         }
     }
     
+    /**
+     * Inserts an order containing ordernumber, customer and deliverydate
+     * @param orderNumber
+     * @param customer
+     * @param deliveryDate
+     * @return
+     * @throws DalException 
+     */
     public Order addOrder(String orderNumber, String customer, Date deliveryDate) throws DalException {
         Connection con = null;
         try {
@@ -136,6 +156,15 @@ public class JSONDAO
         }
     }
     
+    /**
+     * Inserts a departmenttask containing departmentid, orderid, startDate, endDate and finished
+     * @param department
+     * @param order
+     * @param startDate
+     * @param endDate
+     * @param isDone
+     * @throws DalException 
+     */
     public void addDepartmentTask(Department department, Order order, Date startDate, Date endDate, boolean isDone) throws DalException {
         Connection con = null;
         try {
@@ -174,6 +203,12 @@ public class JSONDAO
         }
     }
     
+    /**
+     * Gets all from department depending on the name
+     * @param department
+     * @return
+     * @throws DalException 
+     */
     public Department getDepartment(String department) throws DalException {
         Connection con = null;
         try {
@@ -207,6 +242,13 @@ public class JSONDAO
         }
     }
     
+    /**
+     * Inserts a worker containing name, initials and salarynumber
+     * @param name
+     * @param initials
+     * @param salaryNumber
+     * @throws DalException 
+     */
     public void addWorker(String name, String initials, int salaryNumber) throws DalException {
         Connection con = null;
         try {

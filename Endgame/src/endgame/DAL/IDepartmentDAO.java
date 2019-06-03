@@ -7,7 +7,6 @@ package endgame.DAL;
 
 import endgame.BE.Department;
 import endgame.BE.Order;
-import endgame.BLL.Exception.BllException;
 import endgame.DAL.Exception.DalException;
 import java.util.List;
 

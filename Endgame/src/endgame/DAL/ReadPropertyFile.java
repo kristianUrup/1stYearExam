@@ -27,11 +27,19 @@ public class ReadPropertyFile
         prop.load(input);
     }
 
+    /**
+     * Gets the configfile
+     * @return 
+     */
     public String getConfig()
     {
         return prop.getProperty("department");
     }
 
+    /**
+     * checks if the offset is empty, if not then gets the offset
+     * @return 
+     */
     public int getOffSet()
     {
         if (prop.getProperty("offset").equals(""))

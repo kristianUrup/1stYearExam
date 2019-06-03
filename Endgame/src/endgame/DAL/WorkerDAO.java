@@ -34,6 +34,13 @@ public class WorkerDAO implements IWorkerDAO
         cdao = new ConnectionDAO();
     }
 
+    /**
+     * Gets a list containing all workers depending on the departmentid and orderid
+     * @param department
+     * @param order
+     * @return
+     * @throws DalException 
+     */
     @Override
     public List<Worker> getWorkers(Department department, Order order) throws DalException
     {

@@ -28,15 +28,15 @@
       <AnchorPane prefHeight="493.0" prefWidth="799.0" styleClass="background" stylesheets="@../../Data/DesignPostItNote.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="done" layoutX="120.0" layoutY="394.0" mnemonicParsing="false" onAction="#handleDoneBtn" prefHeight="76.0" prefWidth="176.0" stylesheets="@../../Data/DesignPostItNote.css" text="Done!" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="394.0" />
-            <TableView fx:id="tableDepartmentList" layoutX="427.0" layoutY="89.0" onMouseClicked="#handlerDepartmentClicked" prefHeight="200.0" prefWidth="200.0" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="90.0">
+            <TableView fx:id="tableDepartmentList" layoutX="376.0" layoutY="93.0" onMouseClicked="#handlerDepartmentClicked" prefHeight="200.0" prefWidth="244.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="93.0">
                <columns>
-                  <TableColumn fx:id="cellDepartment" prefWidth="101.0" text="Department" />
-                  <TableColumn fx:id="cellStatus" prefWidth="88.0" text="Status" />
+                  <TableColumn fx:id="cellDepartment" prefWidth="150.0" text="Department" />
+                  <TableColumn fx:id="cellStatus" prefWidth="81.0" text="Status" />
                </columns>
             </TableView>
-            <TableView fx:id="tableWorkersID" layoutX="654.0" layoutY="99.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="90.0">
+            <TableView fx:id="tableWorkersID" layoutX="640.0" layoutY="103.0" prefHeight="200.0" prefWidth="146.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="93.0">
                <columns>
-                  <TableColumn fx:id="cellWorkersID" prefWidth="90.0" text="Workers ID" />
+                  <TableColumn fx:id="cellWorkersID" prefWidth="137.0" text="Workers ID" />
                </columns>
             </TableView>
             <Label layoutX="78.0" layoutY="50.0" />
@@ -70,52 +70,47 @@
             </Label>
             <Label layoutX="474.0" layoutY="331.0" text="Last active:" AnchorPane.leftAnchor="474.0" AnchorPane.topAnchor="331.0" />
             <Label fx:id="lblLastActive" layoutX="473.0" layoutY="358.0" prefHeight="16.0" prefWidth="200.0" AnchorPane.leftAnchor="473.0" AnchorPane.topAnchor="358.0" />
-            <ImageView fitHeight="15.0" fitWidth="200.0" layoutX="426.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="287.0">
+            <ImageView fitHeight="15.0" fitWidth="250.0" layoutX="377.0" layoutY="289.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="289.0">
                <image>
                   <Image url="@../../Data/drawedLine.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="15.0" fitWidth="200.0" layoutX="422.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="82.0">
+            <ImageView fitHeight="15.0" fitWidth="250.0" layoutX="377.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="84.0">
                <image>
                   <Image url="@../../Data/drawedLine.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="200.0" fitWidth="15.0" layoutX="639.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="635.0" AnchorPane.topAnchor="88.0">
+            <ImageView fitHeight="200.0" fitWidth="15.0" layoutX="633.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="633.0" AnchorPane.topAnchor="94.0">
                <image>
                   <Image url="@../../Data/drawedLineRotated.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="200.0" fitWidth="15.0" layoutX="414.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="368.6792449951172" AnchorPane.topAnchor="92.0">
+            <ImageView fitHeight="200.0" fitWidth="15.0" layoutX="368.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="420.6792449951172" AnchorPane.topAnchor="94.0">
                <image>
                   <Image url="@../../Data/drawedLineRotated.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="200.0" fitWidth="15.0" layoutX="616.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="166.0" AnchorPane.topAnchor="88.0">
+            <ImageView fitHeight="200.0" fitWidth="15.0" layoutX="571.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="90.0">
                <image>
                   <Image url="@../../Data/drawedLineRotated.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="15.0" fitWidth="200.0" layoutX="425.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="115.0">
-               <image>
-                  <Image url="@../../Data/drawedLine.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="15.0" fitWidth="110.0" layoutX="650.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="287.0">
+            <ImageView fitHeight="15.0" fitWidth="135.0" layoutX="653.0" layoutY="296.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="289.0">
                <image>
                   <Image url="@../../Data/drawedLineSmall.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="15.0" fitWidth="110.0" layoutX="647.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="82.0">
+            <ImageView fitHeight="15.0" fitWidth="135.0" layoutX="653.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="84.0">
                <image>
                   <Image url="@../../Data/drawedLineSmall.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="200.0" fitWidth="15.0" layoutX="747.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="35.67924499511719" AnchorPane.topAnchor="88.0">
+            <ImageView fitHeight="200.0" fitWidth="15.0" layoutX="776.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="12.679244995117188" AnchorPane.topAnchor="94.0">
                <image>
                   <Image url="@../../Data/drawedLineRotated.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="15.0" fitWidth="110.0" layoutX="639.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="115.0">
+            <ImageView fitHeight="15.0" fitWidth="135.0" layoutX="639.0" layoutY="122.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
                <image>
                   <Image url="@../../Data/drawedLineSmall.png" />
                </image>
@@ -125,6 +120,11 @@
             <ImageView fx:id="crossBtn" fitHeight="51.0" fitWidth="42.0" layoutX="762.0" onMouseClicked="#handlerClosePostIt" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
                   <Image url="@../../Data/cross.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="15.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="120.0">
+               <image>
+                  <Image url="@../../Data/drawedLine.png" />
                </image>
             </ImageView>
          </children>

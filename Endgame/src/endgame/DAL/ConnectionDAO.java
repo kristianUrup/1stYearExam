@@ -28,7 +28,11 @@ public class ConnectionDAO {
         ds.setUser(USER);
         ds.setPassword(PASSWORD);
     }
-    
+    /**
+     * 
+     * @return
+     * @throws SQLServerException 
+     */
     public Connection getConnection() throws SQLServerException {
         Connection con = ds.getConnection();
         return con;

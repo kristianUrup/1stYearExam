@@ -25,6 +25,13 @@ public class OrderManager
         iOrd = new OrderDAO();
     }
     
+    /**
+     * Gets a list containing all orders depending on the departmentid
+     * @param department
+     * @param offset
+     * @return
+     * @throws BllException 
+     */
     public List<Order> getAllOrders(Department department, int offset) throws BllException
     {
         try
@@ -37,6 +44,13 @@ public class OrderManager
         
     }
     
+    /**
+     * Updates departmenttask and sets the task as finished, 
+     * depending on the departmentid and the orderid
+     * @param order
+     * @param department
+     * @throws BllException 
+     */
     public void changeOrderState(Order order, Department department) throws BllException {
         try
         {
@@ -47,6 +61,13 @@ public class OrderManager
         }
     }
     
+    /**
+     * Gets an order depending on the departmentid and the orderid
+     * @param department
+     * @param order
+     * @return
+     * @throws BllException 
+     */
     public Order getOrder(Department department, Order order) throws BllException {
         try
         {

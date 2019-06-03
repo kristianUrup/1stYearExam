@@ -60,11 +60,19 @@ public class DepartmentProgressionController implements Initializable
         }
     }
     
+    /**
+     * Sets the department
+     * 
+     * @param department 
+     */
     public void setDepartment(Department department) {
         currentDep = department;
         setAttributes();
     }
     
+    /**
+     * Sets the attributes startDate and EndDate
+     */
     private void setAttributes() {
         try
         {
@@ -84,6 +92,11 @@ public class DepartmentProgressionController implements Initializable
         }
     }
 
+    /**
+     * Uses eventhandler to close the DepartmentProgressionController
+     * 
+     * @param event 
+     */
     @FXML
     private void handlerClosePostIt(MouseEvent event)
     {
